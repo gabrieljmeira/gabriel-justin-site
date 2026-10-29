@@ -20,7 +20,8 @@ export function SiteMotion() {
       const revealGroups = [
         ".section-rail",
         ".section-heading",
-        ".service-item-v3",
+        ".service-capabilities article",
+        ".format-row",
         ".concept-project",
         ".pricing-card",
         ".commercial-conditions article",
