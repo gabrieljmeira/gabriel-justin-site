@@ -118,22 +118,59 @@ export default function Home() {
 
             <div className="section-content">
               <header className="section-heading">
-                <h2 id="services-title">Dois formatos para necessidades diferentes.</h2>
+                <h2 id="services-title">Do planejamento à publicação.</h2>
               </header>
 
-              <div className="service-list-v3" data-line-draw>
-                <article className="service-item-v3">
-                  <div className="service-title-line">
+              <div className="service-capabilities" data-line-draw>
+                <article>
+                  <h3>Direção visual</h3>
+                  <p>Estrutura, hierarquia e identidade pensadas para o seu negócio, sem partir de um template pronto.</p>
+                </article>
+                <article>
+                  <h3>Desenvolvimento responsivo</h3>
+                  <p>Construção adaptada para celular e desktop, com foco em leitura, navegação e velocidade.</p>
+                </article>
+                <article>
+                  <h3>Contato e conversão</h3>
+                  <p>Chamadas para ação e integração com WhatsApp organizadas para facilitar o próximo passo do visitante.</p>
+                </article>
+                <article>
+                  <h3>Publicação</h3>
+                  <p>Configuração do domínio, hospedagem e colocação do site no ar dentro do escopo combinado.</p>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="section-formats reveal-section" id="formatos" aria-labelledby="formats-title">
+          <div className="shell editorial-grid">
+            <div className="section-rail">
+              <p className="eyebrow">Formatos de site</p>
+            </div>
+
+            <div className="section-content">
+              <header className="section-heading formats-heading">
+                <h2 id="formats-title">Duas estruturas, objetivos diferentes.</h2>
+              </header>
+
+              <div className="format-list" data-line-draw>
+                <article className="format-row">
+                  <div>
                     <h3>Landing page</h3>
+                    <p>Uma página focada em apresentar uma oferta, serviço ou campanha e levar o visitante ao contato.</p>
                   </div>
-                  <p>Para divulgar um serviço, campanha ou oferta específica e conduzir o visitante até o contato sem distrações.</p>
+                  <span>1 página</span>
+                  <a href="#valores" className="format-link">Ver valores <span aria-hidden="true">↘</span></a>
                 </article>
 
-                <article className="service-item-v3">
-                  <div className="service-title-line">
+                <article className="format-row">
+                  <div>
                     <h3>Site institucional</h3>
+                    <p>Uma estrutura maior para apresentar a empresa, organizar serviços e distribuir conteúdo em páginas próprias.</p>
                   </div>
-                  <p>Para empresas que precisam apresentar melhor seus serviços, transmitir mais confiança e organizar as informações em um endereço próprio.</p>
+                  <span>Até 5 páginas</span>
+                  <a href="#valores" className="format-link">Ver valores <span aria-hidden="true">↘</span></a>
                 </article>
               </div>
             </div>
