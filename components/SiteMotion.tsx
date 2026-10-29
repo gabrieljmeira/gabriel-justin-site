@@ -65,46 +65,6 @@ export function SiteMotion() {
         );
       });
 
-      const timeline = document.querySelector<HTMLElement>(".timeline");
-      const timelineProgress = document.querySelector<HTMLElement>(".timeline-track span");
-
-      if (timeline && timelineProgress) {
-        const wide = window.matchMedia("(min-width: 1180px)").matches;
-        gsap.fromTo(
-          timelineProgress,
-          wide ? { scaleX: 0 } : { scaleY: 0 },
-          {
-            ...(wide ? { scaleX: 1 } : { scaleY: 1 }),
-            ease: "none",
-            scrollTrigger: {
-              trigger: timeline,
-              start: "top 72%",
-              end: "bottom 58%",
-              scrub: 0.45,
-            },
-          }
-        );
-      }
-
-      gsap.utils.toArray<HTMLElement>(".timeline-step").forEach((step) => {
-        gsap.fromTo(
-          step,
-          { autoAlpha: 0.38, y: 18 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.5,
-            ease: "expo.out",
-            scrollTrigger: {
-              trigger: step,
-              start: "top 84%",
-              once: true,
-              onEnter: () => step.classList.add("is-active"),
-            },
-          }
-        );
-      });
-
       const count = document.querySelector<HTMLElement>("[data-count='48']");
       if (count) {
         const value = { n: 0 };
