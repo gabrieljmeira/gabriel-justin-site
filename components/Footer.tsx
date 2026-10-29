@@ -13,12 +13,14 @@ export function Footer() {
         </div>
         <div className="footer-links">
           <a href={contactUrl} target="_blank" rel="noreferrer">{SITE.whatsappDisplay}</a>
-          <Link href="/privacidade/">Privacidade</Link>
         </div>
       </div>
       <div className="shell footer-bottom">
         <span>© {new Date().getFullYear()} Gabriel Justin</span>
-        <span>Brasil</span>
+        <div className="footer-legal">
+          <Link href="/privacidade/">Privacidade</Link>
+          <span>Brasil</span>
+        </div>
       </div>
     </footer>
   );
