@@ -330,7 +330,6 @@ export default function Home() {
                 </div>
 
                 <div className="about-method">
-                  <span>Como eu trabalho</span>
                   <p>O atendimento é direto comigo do primeiro contato até o site entrar no ar. Cada decisão visual parte do negócio, do conteúdo e do objetivo do projeto.</p>
                 </div>
               </div>
@@ -358,7 +357,7 @@ export default function Home() {
               </header>
 
               <div className="faq-list" data-line-draw>
-                {faq.map((item, index) => (
+                {faq.map((item) => (
                   <details className="faq-item" key={item.question}>
                     <summary>
                       <strong>{item.question}</strong>
