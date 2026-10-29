@@ -3,7 +3,15 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
-const steps = [
+type ProcessStep = {
+  number: string;
+  title: string;
+  status: string;
+  description: string;
+  emphasis?: string;
+};
+
+const steps: ProcessStep[] = [
   {
     number: "01",
     title: "Briefing",
