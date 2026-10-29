@@ -3602,3 +3602,18 @@ a.commercial-strip-item {
     transform: scale(1.06);
   }
 }
+
+/* Commercial strip: soften the gray field into the page */
+.commercial-strip {
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(24, 28, 24, .22) 14%,
+      rgba(24, 28, 24, .48) 30%,
+      rgba(24, 28, 24, .62) 50%,
+      rgba(24, 28, 24, .48) 70%,
+      rgba(24, 28, 24, .22) 86%,
+      transparent 100%
+    );
+}
