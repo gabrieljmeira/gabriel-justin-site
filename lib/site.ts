@@ -1,7 +1,7 @@
 export const SITE = {
   name: "Gabriel Justin",
-  whatsapp: "5515984402298",
-  whatsappDisplay: "+55 15 98440-2298",
+  whatsapp: "5551984402298",
+  whatsappDisplay: "+55 51 98440-2298",
   accent: "#C3E66D",
 };
 
