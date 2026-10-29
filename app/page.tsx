@@ -116,11 +116,11 @@ export default function Home() {
             </div>
 
             <div className="section-content">
-              <header className="section-heading">
+              <header className="section-heading services-heading">
                 <h2 id="services-title">Do planejamento à publicação.</h2>
               </header>
 
-              <div className="service-capabilities" data-line-draw>
+              <div className="service-capabilities">
                 <article>
                   <h3>Direção visual</h3>
                   <p>Estrutura, hierarquia e identidade pensadas para o seu negócio, sem partir de um template pronto.</p>
