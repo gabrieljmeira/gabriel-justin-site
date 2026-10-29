@@ -2010,24 +2010,6 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 22px); }
 }
 
 
-/* GSAP line-draw primitives */
-[data-line-draw] {
-  position: relative;
-  --line-scale: 1;
-  border-top-color: transparent !important;
-}
-[data-line-draw]::before {
-  content: "";
-  position: absolute;
-  z-index: 2;
-  inset: 0 0 auto 0;
-  height: 1px;
-  background: var(--line);
-  transform: scaleX(var(--line-scale));
-  transform-origin: left;
-  will-change: transform;
-}
-
 /* Consistent interactive transitions */
 .desktop-nav a,
 .header-contact,
@@ -2069,7 +2051,7 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 22px); }
   --text: #f1f0e9;
   --text-soft: #d3d4cc;
   --muted: #a0a59c;
-  --muted-2: #72786f;
+  --muted-2: #8f958b;
   --accent: #c4ea67;
   --accent-soft: rgba(196, 234, 103, .12);
   --accent-faint: rgba(196, 234, 103, .05);
@@ -3789,15 +3771,6 @@ a.commercial-strip-item {
   }
 }
 
-/* Remove now-unused footer icon layout */
-.footer-grid {
-  grid-template-columns: minmax(0, 1fr);
-}
-
-.footer-whatsapp {
-  display: none !important;
-}
-
 /* ===== V4.5 hero meta + about cleanup ===== */
 .hero-topline {
   justify-content: flex-start;
@@ -3821,58 +3794,6 @@ a.commercial-strip-item {
 
 .about-facts-v3 > div::after {
   display: none;
-}
-
-/* ===== V4.6 hero title safe bounds ===== */
-/* Keep the masked entrance animation, but give serif overhangs and accents room on every edge. */
-.hero-title-v3 {
-  width: fit-content;
-  max-width: 100%;
-  line-height: .96;
-  letter-spacing: -.03em;
-}
-
-.hero-line {
-  width: max-content;
-  max-width: calc(100vw - 32px);
-  overflow: hidden;
-  white-space: nowrap;
-  padding: .13em .1em .14em;
-  margin: -.13em -.1em -.08em;
-}
-
-.hero-line > span {
-  display: block;
-  line-height: .96;
-  padding: .01em .015em .035em;
-}
-
-.hero-line-accent {
-  padding-right: .14em;
-}
-
-@media (min-width: 760px) {
-  .hero-line {
-    max-width: calc(100vw - 64px);
-  }
-}
-
-@media (min-width: 900px) {
-  .hero-line {
-    max-width: min(100%, 760px);
-  }
-}
-
-/* ===== V4.7 hero word edge fix ===== */
-@media (min-width: 900px) {
-  .hero-line {
-    max-width: none;
-    padding-right: .18em;
-  }
-
-  .hero-line > span {
-    padding-right: .025em;
-  }
 }
 
 /* ===== V4.8 hero title: remove mask clipping at glyph edges ===== */
@@ -3950,4 +3871,173 @@ a.commercial-strip-item {
   .section-services .services-heading::after {
     width: min(78vw, 420px);
   }
+}
+
+/* ===== V5 UX audit consolidation ===== */
+
+/* Stronger secondary contrast while preserving hierarchy */
+.footer-copy,
+.footer-bottom,
+.about-facts-v3 dt,
+.pricing-card-price > span,
+.format-row > span,
+.timeline-note {
+  color: var(--muted-2);
+}
+
+/* More efficient vertical rhythm */
+.section-base,
+.section-elevated,
+.section-pricing,
+.section-process,
+.section-about,
+.section-faq {
+  padding-block: clamp(76px, 8vw, 112px);
+}
+
+.section-services {
+  padding-top: clamp(84px, 9vw, 120px);
+  padding-bottom: clamp(72px, 8vw, 104px);
+}
+
+.section-formats {
+  padding-block: clamp(72px, 8vw, 108px);
+}
+
+.section-heading {
+  margin-bottom: clamp(32px, 4vw, 50px);
+}
+
+.section-services .services-heading {
+  margin-bottom: clamp(40px, 5vw, 58px);
+}
+
+.final-cta {
+  padding-top: clamp(88px, 10vw, 132px);
+  padding-bottom: clamp(96px, 11vw, 144px);
+}
+
+/* Navigation: clearer IA without decorative dividers */
+.menu-toggle {
+  border-left: 0;
+  padding-left: 10px;
+}
+
+.header-contact {
+  border-left: 0 !important;
+  padding-inline: 14px !important;
+  background: rgba(255,255,255,.018);
+  transition:
+    color var(--dur-fast) var(--ease-fast),
+    background var(--dur-fast) var(--ease-fast);
+}
+
+@media (min-width: 900px) {
+  .desktop-nav {
+    gap: clamp(14px, 1.5vw, 22px);
+  }
+
+  .desktop-nav a,
+  .header-contact {
+    min-height: 44px;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .header-contact:hover {
+    color: var(--accent);
+    background: rgba(196,234,103,.045);
+  }
+}
+
+/* About: concise facts, no table-like lines */
+.about-facts-v3 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(24px, 4vw, 38px);
+  margin-top: clamp(36px, 5vw, 54px);
+}
+
+.about-facts-v3 > div {
+  display: block;
+  min-width: 0;
+  padding: 0;
+}
+
+.about-facts-v3 dt {
+  font-size: .72rem;
+  line-height: 1.4;
+}
+
+.about-facts-v3 dd {
+  margin: 7px 0 0;
+  text-align: left;
+  color: var(--text-soft);
+  font-size: clamp(1rem, 2vw, 1.18rem);
+  line-height: 1.25;
+  font-weight: 650;
+}
+
+.about-facts-v3 > div:nth-child(2) dd,
+.about-facts-v3 > div:nth-child(3) dd {
+  color: var(--accent);
+}
+
+@media (min-width: 960px) {
+  .about-facts-v3 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: clamp(28px, 4vw, 54px);
+  }
+}
+
+/* Final CTA: one useful index only */
+.final-cta-index {
+  justify-content: flex-start;
+}
+
+/* Footer: compact direct contact + accessible target sizes */
+.footer-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.footer-whatsapp {
+  display: inline-grid !important;
+  justify-self: end;
+  width: 48px;
+  height: 48px;
+  color: #8f958b;
+}
+
+.footer-legal a {
+  min-height: 44px;
+}
+
+@media (max-width: 759px) {
+  .footer-grid {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .footer-whatsapp {
+    align-self: start;
+  }
+}
+
+/* Keep the hero entrance expressive without clipping serif glyphs */
+.hero-title-v3 {
+  overflow: visible;
+  letter-spacing: -.022em;
+}
+
+.hero-line,
+.hero-line > span {
+  overflow: visible;
+}
+
+/* Avoid accidental horizontal clipping from oversized decorative content */
+.section-content,
+.hero-primary,
+.final-cta-grid {
+  min-width: 0;
 }
