@@ -49,23 +49,6 @@ export function SiteMotion() {
         });
       });
 
-      gsap.utils.toArray<HTMLElement>("[data-line-draw]").forEach((element) => {
-        gsap.fromTo(
-          element,
-          { "--line-scale": 0 },
-          {
-            "--line-scale": 1,
-            duration: 0.75,
-            ease: "expo.out",
-            scrollTrigger: {
-              trigger: element,
-              start: "top 90%",
-              once: true,
-            },
-          }
-        );
-      });
-
       const count = document.querySelector<HTMLElement>("[data-count='48']");
       if (count) {
         const value = { n: 0 };
