@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { whatsappUrl } from "@/lib/site";
 
 type FormData = {
@@ -23,6 +23,11 @@ export function ProjectBriefing() {
   const [step, setStep] = useState(1);
   const [data, setData] = useState<FormData>(initialData);
   const [error, setError] = useState("");
+  const headingRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    headingRef.current?.focus({ preventScroll: true });
+  }, [step]);
 
   const progress = `${step * 33.333}%`;
 
@@ -75,7 +80,7 @@ export function ProjectBriefing() {
           <div className="question-heading">
             <span>01</span>
             <div>
-              <h1>Qual é o seu negócio?</h1>
+              <h1 ref={headingRef} tabIndex={-1}>Qual é o seu negócio?</h1>
               <p>Me diga o nome e, em poucas palavras, o que a empresa faz.</p>
             </div>
           </div>
@@ -110,7 +115,7 @@ export function ProjectBriefing() {
           <div className="question-heading">
             <span>02</span>
             <div>
-              <h1>O que você quer com o site?</h1>
+              <h1 ref={headingRef} tabIndex={-1}>O que você quer com o site?</h1>
               <p>Pense no principal resultado que o site precisa ajudar a alcançar.</p>
             </div>
           </div>
@@ -136,7 +141,7 @@ export function ProjectBriefing() {
           <div className="question-heading">
             <span>03</span>
             <div>
-              <h1>Qual direção visual você gosta?</h1>
+              <h1 ref={headingRef} tabIndex={-1}>Qual direção visual você gosta?</h1>
               <p>Informe se já possui logo e, se puder, envie dois ou três sites que considera bonitos.</p>
             </div>
           </div>
