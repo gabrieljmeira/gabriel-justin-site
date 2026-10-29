@@ -6,8 +6,8 @@ import { whatsappUrl } from "@/lib/site";
 
 const nav = [
   ["Serviços", "#servicos"],
-  ["Como funciona", "#processo"],
   ["Valores", "#valores"],
+  ["Como funciona", "#processo"],
   ["Sobre", "#sobre"],
 ] as const;
 
