@@ -2957,3 +2957,49 @@ a.commercial-strip-item {
     margin-bottom: 0;
   }
 }
+
+/* Hero proof: anchor inside the upper-right negative space */
+@media (min-width: 900px) {
+  .hero-v3 {
+    position: relative;
+  }
+
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+    position: relative;
+  }
+
+  .hero-primary {
+    max-width: min(62%, 720px);
+  }
+
+  .hero-proof-editorial {
+    position: absolute;
+    top: clamp(26px, 3vw, 46px);
+    right: 0;
+    width: min(46%, 540px);
+    max-width: 540px;
+    margin: 0;
+    align-self: auto;
+    justify-self: auto;
+  }
+
+  .hero-proof-kicker {
+    margin-bottom: clamp(18px, 2vw, 26px);
+  }
+
+  .hero-proof-value {
+    font-size: clamp(6rem, 7.4vw, 7.8rem);
+  }
+}
+
+@media (min-width: 1180px) {
+  .hero-primary {
+    max-width: 640px;
+  }
+
+  .hero-proof-editorial {
+    top: 30px;
+    width: min(48%, 560px);
+  }
+}
