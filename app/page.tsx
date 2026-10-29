@@ -80,13 +80,16 @@ export default function Home() {
               </div>
             </div>
 
-            <aside className="hero-proof hero-enter delay-2" aria-label="Prazo do primeiro conceito visual">
-              <span className="proof-label">Primeiro conceito visual</span>
-              <strong><span data-count="48">48</span>h</strong>
-              <p>Uma primeira direção visual para você avaliar antes da entrega final.</p>
-              <div className="proof-meta">
-                <span>Domínio + hospedagem</span>
-                <b>1º ano incluído</b>
+            <aside className="hero-proof-editorial hero-enter delay-2" aria-label="Prazo do primeiro conceito visual">
+              <p className="hero-proof-kicker">Primeiro conceito visual em até</p>
+              <div className="hero-proof-main">
+                <strong className="hero-proof-value"><span data-count="48">48</span>h</strong>
+                <span className="hero-proof-divider" aria-hidden="true" />
+                <p className="hero-proof-side">
+                  Domínio + hospedagem
+                  <br />
+                  incluídos no 1º ano
+                </p>
               </div>
             </aside>
           </div>
