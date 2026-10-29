@@ -52,15 +52,16 @@ export default function Home() {
       <main id="conteudo">
         <section className="hero-v3 shell" aria-labelledby="hero-title">
           <div className="hero-topline hero-enter">
-            <span>Criação de sites</span>
-            <span>Design · desenvolvimento · publicação</span>
+            <span>Criação de sites para empresas</span>
+            <span>Conceito em até 48h · site em até 7 dias úteis</span>
           </div>
 
           <div className="hero-grid">
             <div className="hero-primary">
               <h1 id="hero-title" className="hero-title-v3" aria-label="Seu site pronto em até 7 dias úteis.">
                 <span className="hero-line"><span>Seu site pronto</span></span>
-                <span className="hero-line hero-line-accent"><span>em até 7 dias úteis.</span></span>
+                <span className="hero-line"><span>em até</span></span>
+                <span className="hero-line hero-line-accent"><span>7 dias úteis</span></span>
               </h1>
 
               <div className="hero-copy-grid hero-enter delay-2">
@@ -91,60 +92,45 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="quick-offers shell reveal-section" aria-label="Resumo de investimento">
-          <a href="#valores" className="quick-offer">
-            <span>01</span>
-            <div>
-              <small>Landing page</small>
-              <strong>A partir de R$ 600</strong>
-            </div>
-            <span className="quick-arrow" aria-hidden="true">↘</span>
+        <section className="commercial-strip shell reveal-section" aria-label="Informações principais">
+          <a href="#valores" className="commercial-strip-item">
+            <span>Landing page</span>
+            <strong>A partir de R$ 600</strong>
           </a>
-          <a href="#valores" className="quick-offer">
-            <span>02</span>
-            <div>
-              <small>Site institucional</small>
-              <strong>A partir de R$ 1.000</strong>
-            </div>
-            <span className="quick-arrow" aria-hidden="true">↘</span>
+          <a href="#valores" className="commercial-strip-item">
+            <span>Site institucional</span>
+            <strong>A partir de R$ 1.000</strong>
           </a>
+          <div className="commercial-strip-item">
+            <span>Domínio + hospedagem</span>
+            <strong>1º ano incluído</strong>
+          </div>
         </section>
 
         <section className="section-base section-services reveal-section" id="servicos" aria-labelledby="services-title">
           <div className="shell editorial-grid">
             <div className="section-rail">
-              <p className="eyebrow">01 / Serviços</p>
+              <p className="eyebrow">Serviços</p>
             </div>
 
             <div className="section-content">
               <header className="section-heading">
                 <h2 id="services-title">Dois formatos para necessidades diferentes.</h2>
-                <p>O formato muda conforme a quantidade de informação e o papel que o site precisa cumprir no negócio.</p>
               </header>
 
               <div className="service-list-v3" data-line-draw>
                 <article className="service-item-v3">
                   <div className="service-title-line">
-                    <span>01</span>
                     <h3>Landing page</h3>
                   </div>
                   <p>Para divulgar um serviço, campanha ou oferta específica e conduzir o visitante até o contato sem distrações.</p>
-                  <div className="service-use">
-                    <span>Boa para</span>
-                    <strong>campanhas · serviços · captação</strong>
-                  </div>
                 </article>
 
                 <article className="service-item-v3">
                   <div className="service-title-line">
-                    <span>02</span>
                     <h3>Site institucional</h3>
                   </div>
                   <p>Para empresas que precisam apresentar melhor seus serviços, transmitir mais confiança e organizar as informações em um endereço próprio.</p>
-                  <div className="service-use">
-                    <span>Boa para</span>
-                    <strong>empresa · serviços · presença online</strong>
-                  </div>
                 </article>
               </div>
             </div>
@@ -154,21 +140,18 @@ export default function Home() {
         <section className="section-elevated portfolio-section reveal-section" id="projetos" aria-labelledby="projects-title">
           <div className="shell editorial-grid">
             <div className="section-rail">
-              <p className="eyebrow">02 / Projetos</p>
-              <span className="rail-note">Conceitos visuais</span>
+              <p className="eyebrow">Projetos</p>
             </div>
 
             <div className="section-content">
               <header className="section-heading projects-heading">
                 <h2 id="projects-title">Como diferentes negócios podem ganhar forma.</h2>
-                <p>Estudos conceituais para mostrar direções de design. Não são apresentados como clientes reais.</p>
               </header>
 
               <div className="concept-list">
                 <article className="concept-project">
                   <div className="concept-meta">
-                    <span>Conceito 01</span>
-                    <h3>Estética automotiva</h3>
+                      <h3>Estética automotiva</h3>
                     <p>Serviços, galeria visual e orçamento rápido.</p>
                   </div>
                   <div className="concept-frame concept-auto" aria-label="Mockup conceitual de site para estética automotiva">
@@ -185,8 +168,7 @@ export default function Home() {
 
                 <article className="concept-project">
                   <div className="concept-meta">
-                    <span>Conceito 02</span>
-                    <h3>Espaço de eventos</h3>
+                      <h3>Espaço de eventos</h3>
                     <p>Ambientes, ocasiões atendidas e pedido de orçamento.</p>
                   </div>
                   <div className="concept-frame concept-events" aria-label="Mockup conceitual de site para espaço de eventos">
@@ -203,8 +185,7 @@ export default function Home() {
 
                 <article className="concept-project">
                   <div className="concept-meta">
-                    <span>Conceito 03</span>
-                    <h3>Clínica de estética</h3>
+                      <h3>Clínica de estética</h3>
                     <p>Apresentação profissional, serviços e agendamento.</p>
                   </div>
                   <div className="concept-frame concept-clinic" aria-label="Mockup conceitual de site para clínica de estética">
@@ -226,23 +207,20 @@ export default function Home() {
         <section className="section-pricing reveal-section" id="valores" aria-labelledby="pricing-title">
           <div className="shell editorial-grid">
             <div className="section-rail">
-              <p className="eyebrow">03 / Valores</p>
+              <p className="eyebrow">Valores</p>
             </div>
 
             <div className="section-content">
               <header className="section-heading pricing-heading">
                 <h2 id="pricing-title">Investimento claro antes de começar.</h2>
-                <p>O valor final depende da extensão do conteúdo, quantidade de seções ou páginas e recursos necessários para o projeto.</p>
               </header>
 
               <div className="pricing-cards">
                 <article className="pricing-card">
                   <div className="pricing-card-top">
                     <div>
-                      <span className="pricing-card-index">01</span>
                       <h3>Landing page</h3>
                     </div>
-                    <span className="pricing-card-type">1 página</span>
                   </div>
 
                   <p className="pricing-card-summary">
@@ -255,7 +233,6 @@ export default function Home() {
                   </div>
 
                   <div className="pricing-card-section">
-                    <span>Inclui</span>
                     <ul>
                       <li>Design personalizado e responsivo</li>
                       <li>Integração com WhatsApp</li>
@@ -272,10 +249,8 @@ export default function Home() {
                 <article className="pricing-card pricing-card-institutional">
                   <div className="pricing-card-top">
                     <div>
-                      <span className="pricing-card-index">02</span>
                       <h3>Site institucional</h3>
                     </div>
-                    <span className="pricing-card-type">Até 5 páginas</span>
                   </div>
 
                   <p className="pricing-card-summary">
@@ -322,7 +297,7 @@ export default function Home() {
         <section className="section-process reveal-section" id="processo" aria-labelledby="process-title">
           <div className="shell editorial-grid">
             <div className="section-rail">
-              <p className="eyebrow">04 / Processo</p>
+              <p className="eyebrow">Processo</p>
             </div>
 
             <div className="section-content">
@@ -340,7 +315,7 @@ export default function Home() {
         <section className="section-about reveal-section" id="sobre" aria-labelledby="about-title">
           <div className="shell editorial-grid">
             <div className="section-rail">
-              <p className="eyebrow">05 / Sobre</p>
+              <p className="eyebrow">Sobre</p>
             </div>
 
             <div className="section-content about-content">
@@ -373,19 +348,19 @@ export default function Home() {
         <section className="section-faq reveal-section" id="faq" aria-labelledby="faq-title">
           <div className="shell editorial-grid">
             <div className="section-rail">
-              <p className="eyebrow">06 / Dúvidas</p>
+              <p className="eyebrow">Dúvidas</p>
             </div>
 
             <div className="section-content">
               <header className="section-heading faq-heading">
                 <h2 id="faq-title">Antes de começar.</h2>
+                <p>Respostas rápidas para as dúvidas mais comuns antes de iniciar um projeto.</p>
               </header>
 
               <div className="faq-list" data-line-draw>
                 {faq.map((item, index) => (
                   <details className="faq-item" key={item.question}>
                     <summary>
-                      <span>0{index + 1}</span>
                       <strong>{item.question}</strong>
                       <i aria-hidden="true">+</i>
                     </summary>
@@ -403,7 +378,7 @@ export default function Home() {
 
         <section className="final-cta shell reveal-section" id="contato" aria-labelledby="start-title">
           <div className="final-cta-index">
-            <span>07 / Começar</span>
+            <span>Começar</span>
             <span>3 perguntas</span>
           </div>
 
