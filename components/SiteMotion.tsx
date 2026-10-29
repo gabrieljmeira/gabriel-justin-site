@@ -22,7 +22,6 @@ export function SiteMotion() {
         ".section-heading",
         ".service-capabilities article",
         ".format-row",
-        ".concept-project",
         ".pricing-card",
         ".commercial-conditions article",
         ".about-copy-grid",
