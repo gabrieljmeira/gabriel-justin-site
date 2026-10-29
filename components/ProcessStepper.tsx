@@ -151,7 +151,6 @@ export function ProcessStepper() {
                 <span className="process-deck-number">{item.number}</span>
 
                 <span className="process-deck-content">
-                  <span className="process-deck-kicker">Etapa {item.number}</span>
                   <strong>{item.title}</strong>
                   <span className="process-deck-description">{item.description}</span>
                 </span>
@@ -181,10 +180,6 @@ export function ProcessStepper() {
         </div>
 
         <div className="process-deck-footer">
-          <span>
-            Etapa {steps[active].number} de {steps.length}
-          </span>
-
           <div className="process-controls">
             <button
               type="button"
