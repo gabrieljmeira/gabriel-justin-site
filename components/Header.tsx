@@ -6,6 +6,7 @@ import { whatsappUrl } from "@/lib/site";
 
 const nav = [
   ["Serviços", "#servicos"],
+  ["Formatos", "#formatos"],
   ["Valores", "#valores"],
   ["Processo", "#processo"],
   ["Sobre", "#sobre"],
@@ -15,9 +16,21 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
+
+    const main = document.querySelector<HTMLElement>("main");
+    const footer = document.querySelector<HTMLElement>("footer");
+    if (main) main.inert = open;
+    if (footer) footer.inert = open;
+
+    if (open) {
+      requestAnimationFrame(() => {
+        mobileMenuRef.current?.querySelector<HTMLAnchorElement>("a")?.focus();
+      });
+    }
 
     function closeMenu({ restoreFocus = false } = {}) {
       setOpen(false);
@@ -38,6 +51,8 @@ export function Header() {
 
     return () => {
       document.body.style.overflow = "";
+      if (main) main.inert = false;
+      if (footer) footer.inert = false;
       window.removeEventListener("keydown", onKeyDown);
       desktop.removeEventListener("change", onBreakpoint);
     };
@@ -84,7 +99,7 @@ export function Header() {
         </button>
       </div>
 
-      <div id="mobile-menu" className={`mobile-menu ${open ? "is-open" : ""}`} aria-hidden={!open}>
+      <div ref={mobileMenuRef} id="mobile-menu" className={`mobile-menu ${open ? "is-open" : ""}`} aria-hidden={!open}>
         <nav aria-label="Navegação mobile">
           {nav.map(([label, href]) => (
             <a key={href} href={href} onClick={() => setOpen(false)}>
