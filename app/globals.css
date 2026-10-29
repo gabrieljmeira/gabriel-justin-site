@@ -4247,3 +4247,33 @@ main {
 @media (min-width: 900px) and (max-width: 1023px) {
  .hero-title-v3 { font-size: clamp(4rem, 7.5vw, 4.8rem); }
 }
+
+/* Wide-screen hero: reserve a real column for the 48h proof, rather than
+   positioning it over a headline that continues growing with the viewport. */
+@media (min-width: 900px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, .72fr);
+    column-gap: clamp(32px, 4vw, 64px);
+    align-items: start;
+  }
+  .hero-primary { max-width: none; }
+  .hero-proof-editorial {
+    position: static;
+    width: auto;
+    max-width: none;
+    margin: 26px 0 0;
+    justify-self: stretch;
+    align-self: start;
+  }
+  .hero-copy-grid {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: 24px;
+    margin-top: 24px;
+  }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; max-width: none; }
+  .hero-actions .button { width: auto; min-width: 220px; max-width: 100%; }
+}
+@media (min-width: 1800px) {
+  :root { --max: 1320px; }
+}
