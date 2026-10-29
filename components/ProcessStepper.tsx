@@ -46,6 +46,7 @@ const steps: ProcessStep[] = [
 
 export function ProcessStepper() {
   const [active, setActive] = useState(0);
+  const [hasInteracted, setHasInteracted] = useState(false);
   const deckRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -73,6 +74,7 @@ export function ProcessStepper() {
   const progress = ((active + 1) / steps.length) * 100;
 
   function selectStep(index: number) {
+    setHasInteracted(true);
     setActive(index);
   }
 
@@ -118,6 +120,11 @@ export function ProcessStepper() {
       <div className="process-deck process-desktop">
         <div className="process-progress" aria-hidden="true">
           <span style={{ width: `${progress}%` }} />
+        </div>
+
+        <div className={`process-click-hint ${hasInteracted ? "is-hidden" : ""}`} aria-hidden="true">
+          <span>Clique nos cards para explorar</span>
+          <i>→</i>
         </div>
 
         <div
@@ -184,7 +191,7 @@ export function ProcessStepper() {
           <div className="process-controls">
             <button
               type="button"
-              onClick={() => setActive((current) => Math.max(0, current - 1))}
+              onClick={() => selectStep(Math.max(0, active - 1))}
               disabled={active === 0}
             >
               <span aria-hidden="true">←</span> Anterior
@@ -192,7 +199,7 @@ export function ProcessStepper() {
 
             <button
               type="button"
-              onClick={() => setActive((current) => Math.min(steps.length - 1, current + 1))}
+              onClick={() => selectStep(Math.min(steps.length - 1, active + 1))}
               disabled={active === steps.length - 1}
             >
               Próxima <span aria-hidden="true">→</span>
