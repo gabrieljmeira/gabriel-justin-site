@@ -235,55 +235,69 @@ export default function Home() {
                 <p>O valor final depende da extensão do conteúdo, quantidade de seções ou páginas e recursos necessários para o projeto.</p>
               </header>
 
-              <div className="investment-list" data-line-draw>
-                <article className="investment-plan">
-                  <div className="plan-intro">
-                    <span>01</span>
+              <div className="pricing-cards">
+                <article className="pricing-card">
+                  <div className="pricing-card-top">
                     <div>
-                      <p>Landing page</p>
-                      <small>Uma página</small>
+                      <span className="pricing-card-index">01</span>
+                      <h3>Landing page</h3>
                     </div>
+                    <span className="pricing-card-type">1 página</span>
                   </div>
 
-                  <div className="plan-price">
+                  <p className="pricing-card-summary">
+                    Para quem precisa divulgar um serviço, campanha ou oferta específica e conduzir o visitante direto até o contato.
+                  </p>
+
+                  <div className="pricing-card-price">
                     <span>A partir de</span>
                     <div><small>R$</small><strong>600</strong></div>
                   </div>
 
-                  <ul>
-                    <li>Design personalizado e responsivo</li>
-                    <li>Integração com WhatsApp</li>
-                    <li>Domínio e hospedagem por 1 ano</li>
-                    <li>Primeiro conceito visual em até 48 horas</li>
-                  </ul>
+                  <div className="pricing-card-section">
+                    <span>Inclui</span>
+                    <ul>
+                      <li>Design personalizado e responsivo</li>
+                      <li>Integração com WhatsApp</li>
+                      <li>Domínio e hospedagem por 1 ano</li>
+                      <li>Primeiro conceito visual em até 48 horas</li>
+                    </ul>
+                  </div>
 
-                  <a className="editorial-link" href={landingContact} target="_blank" rel="noreferrer">
+                  <a className="pricing-card-cta" href={landingContact} target="_blank" rel="noreferrer">
                     Solicitar orçamento <span aria-hidden="true">↗</span>
                   </a>
                 </article>
 
-                <article className="investment-plan">
-                  <div className="plan-intro">
-                    <span>02</span>
+                <article className="pricing-card pricing-card-institutional">
+                  <div className="pricing-card-top">
                     <div>
-                      <p>Site institucional</p>
-                      <small>Até 5 páginas</small>
+                      <span className="pricing-card-index">02</span>
+                      <h3>Site institucional</h3>
                     </div>
+                    <span className="pricing-card-type">Até 5 páginas</span>
                   </div>
 
-                  <div className="plan-price">
+                  <p className="pricing-card-summary">
+                    Para empresas que precisam apresentar melhor seus serviços, transmitir mais confiança e organizar o negócio em páginas próprias.
+                  </p>
+
+                  <div className="pricing-card-price">
                     <span>A partir de</span>
                     <div><small>R$</small><strong>1.000</strong></div>
                   </div>
 
-                  <ul>
-                    <li>Até cinco páginas organizadas</li>
-                    <li>Navegação completa entre páginas</li>
-                    <li>Design personalizado e responsivo</li>
-                    <li>Domínio e hospedagem por 1 ano</li>
-                  </ul>
+                  <div className="pricing-card-section">
+                    <span>Inclui</span>
+                    <ul>
+                      <li>Até cinco páginas organizadas</li>
+                      <li>Navegação completa entre páginas</li>
+                      <li>Design personalizado e responsivo</li>
+                      <li>Domínio e hospedagem por 1 ano</li>
+                    </ul>
+                  </div>
 
-                  <a className="editorial-link" href={institutionalContact} target="_blank" rel="noreferrer">
+                  <a className="pricing-card-cta" href={institutionalContact} target="_blank" rel="noreferrer">
                     Solicitar orçamento <span aria-hidden="true">↗</span>
                   </a>
                 </article>
