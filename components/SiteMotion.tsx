@@ -21,7 +21,7 @@ export function SiteMotion() {
         ".section-heading",
         ".service-item-v3",
         ".concept-project",
-        ".investment-plan",
+        ".pricing-card",
         ".commercial-conditions article",
         ".about-copy-grid",
         ".about-facts-v3 > div",
