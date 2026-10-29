@@ -16,187 +16,256 @@ export default function Home() {
     <>
       <Header />
       <main id="conteudo">
-        <section className="hero shell" aria-labelledby="hero-title">
-          <div className="hero-kicker hero-enter">Criação de sites</div>
+        <section className="hero-v3 shell" aria-labelledby="hero-title">
+          <div className="hero-v3-top hero-enter">
+            <span>Criação de sites</span>
+            <span>Landing pages + sites institucionais</span>
+          </div>
 
-          <div className="hero-layout">
-            <div className="hero-main">
-              <h1 id="hero-title" className="hero-title hero-enter delay-1">
-                Seu site pronto em até <span>7 dias úteis.</span>
+          <div className="hero-v3-grid">
+            <div className="hero-v3-main">
+              <h1 id="hero-title" className="hero-v3-title" aria-label="Seu site pronto em até 7 dias úteis.">
+                <span className="title-line">
+                  <span className="title-line-inner">Seu site pronto</span>
+                </span>
+                <span className="title-line title-line-accent">
+                  <span className="title-line-inner title-delay">em até 7 dias úteis.</span>
+                </span>
               </h1>
 
-              <p className="hero-copy hero-enter delay-2">
-                Landing pages e sites institucionais para empresas, com design personalizado e prioridade para uma boa experiência no celular.
-              </p>
+              <div className="hero-v3-bottom hero-enter delay-2">
+                <p>
+                  Sites profissionais para apresentar sua empresa, explicar seus serviços e facilitar o contato de novos clientes.
+                </p>
 
-              <div className="hero-actions hero-enter delay-3">
-                <a className="button button-primary" href={directContact} target="_blank" rel="noreferrer">
-                  Conversar pelo WhatsApp
-                </a>
-                <Link className="button button-secondary" href="/projeto/">
-                  Contar sobre meu projeto
-                </Link>
+                <div className="hero-actions">
+                  <a className="button button-primary" href={directContact} target="_blank" rel="noreferrer">
+                    Conversar pelo WhatsApp
+                  </a>
+                  <Link className="button button-secondary" href="/projeto/">
+                    Contar sobre meu projeto
+                  </Link>
+                </div>
               </div>
             </div>
 
-            <aside className="hero-deadline hero-enter delay-2" aria-label="Prazo do primeiro conceito visual">
-              <span className="deadline-label">Primeiro conceito visual</span>
-              <div className="deadline-value">
-                <strong>48</strong>
-                <span>horas</span>
+            <aside className="hero-v3-aside hero-enter delay-2" aria-label="Prazo do primeiro conceito visual">
+              <span className="aside-index">01</span>
+              <div className="aside-time">
+                <strong>48h</strong>
+                <span>primeiro conceito visual</span>
               </div>
-              <p>Primeira direção visual do seu projeto em até 48 horas.</p>
+              <p>Uma primeira direção para o seu site antes da entrega final.</p>
+              <div className="aside-rule" aria-hidden="true" />
+              <div className="aside-extra">
+                <span>Domínio + hospedagem</span>
+                <strong>1º ano incluído</strong>
+              </div>
             </aside>
           </div>
         </section>
 
-        <section className="commercial-strip shell hero-enter delay-3" aria-label="Valores principais">
-          <div className="commercial-item">
-            <span>Landing page</span>
+        <section className="offer-index shell reveal-section" aria-label="Resumo de valores">
+          <a className="offer-index-row" href="#valores">
+            <span className="offer-index-no">01</span>
+            <span className="offer-index-name">Landing page</span>
             <strong>R$ 600–900</strong>
-          </div>
-          <div className="commercial-item">
-            <span>Site institucional</span>
+            <span className="offer-index-arrow" aria-hidden="true">↘</span>
+          </a>
+          <a className="offer-index-row" href="#valores">
+            <span className="offer-index-no">02</span>
+            <span className="offer-index-name">Site institucional</span>
             <strong>R$ 1.000–1.600</strong>
-          </div>
-          <div className="commercial-item commercial-item-note">
-            <span>Domínio + hospedagem</span>
-            <strong>1º ano incluído</strong>
-          </div>
+            <span className="offer-index-arrow" aria-hidden="true">↘</span>
+          </a>
         </section>
 
         <section className="section shell reveal-section" id="servicos" aria-labelledby="services-title">
-          <div className="section-head">
+          <div className="section-intro">
             <p className="eyebrow">01 / Serviços</p>
-            <h2 id="services-title">O que eu desenvolvo</h2>
+            <h2 id="services-title">Dois formatos, sem complicação.</h2>
           </div>
 
-          <div className="service-list">
-            <article className="service-row">
-              <span className="row-index">01</span>
-              <div>
-                <h3>Landing pages</h3>
-                <p>Uma página focada em apresentar uma oferta, serviço ou negócio e facilitar o contato de novos clientes.</p>
-              </div>
-              <span className="service-meta">01 página</span>
-            </article>
-
-            <article className="service-row">
-              <span className="row-index">02</span>
-              <div>
-                <h3>Sites institucionais</h3>
-                <p>Até cinco páginas para organizar informações da empresa, apresentar serviços e criar uma presença profissional na internet.</p>
-              </div>
-              <span className="service-meta">Até 5 páginas</span>
-            </article>
-          </div>
-        </section>
-
-        <section className="section pricing-section reveal-section" id="valores" aria-labelledby="pricing-title">
-          <div className="shell">
-            <div className="section-head pricing-head">
-              <p className="eyebrow">02 / Valores</p>
-              <h2 id="pricing-title">Planos e valores</h2>
-              <p>Domínio e hospedagem estão incluídos por um ano no primeiro pagamento.</p>
-            </div>
-
-            <div className="pricing-grid">
-              <article className="price-card">
-                <div className="price-card-top">
-                  <span>Landing page</span>
-                  <span>01 página</span>
-                </div>
-                <p className="price"><span>R$</span> 600–900</p>
-                <ul>
-                  <li>Design personalizado e responsivo</li>
-                  <li>Integração com WhatsApp</li>
-                  <li>Domínio e hospedagem por 1 ano</li>
-                  <li>Primeiro conceito visual em até 48 horas</li>
-                </ul>
-                <a href={quoteContact} target="_blank" rel="noreferrer" className="text-link">Solicitar orçamento</a>
-              </article>
-
-              <article className="price-card">
-                <div className="price-card-top">
-                  <span>Site institucional</span>
-                  <span>Até 5 páginas</span>
-                </div>
-                <p className="price"><span>R$</span> 1.000–1.600</p>
-                <ul>
-                  <li>Até cinco páginas</li>
-                  <li>Design personalizado e responsivo</li>
-                  <li>Domínio e hospedagem por 1 ano</li>
-                  <li>Primeiro conceito visual em até 48 horas</li>
-                </ul>
-                <a href={quoteContact} target="_blank" rel="noreferrer" className="text-link">Solicitar orçamento</a>
-              </article>
-            </div>
-
-            <div className="renewal-note">
-              <p><strong>R$ 300/ano</strong> a partir do segundo ano para domínio e hospedagem.</p>
-              <p>O domínio fica registrado em nome do cliente. Pagamento via Pix.</p>
-            </div>
-          </div>
-        </section>
-
-        <section className="section process-section reveal-section" id="processo" aria-labelledby="process-title">
-          <div className="shell">
-            <div className="section-head process-head">
-              <p className="eyebrow">03 / Processo</p>
-              <h2 id="process-title">Como funciona</h2>
-            </div>
-
-            <div className="process-grid">
-              <article>
+          <div className="service-editorial">
+            <article className="service-editorial-row">
+              <div className="service-editorial-head">
                 <span>01</span>
-                <h3>Primeiro contato</h3>
-                <p>Você me conta sobre o negócio, o que espera do site e compartilha referências visuais, se tiver.</p>
-              </article>
+                <h3>Landing page</h3>
+              </div>
+              <p>Uma página focada em apresentar um serviço, uma oferta ou um negócio e levar o visitante até o contato.</p>
+              <span className="service-editorial-meta">01 página</span>
+            </article>
 
-              <article className="process-highlight">
+            <article className="service-editorial-row">
+              <div className="service-editorial-head">
                 <span>02</span>
+                <h3>Site institucional</h3>
+              </div>
+              <p>Até cinco páginas para organizar informações, apresentar a empresa e explicar os principais serviços.</p>
+              <span className="service-editorial-meta">Até 5 páginas</span>
+            </article>
+          </div>
+        </section>
+
+        <section className="section pricing-v3 reveal-section" id="valores" aria-labelledby="pricing-title">
+          <div className="shell">
+            <div className="section-intro pricing-v3-intro">
+              <p className="eyebrow">02 / Valores</p>
+              <h2 id="pricing-title">Valores claros desde o início.</h2>
+              <p>Domínio e hospedagem por um ano já entram no primeiro pagamento.</p>
+            </div>
+
+            <div className="pricing-table">
+              <article className="pricing-row">
+                <div className="pricing-row-name">
+                  <span>01</span>
+                  <h3>Landing page</h3>
+                </div>
+                <div className="pricing-row-price">
+                  <span>R$</span>
+                  <strong>600–900</strong>
+                </div>
+                <ul className="pricing-row-features">
+                  <li>01 página</li>
+                  <li>Design responsivo</li>
+                  <li>WhatsApp integrado</li>
+                  <li>Conceito visual em até 48h</li>
+                </ul>
+                <a className="pricing-row-cta" href={quoteContact} target="_blank" rel="noreferrer">
+                  Solicitar orçamento <span aria-hidden="true">↗</span>
+                </a>
+              </article>
+
+              <article className="pricing-row">
+                <div className="pricing-row-name">
+                  <span>02</span>
+                  <h3>Site institucional</h3>
+                </div>
+                <div className="pricing-row-price">
+                  <span>R$</span>
+                  <strong>1.000–1.600</strong>
+                </div>
+                <ul className="pricing-row-features">
+                  <li>Até 5 páginas</li>
+                  <li>Design responsivo</li>
+                  <li>WhatsApp integrado</li>
+                  <li>Conceito visual em até 48h</li>
+                </ul>
+                <a className="pricing-row-cta" href={quoteContact} target="_blank" rel="noreferrer">
+                  Solicitar orçamento <span aria-hidden="true">↗</span>
+                </a>
+              </article>
+            </div>
+
+            <div className="pricing-foot">
+              <div>
+                <span>A partir do 2º ano</span>
+                <strong>R$ 300/ano</strong>
+                <p>Domínio e hospedagem.</p>
+              </div>
+              <div>
+                <span>Domínio</span>
+                <strong>Em seu nome</strong>
+                <p>O registro fica vinculado ao cliente.</p>
+              </div>
+              <div>
+                <span>Pagamento</span>
+                <strong>Pix</strong>
+                <p>Forma de pagamento do projeto.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="section process-v3 reveal-section" id="processo" aria-labelledby="process-title">
+          <div className="shell">
+            <div className="section-intro process-v3-intro">
+              <p className="eyebrow">03 / Processo</p>
+              <h2 id="process-title">Como o projeto avança.</h2>
+            </div>
+
+            <div className="process-list">
+              <article className="process-row">
+                <span className="process-no">01</span>
+                <h3>Briefing</h3>
+                <p>Você me conta sobre o negócio, o objetivo do site e envia referências visuais, se tiver.</p>
+                <span className="process-status">Início</span>
+              </article>
+              <article className="process-row process-row-highlight">
+                <span className="process-no">02</span>
                 <h3>Conceito visual</h3>
-                <p>Em até <strong>48 horas</strong>, apresento uma primeira direção visual para o projeto.</p>
+                <p>Apresento uma primeira direção visual para o projeto.</p>
+                <span className="process-status">até 48h</span>
               </article>
-
-              <article>
-                <span>03</span>
+              <article className="process-row">
+                <span className="process-no">03</span>
                 <h3>Desenvolvimento</h3>
-                <p>Com a direção definida, construo as páginas e faço os ajustes previstos para o projeto.</p>
+                <p>Com a direção definida, construo as páginas e faço os ajustes previstos no escopo.</p>
+                <span className="process-status">Produção</span>
               </article>
-
-              <article>
-                <span>04</span>
+              <article className="process-row">
+                <span className="process-no">04</span>
                 <h3>Publicação</h3>
-                <p>O site é finalizado e publicado em até 7 dias úteis, conforme o escopo contratado.</p>
+                <p>Finalizo o projeto e coloco o site no ar.</p>
+                <span className="process-status">até 7 dias úteis</span>
               </article>
             </div>
 
-            <p className="process-note">Os prazos começam após a confirmação do projeto e o recebimento dos materiais necessários para iniciar.</p>
+            <p className="process-note-v3">
+              Os prazos começam após a confirmação do projeto e o recebimento dos materiais necessários.
+            </p>
           </div>
         </section>
 
-        <section className="section about-section reveal-section" id="sobre" aria-labelledby="about-title">
-          <div className="shell about-grid">
-            <p className="eyebrow">04 / Sobre</p>
-            <div>
+        <section className="section about-v3 reveal-section" id="sobre" aria-labelledby="about-title">
+          <div className="shell about-v3-grid">
+            <div className="about-v3-heading">
+              <p className="eyebrow">04 / Sobre</p>
               <h2 id="about-title">Gabriel Justin</h2>
-              <p>Sou Gabriel Justin. Crio landing pages e sites institucionais para empresas, cuidando do design, do desenvolvimento e da publicação.</p>
-              <p>Você fala direto comigo durante todo o projeto. No mobile, a prioridade é leitura fácil, navegação simples e contato rápido.</p>
             </div>
+
+            <div className="about-v3-copy">
+              <p>Crio landing pages e sites institucionais, cuidando do design, do desenvolvimento e da publicação.</p>
+              <p>O atendimento é direto comigo do primeiro contato até o site entrar no ar.</p>
+            </div>
+
+            <dl className="about-facts">
+              <div>
+                <dt>Atendimento</dt>
+                <dd>Direto comigo</dd>
+              </div>
+              <div>
+                <dt>Primeiro conceito</dt>
+                <dd>Até 48 horas</dd>
+              </div>
+              <div>
+                <dt>Entrega</dt>
+                <dd>Até 7 dias úteis</dd>
+              </div>
+              <div>
+                <dt>Prioridade</dt>
+                <dd>Experiência mobile</dd>
+              </div>
+            </dl>
           </div>
         </section>
 
-        <section className="section shell brief-cta reveal-section" id="contato" aria-labelledby="brief-title">
-          <div className="brief-cta-top">
+        <section className="final-cta shell reveal-section" id="contato" aria-labelledby="brief-title">
+          <div className="final-cta-top">
             <p className="eyebrow">05 / Começar</p>
             <span>3 perguntas</span>
           </div>
-          <h2 id="brief-title">Já tem um projeto em mente?</h2>
-          <p>Com três respostas eu já consigo entender o negócio, o objetivo do site e a direção visual que você procura.</p>
-          <div className="brief-actions">
-            <Link className="button button-primary" href="/projeto/">Responder 3 perguntas</Link>
-            <a className="button button-secondary" href={directContact} target="_blank" rel="noreferrer">Ir direto para o WhatsApp</a>
+
+          <h2 id="brief-title">Conte sobre o site que você precisa.</h2>
+
+          <div className="final-cta-bottom">
+            <p>Responda três perguntas para eu entender o negócio, o objetivo e a direção visual do projeto.</p>
+            <div className="brief-actions">
+              <Link className="button button-primary" href="/projeto/">Responder 3 perguntas</Link>
+              <a className="button button-secondary" href={directContact} target="_blank" rel="noreferrer">
+                Ir direto para o WhatsApp
+              </a>
+            </div>
           </div>
         </section>
       </main>
