@@ -3885,7 +3885,6 @@ a.commercial-strip-item {
   overflow: visible;
 }
 
-.hero-line,
 @media (min-width: 760px) {
   .hero-line {
     max-width: none;
