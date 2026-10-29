@@ -1,31 +1,45 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { whatsappUrl } from "@/lib/site";
 
 const nav = [
   ["Serviços", "#servicos"],
+  ["Projetos", "#projetos"],
   ["Valores", "#valores"],
-  ["Como funciona", "#processo"],
+  ["Processo", "#processo"],
   ["Sobre", "#sobre"],
 ] as const;
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
 
-    function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") setOpen(false);
+    function closeMenu({ restoreFocus = false } = {}) {
+      setOpen(false);
+      if (restoreFocus) requestAnimationFrame(() => menuButtonRef.current?.focus());
     }
 
-    if (open) window.addEventListener("keydown", onKeyDown);
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") closeMenu({ restoreFocus: true });
+    }
+
+    const desktop = window.matchMedia("(min-width: 900px)");
+    function onBreakpoint(event: MediaQueryListEvent) {
+      if (event.matches) closeMenu();
+    }
+
+    window.addEventListener("keydown", onKeyDown);
+    desktop.addEventListener("change", onBreakpoint);
 
     return () => {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", onKeyDown);
+      desktop.removeEventListener("change", onBreakpoint);
     };
   }, [open]);
 
@@ -51,6 +65,7 @@ export function Header() {
         </a>
 
         <button
+          ref={menuButtonRef}
           className="menu-toggle"
           type="button"
           aria-expanded={open}
@@ -70,7 +85,13 @@ export function Header() {
               <span>{label}</span>
             </a>
           ))}
-          <a className="mobile-contact" href={contactUrl} target="_blank" rel="noreferrer" onClick={() => setOpen(false)}>
+          <a
+            className="mobile-contact"
+            href={contactUrl}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => setOpen(false)}
+          >
             Conversar pelo WhatsApp
           </a>
         </nav>
