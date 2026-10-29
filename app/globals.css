@@ -3862,3 +3862,15 @@ a.commercial-strip-item {
     max-width: min(100%, 760px);
   }
 }
+
+/* ===== V4.7 hero word edge fix ===== */
+@media (min-width: 900px) {
+  .hero-line {
+    max-width: none;
+    padding-right: .18em;
+  }
+
+  .hero-line > span {
+    padding-right: .025em;
+  }
+}
