@@ -3646,3 +3646,154 @@ a.commercial-strip-item {
     );
   pointer-events: none;
 }
+
+/* ===== V4.4 soft section transitions + refined about separators ===== */
+
+/* Gray/dark sections fade into the page instead of forming hard bands */
+.section-formats {
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(20,23,20,.22) 10%,
+      rgba(20,23,20,.72) 24%,
+      var(--surface) 42%,
+      var(--surface) 62%,
+      rgba(20,23,20,.72) 80%,
+      rgba(20,23,20,.22) 92%,
+      transparent 100%
+    );
+}
+
+.section-elevated {
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(23,25,24,.24) 10%,
+      rgba(23,25,24,.76) 24%,
+      var(--surface-2) 42%,
+      var(--surface-2) 64%,
+      rgba(23,25,24,.72) 82%,
+      rgba(23,25,24,.20) 94%,
+      transparent 100%
+    );
+}
+
+.section-pricing {
+  background:
+    radial-gradient(900px 620px at 88% 42%, rgba(196,234,103,.05), transparent 68%),
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(23,27,23,.22) 9%,
+      rgba(23,27,23,.76) 23%,
+      #171b17 42%,
+      #171b17 66%,
+      rgba(23,27,23,.72) 82%,
+      rgba(23,27,23,.18) 94%,
+      transparent 100%
+    );
+}
+
+.section-about {
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(23,25,22,.18) 8%,
+      rgba(23,25,22,.64) 22%,
+      var(--surface-warm) 42%,
+      var(--surface-warm) 68%,
+      rgba(23,25,22,.58) 84%,
+      rgba(23,25,22,.16) 94%,
+      transparent 100%
+    );
+}
+
+.section-faq {
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(19,21,19,.28) 0%,
+      rgba(15,17,16,.72) 18%,
+      var(--bg) 36%,
+      var(--bg) 100%
+    );
+}
+
+.site-footer {
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(10,12,11,.52) 24%,
+      var(--bg-deep) 62%,
+      var(--bg-deep) 100%
+    );
+}
+
+/* About: restore structure with short, fading separators */
+.about-facts-v3 {
+  display: grid;
+  gap: var(--space-5);
+  margin-top: var(--space-7);
+}
+
+.about-facts-v3 > div {
+  position: relative;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: var(--space-5);
+  padding: 0 0 16px;
+}
+
+.about-facts-v3 > div::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 8%;
+  bottom: 0;
+  height: 1px;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(160,165,156,.22),
+      rgba(160,165,156,.10) 52%,
+      transparent 100%
+    );
+}
+
+.about-facts-v3 dt {
+  color: var(--muted-2);
+}
+
+.about-facts-v3 dd {
+  text-align: right;
+  color: var(--text-soft);
+}
+
+@media (min-width: 900px) {
+  .about-facts-v3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(44px, 6vw, 76px);
+    row-gap: var(--space-6);
+  }
+
+  .about-facts-v3 > div {
+    padding-bottom: 18px;
+  }
+
+  .about-facts-v3 > div::after {
+    right: 14%;
+  }
+}
+
+/* Remove now-unused footer icon layout */
+.footer-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.footer-whatsapp {
+  display: none !important;
+}
