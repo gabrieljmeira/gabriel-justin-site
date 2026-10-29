@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main>
+      <main id="conteudo">
         <section className="hero shell" aria-labelledby="hero-title">
           <div className="hero-kicker hero-enter">Criação de sites</div>
           <div className="hero-layout">
@@ -24,7 +24,7 @@ export default function Home() {
                 Seu site pronto em até <span>7 dias úteis.</span>
               </h1>
               <p className="hero-copy hero-enter delay-2">
-                Landing pages e sites institucionais para empresas, com design personalizado e uma navegação pensada para celular e desktop.
+                Landing pages e sites institucionais para empresas, com design personalizado e prioridade para uma boa experiência no celular.
               </p>
               <div className="hero-actions hero-enter delay-3">
                 <a className="button button-primary" href={directContact} target="_blank" rel="noreferrer">
@@ -40,6 +40,7 @@ export default function Home() {
               <div className="fact fact-strong">
                 <span className="fact-label">Primeiro conceito visual</span>
                 <strong>em até <em>48 horas</em></strong>
+                <span className="fact-note">Primeira direção do seu projeto</span>
               </div>
               <div className="fact">
                 <span className="fact-label">Projetos a partir de</span>
@@ -103,6 +104,7 @@ export default function Home() {
                 <p>O site é finalizado e publicado em até 7 dias úteis, conforme o escopo contratado.</p>
               </article>
             </div>
+            <p className="process-note">Os prazos começam após a confirmação do projeto e o recebimento dos materiais necessários para iniciar.</p>
           </div>
         </section>
 
@@ -156,8 +158,8 @@ export default function Home() {
             <p className="eyebrow">04 / Sobre</p>
             <div>
               <h2 id="about-title">Gabriel Justin</h2>
-              <p>Trabalho com criação de landing pages e sites institucionais para empresas. Cada projeto é desenvolvido com atenção à apresentação do negócio, à experiência no celular e à clareza das informações.</p>
-              <p>O atendimento é direto comigo do início à publicação.</p>
+              <p>Sou Gabriel Justin. Crio landing pages e sites institucionais para empresas, cuidando do design, do desenvolvimento e da publicação.</p>
+              <p>Você fala direto comigo durante todo o projeto. No mobile, a prioridade é leitura fácil, navegação simples e contato rápido.</p>
             </div>
           </div>
         </section>
