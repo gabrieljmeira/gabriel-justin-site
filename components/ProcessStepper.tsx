@@ -42,7 +42,7 @@ const steps: ProcessStep[] = [
       "Faço a finalização técnica e coloco o site no ar.",
     emphasis: "7 dias úteis",
   },
-] as const;
+];
 
 export function ProcessStepper() {
   const [active, setActive] = useState(0);
@@ -62,91 +62,100 @@ export function ProcessStepper() {
   const step = steps[active];
   const progress = ((active + 1) / steps.length) * 100;
 
-  function selectStep(index: number) {
-    setActive(index);
-  }
-
-  function previous() {
-    setActive((current) => Math.max(0, current - 1));
-  }
-
-  function next() {
-    setActive((current) => Math.min(steps.length - 1, current + 1));
-  }
-
   return (
-    <div className="process-stepper">
-      <div className="process-progress" aria-hidden="true">
-        <span style={{ width: `${progress}%` }} />
+    <>
+      <div className="process-mobile" aria-label="Etapas do projeto">
+        <div className="process-mobile-track" aria-hidden="true" />
+        {steps.map((item) => (
+          <article className="process-mobile-step" key={item.number}>
+            <span className="process-mobile-dot" aria-hidden="true" />
+            <div className="process-mobile-meta">
+              <span>{item.number}</span>
+              <small className={item.emphasis ? "is-key" : ""}>{item.status}</small>
+            </div>
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+          </article>
+        ))}
       </div>
 
-      <div className="process-tabs" role="tablist" aria-label="Etapas do projeto">
-        {steps.map((item, index) => {
-          const selected = index === active;
-          const completed = index < active;
-
-          return (
-            <button
-              key={item.number}
-              type="button"
-              role="tab"
-              id={`process-tab-${index}`}
-              aria-selected={selected}
-              aria-controls="process-panel"
-              tabIndex={selected ? 0 : -1}
-              className={`process-tab ${selected ? "is-active" : ""} ${completed ? "is-complete" : ""}`}
-              onClick={() => selectStep(index)}
-              onKeyDown={(event) => {
-                if (event.key === "ArrowRight") {
-                  event.preventDefault();
-                  selectStep(Math.min(steps.length - 1, index + 1));
-                }
-                if (event.key === "ArrowLeft") {
-                  event.preventDefault();
-                  selectStep(Math.max(0, index - 1));
-                }
-              }}
-            >
-              <span className="process-tab-number">{item.number}</span>
-              <span className="process-tab-title">{item.title}</span>
-              <small>{item.status}</small>
-            </button>
-          );
-        })}
-      </div>
-
-      <div
-        ref={panelRef}
-        id="process-panel"
-        className="process-card"
-        role="tabpanel"
-        aria-labelledby={`process-tab-${active}`}
-      >
-        <div className="process-card-index">
-          <span>Etapa {step.number}</span>
-          <span>{active + 1} / {steps.length}</span>
+      <div className="process-stepper process-desktop">
+        <div className="process-progress" aria-hidden="true">
+          <span style={{ width: `${progress}%` }} />
         </div>
 
-        <div className="process-card-body">
-          <div>
-            <h3>{step.title}</h3>
-            <p>{step.description}</p>
+        <div className="process-tabs" role="tablist" aria-label="Etapas do projeto">
+          {steps.map((item, index) => {
+            const selected = index === active;
+            const completed = index < active;
+
+            return (
+              <button
+                key={item.number}
+                type="button"
+                role="tab"
+                id={`process-tab-${index}`}
+                aria-selected={selected}
+                aria-controls="process-panel"
+                tabIndex={selected ? 0 : -1}
+                className={`process-tab ${selected ? "is-active" : ""} ${completed ? "is-complete" : ""}`}
+                onClick={() => setActive(index)}
+                onKeyDown={(event) => {
+                  if (event.key === "ArrowRight") {
+                    event.preventDefault();
+                    setActive(Math.min(steps.length - 1, index + 1));
+                  }
+                  if (event.key === "ArrowLeft") {
+                    event.preventDefault();
+                    setActive(Math.max(0, index - 1));
+                  }
+                }}
+              >
+                <span className="process-tab-number">{item.number}</span>
+                <span className="process-tab-title">{item.title}</span>
+                <small>{item.status}</small>
+              </button>
+            );
+          })}
+        </div>
+
+        <div
+          ref={panelRef}
+          id="process-panel"
+          className="process-card"
+          role="tabpanel"
+          aria-labelledby={`process-tab-${active}`}
+        >
+          <div className="process-card-index">
+            <span>Etapa {step.number}</span>
+            <span>{active + 1} / {steps.length}</span>
           </div>
 
-          <strong className={step.emphasis ? "process-card-status is-key" : "process-card-status"}>
-            {step.status}
-          </strong>
+          <div className="process-card-body">
+            <div>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </div>
+
+            <strong className={step.emphasis ? "process-card-status is-key" : "process-card-status"}>
+              {step.status}
+            </strong>
+          </div>
+        </div>
+
+        <div className="process-controls">
+          <button type="button" onClick={() => setActive((current) => Math.max(0, current - 1))} disabled={active === 0}>
+            <span aria-hidden="true">←</span> Anterior
+          </button>
+          <button
+            type="button"
+            onClick={() => setActive((current) => Math.min(steps.length - 1, current + 1))}
+            disabled={active === steps.length - 1}
+          >
+            Próxima <span aria-hidden="true">→</span>
+          </button>
         </div>
       </div>
-
-      <div className="process-controls">
-        <button type="button" onClick={previous} disabled={active === 0}>
-          <span aria-hidden="true">←</span> Anterior
-        </button>
-        <button type="button" onClick={next} disabled={active === steps.length - 1}>
-          Próxima <span aria-hidden="true">→</span>
-        </button>
-      </div>
-    </div>
+    </>
   );
 }
