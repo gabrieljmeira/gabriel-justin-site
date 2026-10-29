@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { SiteMotion } from "@/components/SiteMotion";
 import { whatsappUrl } from "@/lib/site";
 
 const directContact = whatsappUrl(
@@ -46,6 +47,7 @@ export default function Home() {
   return (
     <>
       <Header />
+      <SiteMotion />
       <main id="conteudo">
         <section className="hero-v3 shell" aria-labelledby="hero-title">
           <div className="hero-topline hero-enter">
@@ -78,7 +80,7 @@ export default function Home() {
 
             <aside className="hero-proof hero-enter delay-2" aria-label="Prazo do primeiro conceito visual">
               <span className="proof-label">Primeiro conceito visual</span>
-              <strong>48h</strong>
+              <strong><span data-count="48">48</span>h</strong>
               <p>Uma primeira direção visual para você avaliar antes da entrega final.</p>
               <div className="proof-meta">
                 <span>Domínio + hospedagem</span>
@@ -119,7 +121,7 @@ export default function Home() {
                 <p>O formato muda conforme a quantidade de informação e o papel que o site precisa cumprir no negócio.</p>
               </header>
 
-              <div className="service-list-v3">
+              <div className="service-list-v3" data-line-draw>
                 <article className="service-item-v3">
                   <div className="service-title-line">
                     <span>01</span>
@@ -232,7 +234,7 @@ export default function Home() {
                 <p>O valor final depende da extensão do conteúdo, quantidade de seções ou páginas e recursos necessários para o projeto.</p>
               </header>
 
-              <div className="investment-list">
+              <div className="investment-list" data-line-draw>
                 <article className="investment-plan">
                   <div className="plan-intro">
                     <span>01</span>
@@ -286,7 +288,7 @@ export default function Home() {
                 </article>
               </div>
 
-              <div className="commercial-conditions">
+              <div className="commercial-conditions" data-line-draw>
                 <article>
                   <span>Depois do primeiro ano</span>
                   <strong>R$ 300/ano</strong>
@@ -381,7 +383,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <dl className="about-facts-v3">
+              <dl className="about-facts-v3" data-line-draw>
                 <div><dt>Atendimento</dt><dd>Direto comigo</dd></div>
                 <div><dt>Conceito visual</dt><dd>Até 48 horas</dd></div>
                 <div><dt>Entrega</dt><dd>Até 7 dias úteis</dd></div>
@@ -402,7 +404,7 @@ export default function Home() {
                 <h2 id="faq-title">Antes de começar.</h2>
               </header>
 
-              <div className="faq-list">
+              <div className="faq-list" data-line-draw>
                 {faq.map((item, index) => (
                   <details className="faq-item" key={item.question}>
                     <summary>
