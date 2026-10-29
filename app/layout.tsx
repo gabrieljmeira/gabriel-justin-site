@@ -25,14 +25,12 @@ export const metadata: Metadata = {
       "Landing pages e sites institucionais com primeiro conceito visual em até 48 horas e entrega em até 7 dias úteis.",
     type: "website",
     locale: "pt_BR",
-    images: ["/opengraph-image"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Gabriel Justin | Criação de Sites",
     description:
       "Landing pages e sites institucionais com primeiro conceito visual em até 48 horas e entrega em até 7 dias úteis.",
-    images: ["/opengraph-image"],
   },
 };
 
