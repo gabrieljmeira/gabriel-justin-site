@@ -655,127 +655,239 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 22px); }
       var(--surface-2) calc(100% - 120px),
       var(--bg) 100%);
 }
-.pricing-heading { margin-bottom: 54px; }
-.investment-list {
-  border-top: 1px solid var(--line);
+.pricing-heading { margin-bottom: var(--space-7); }
+
+.pricing-cards {
+  display: grid;
+  gap: var(--space-5);
 }
-.investment-plan {
+
+.pricing-card {
   position: relative;
   isolation: isolate;
-  display: grid;
-  gap: 26px;
-  padding: 34px 0 38px;
-  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+  min-height: 100%;
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.018), transparent 26%),
+    var(--bg);
+  box-shadow: 0 18px 50px rgba(0,0,0,.12);
+  transition:
+    transform var(--dur-base) var(--ease-base),
+    border-color var(--dur-base) var(--ease-base),
+    background var(--dur-base) var(--ease-base),
+    box-shadow var(--dur-base) var(--ease-base);
 }
-.investment-plan::before {
+.pricing-card::before {
   content: "";
   position: absolute;
   z-index: -1;
-  width: 300px;
-  height: 220px;
-  right: -70px;
-  top: 18px;
-  background: radial-gradient(circle, rgba(195,230,109,.095), rgba(195,230,109,.025) 38%, transparent 72%);
-  filter: blur(26px);
+  width: 320px;
+  height: 260px;
+  right: -120px;
+  top: 88px;
+  background: radial-gradient(circle, rgba(195,230,109,.10), rgba(195,230,109,.025) 38%, transparent 72%);
+  filter: blur(28px);
   pointer-events: none;
+  opacity: .72;
+  transition: opacity var(--dur-base) var(--ease-base);
 }
-.plan-intro {
+.pricing-card-institutional::before {
+  width: 380px;
+  height: 300px;
+  right: -140px;
+  top: 72px;
+  opacity: .9;
+}
+
+.pricing-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+.pricing-card-top > div {
   display: grid;
-  grid-template-columns: 34px 1fr;
-  gap: 12px;
-  align-items: start;
+  gap: var(--space-2);
 }
-.plan-intro > span {
-  padding-top: 4px;
+.pricing-card-index,
+.pricing-card-type,
+.pricing-card-section > span {
   color: var(--muted-2);
-  font-size: 0.66rem;
+  font-size: .66rem;
+  text-transform: uppercase;
+  letter-spacing: .09em;
 }
-.plan-intro p {
+.pricing-card-top h3 {
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(1.85rem, 7vw, 2.8rem);
-  letter-spacing: -0.025em;
+  font-size: clamp(2rem, 7vw, 2.9rem);
+  line-height: .98;
+  letter-spacing: -.03em;
   font-weight: 600;
 }
-.plan-intro small {
-  display: block;
-  margin-top: 5px;
-  color: var(--muted-2);
-  font-size: 0.7rem;
+.pricing-card-type {
+  padding-top: var(--space-1);
+  text-align: right;
+  white-space: nowrap;
 }
-.plan-price {
-  margin-left: 46px;
-  display: grid;
-  gap: 7px;
-}
-.plan-price > span {
+
+.pricing-card-summary {
+  margin: var(--space-5) 0 0;
+  max-width: 42ch;
   color: var(--muted);
-  font-size: 0.72rem;
+  line-height: 1.65;
 }
-.plan-price > div {
+
+.pricing-card-price {
+  margin-top: var(--space-7);
+  display: grid;
+  gap: var(--space-2);
+}
+.pricing-card-price > span {
+  color: var(--muted);
+  font-size: .72rem;
+}
+.pricing-card-price > div {
   display: flex;
   align-items: flex-start;
-  gap: 9px;
+  gap: var(--space-2);
   color: var(--accent);
 }
-.plan-price small {
-  padding-top: 8px;
-  font-family: var(--font-sans);
-  font-size: 0.75rem;
+.pricing-card-price small {
+  padding-top: 10px;
+  font-size: .76rem;
   font-weight: 700;
 }
-.plan-price strong {
+.pricing-card-price strong {
   font-family: var(--font-display);
-  font-size: clamp(3.8rem, 17vw, 6.5rem);
-  line-height: 0.8;
-  letter-spacing: -0.035em;
+  font-size: clamp(4rem, 16vw, 6.5rem);
+  line-height: .8;
+  letter-spacing: -.035em;
   font-weight: 600;
+  transition:
+    color var(--dur-fast) var(--ease-fast),
+    text-shadow var(--dur-base) var(--ease-base);
 }
-.investment-plan ul {
-  margin: 0 0 0 46px;
+
+.pricing-card-section {
+  margin-top: var(--space-7);
+}
+.pricing-card-section ul {
+  margin: var(--space-3) 0 0;
   padding: 0;
   list-style: none;
   border-top: 1px solid var(--line-soft);
 }
-.investment-plan li {
-  padding: 11px 0;
+.pricing-card-section li {
+  position: relative;
+  padding: var(--space-3) 0 var(--space-3) var(--space-5);
   border-bottom: 1px solid var(--line-soft);
   color: var(--muted);
-  font-size: 0.84rem;
+  font-size: .84rem;
+  line-height: 1.5;
 }
-.investment-plan .editorial-link { margin-left: 46px; }
+.pricing-card-section li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: .76rem;
+}
+
+.pricing-card-cta {
+  position: relative;
+  min-height: 50px;
+  margin-top: var(--space-6);
+  padding: 0 var(--space-4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-size: .84rem;
+  font-weight: 600;
+  transition:
+    color var(--dur-fast) var(--ease-fast),
+    border-color var(--dur-fast) var(--ease-fast),
+    background var(--dur-base) var(--ease-base);
+}
+.pricing-card-cta span {
+  color: var(--accent);
+  transition: transform var(--dur-fast) var(--ease-fast);
+}
 
 .commercial-conditions {
   display: grid;
   gap: 0;
-  margin-top: 42px;
+  margin-top: var(--space-7);
   border-top: 1px solid var(--line);
 }
 .commercial-conditions article {
-  padding: 24px 0;
+  padding: var(--space-5) 0;
   border-bottom: 1px solid var(--line);
 }
 .commercial-conditions span {
   display: block;
   color: var(--muted-2);
-  font-size: 0.66rem;
+  font-size: .66rem;
   text-transform: uppercase;
-  letter-spacing: 0.09em;
+  letter-spacing: .09em;
 }
 .commercial-conditions strong {
   display: block;
-  margin-top: 11px;
+  margin-top: var(--space-3);
   font-family: var(--font-display);
   font-size: clamp(1.7rem, 7vw, 2.55rem);
-  letter-spacing: -0.025em;
+  letter-spacing: -.025em;
   font-weight: 600;
 }
 .commercial-conditions p {
-  margin: 8px 0 0;
+  margin: var(--space-2) 0 0;
   max-width: 50ch;
   color: var(--muted);
-  font-size: 0.82rem;
+  font-size: .82rem;
   line-height: 1.55;
+}
+
+@media (min-width: 760px) {
+  .pricing-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+  .pricing-card {
+    padding: var(--space-6);
+  }
+  .pricing-card-price strong {
+    font-size: clamp(4.6rem, 7vw, 6.2rem);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pricing-card:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--accent) 34%, var(--line));
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.028), transparent 28%),
+      var(--surface);
+    box-shadow: 0 26px 70px rgba(0,0,0,.18);
+  }
+  .pricing-card:hover::before { opacity: 1; }
+  .pricing-card:hover .pricing-card-price strong {
+    text-shadow: 0 0 30px rgba(195,230,109,.11);
+  }
+  .pricing-card-cta:hover {
+    border-color: var(--accent);
+    background: rgba(195,230,109,.045);
+  }
+  .pricing-card-cta:hover span {
+    transform: translate(3px, -3px);
+  }
 }
 
 /* Process */
@@ -1808,35 +1920,6 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 22px); }
     gap: 38px;
   }
 
-  .investment-plan {
-    grid-template-columns: minmax(220px, .75fr) minmax(250px, .95fr) minmax(260px, 1fr);
-    grid-template-areas:
-      "intro price features"
-      "intro price cta";
-    gap: 24px 42px;
-    align-items: start;
-    padding: 42px 0;
-  }
-  .plan-intro { grid-area: intro; }
-  .plan-price {
-    grid-area: price;
-    margin-left: 0;
-  }
-  .investment-plan ul {
-    grid-area: features;
-    margin-left: 0;
-  }
-  .investment-plan .editorial-link {
-    grid-area: cta;
-    margin-left: 0;
-  }
-  .investment-plan::before {
-    right: 44%;
-    top: 20px;
-    width: 420px;
-    height: 260px;
-  }
-
   .about-facts-v3 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1905,10 +1988,6 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 22px); }
   .service-item-v3:hover { border-color: var(--muted-2); }
   .service-item-v3:hover .service-title-line > span { color: var(--accent); }
   .service-item-v3:hover .service-title-line h3 { transform: translateX(6px); }
-  .investment-plan:hover::before { opacity: 1; }
-  .investment-plan:hover .plan-price strong {
-    text-shadow: 0 0 32px rgba(195,230,109,.12);
-  }
   .quick-offer:hover .quick-arrow {
     color: var(--accent);
     transform: translate(3px, 3px);
@@ -1966,15 +2045,6 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 22px); }
   transition:
     color var(--dur-fast) var(--ease-fast),
     transform var(--dur-base) var(--ease-base);
-}
-.investment-plan::before {
-  opacity: .72;
-  transition: opacity var(--dur-base) var(--ease-base);
-}
-.plan-price strong {
-  transition:
-    text-shadow var(--dur-base) var(--ease-base),
-    color var(--dur-fast) var(--ease-fast);
 }
 .timeline-step.is-active .timeline-dot {
   border-color: var(--accent);
