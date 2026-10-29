@@ -18,6 +18,7 @@ export function SiteMotion() {
 
     mm.add("(prefers-reduced-motion: no-preference)", () => {
       const revealGroups = [
+        ".section-rail",
         ".section-heading",
         ".service-item-v3",
         ".concept-project",
