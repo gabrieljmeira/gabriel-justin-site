@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function ProjetoPage() {
   return (
-    <main className="briefing-page">
+    <main id="conteudo" className="briefing-page">
       <header className="briefing-header shell-narrow">
         <Link className="brand" href="/">Gabriel Justin<span className="brand-dot">.</span></Link>
         <Link className="back-home" href="/">Voltar ao site</Link>
