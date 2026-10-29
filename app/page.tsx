@@ -44,13 +44,16 @@ const faq = [
   },
 ];
 
+export const metadata = { alternates: { canonical: "/" } };
+
 export default function Home() {
   return (
     <>
       <Header />
       <SiteMotion />
       <main id="conteudo">
-        <section className="hero-v3 shell" aria-labelledby="hero-title">
+        <section className="hero-v3" aria-labelledby="hero-title">
+          <div className="shell">
           <div className="hero-topline hero-enter">
             <span>Criação de sites para empresas</span>
           </div>
@@ -63,6 +66,7 @@ export default function Home() {
                 <span className="hero-line hero-line-accent"><span>7 dias úteis</span></span>
               </h1>
 
+              <p className="hero-deadline-note">Prazo contado após a confirmação do projeto e o recebimento dos materiais necessários.</p>
               <div className="hero-copy-grid hero-enter delay-2">
                 <p>
                   Sites profissionais para apresentar melhor sua empresa, explicar seus serviços e facilitar o contato de novos clientes.
@@ -82,7 +86,7 @@ export default function Home() {
             <aside className="hero-proof-editorial hero-enter delay-2" aria-label="Prazo do primeiro conceito visual">
               <p className="hero-proof-kicker">Primeiro conceito visual em até</p>
               <div className="hero-proof-main">
-                <strong className="hero-proof-value"><span data-count="48">48</span>h</strong>
+                <strong className="hero-proof-value">48h</strong>
                 <span className="hero-proof-divider" aria-hidden="true" />
                 <p className="hero-proof-side">
                   Domínio + hospedagem
@@ -92,8 +96,10 @@ export default function Home() {
               </div>
             </aside>
           </div>
+          </div>
         </section>
 
+        <div className="commercial-band">
         <section className="commercial-strip shell reveal-section" aria-label="Informações principais">
           <div className="commercial-strip-item">
             <span>Primeiro conceito visual</span>
@@ -109,6 +115,7 @@ export default function Home() {
           </div>
         </section>
 
+        </div>
         <section className="section-base section-services reveal-section" id="servicos" aria-labelledby="services-title">
           <div className="shell editorial-grid">
             <div className="section-rail">
@@ -324,7 +331,6 @@ export default function Home() {
             <div className="section-content">
               <header className="section-heading faq-heading">
                 <h2 id="faq-title">Antes de começar.</h2>
-                <p>Respostas rápidas para as dúvidas mais comuns antes de iniciar um projeto.</p>
               </header>
 
               <div className="faq-list">
@@ -346,7 +352,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="final-cta shell reveal-section" id="contato" aria-labelledby="start-title">
+        <section className="final-cta reveal-section" id="contato" aria-labelledby="start-title">
+          <div className="shell">
           <div className="final-cta-index">
             <span>Começar</span>
           </div>
@@ -354,13 +361,14 @@ export default function Home() {
           <h2 id="start-title">Conte sobre o site que sua empresa precisa.</h2>
 
           <div className="final-cta-grid">
-            <p>Responda três perguntas para eu entender o negócio, o objetivo e a direção visual antes da conversa.</p>
+            <p>Conte sobre o negócio, o objetivo do site e suas referências em três etapas.</p>
             <div className="brief-actions">
-              <Link className="button button-primary button-action" href="/projeto/">Responder 3 perguntas</Link>
+              <Link className="button button-primary button-action" href="/projeto/">Responder em 3 etapas</Link>
               <a className="button button-secondary button-arrow" href={directContact} target="_blank" rel="noreferrer">
                 Ir direto para o WhatsApp
               </a>
             </div>
+          </div>
           </div>
         </section>
       </main>

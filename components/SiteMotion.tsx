@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import gsap from "gsap";
+import { MOTION } from "@/lib/motion";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
@@ -37,8 +38,8 @@ export function SiteMotion() {
             {
               autoAlpha: 1,
               y: 0,
-              duration: 0.55,
-              ease: "expo.out",
+              duration: MOTION.reveal,
+              ease: MOTION.ease,
               scrollTrigger: {
                 trigger: element,
                 start: "top 88%",
@@ -49,19 +50,7 @@ export function SiteMotion() {
         });
       });
 
-      const count = document.querySelector<HTMLElement>("[data-count='48']");
-      if (count) {
-        const value = { n: 0 };
-        gsap.to(value, {
-          n: 48,
-          duration: 0.8,
-          delay: 0.2,
-          ease: "power3.out",
-          onUpdate: () => {
-            count.textContent = String(Math.round(value.n));
-          },
-        });
-      }
+
     });
 
     return () => mm.revert();

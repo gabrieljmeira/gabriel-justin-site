@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 export const metadata = {
+  alternates: { canonical: "/privacidade/" },
   title: "Privacidade | Gabriel Justin",
   description: "Como este site lida com respostas do briefing e contato pelo WhatsApp.",
 };
@@ -20,7 +21,7 @@ export default function PrivacidadePage() {
         <div className="legal-summary">
           <section>
             <h2>Briefing</h2>
-            <p>As respostas das três perguntas não são armazenadas neste site. Elas só são usadas para preparar a mensagem que você pode enviar pelo WhatsApp.</p>
+            <p>As respostas do briefing não são armazenadas neste site. Elas só são usadas para preparar a mensagem que você pode enviar pelo WhatsApp.</p>
           </section>
 
           <section>

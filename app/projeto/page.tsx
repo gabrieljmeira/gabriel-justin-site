@@ -2,8 +2,9 @@ import Link from "next/link";
 import { ProjectBriefing } from "@/components/ProjectBriefing";
 
 export const metadata = {
+  alternates: { canonical: "/projeto/" },
   title: "Conte sobre seu projeto | Gabriel Justin",
-  description: "Responda três perguntas rápidas para iniciar seu projeto de site.",
+  description: "Conte sobre seu projeto em três etapas rápidas.",
 };
 
 export default function ProjetoPage() {

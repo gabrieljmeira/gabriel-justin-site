@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Newsreader } from "next/font/google";
 import "./globals.css";
+import { SITE } from "@/lib/site";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -15,6 +16,7 @@ const newsreader = Newsreader({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE.url),
   title: "Gabriel Justin | Criação de Sites",
   description:
     "Landing pages e sites institucionais com primeiro conceito visual em até 48 horas e entrega em até 7 dias úteis.",

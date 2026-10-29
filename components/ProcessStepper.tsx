@@ -1,7 +1,6 @@
 "use client";
 
-import { KeyboardEvent, useEffect, useRef, useState } from "react";
-import gsap from "gsap";
+import { KeyboardEvent, useRef, useState } from "react";
 
 type ProcessStep = {
   number: string;
@@ -48,53 +47,36 @@ export function ProcessStepper() {
   const [active, setActive] = useState(0);
   const deckRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const deck = deckRef.current;
-    if (!deck || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    const cards = Array.from(deck.querySelectorAll<HTMLElement>(".process-deck-card"));
-
-    cards.forEach((card, index) => {
-      const delta = index - active;
-      const distance = Math.abs(delta);
-
-      gsap.to(card, {
-        x: delta * 64,
-        y: distance * 8,
-        scale: Math.max(0.91, 1 - distance * 0.035),
-        autoAlpha: Math.max(0.34, 1 - distance * 0.2),
-        zIndex: 20 - distance,
-        duration: 0.5,
-        ease: "expo.out",
-      });
-    });
-  }, [active]);
-
   const progress = ((active + 1) / steps.length) * 100;
 
   function selectStep(index: number) {
     setActive(index);
   }
 
+  function focusStep(index: number) {
+    selectStep(index);
+    deckRef.current?.querySelectorAll<HTMLButtonElement>(".process-deck-card")[index]?.focus({ preventScroll: true });
+  }
+
   function handleKey(event: KeyboardEvent<HTMLButtonElement>, index: number) {
     if (event.key === "ArrowRight") {
       event.preventDefault();
-      selectStep(Math.min(steps.length - 1, index + 1));
+      focusStep(Math.min(steps.length - 1, index + 1));
     }
 
     if (event.key === "ArrowLeft") {
       event.preventDefault();
-      selectStep(Math.max(0, index - 1));
+      focusStep(Math.max(0, index - 1));
     }
 
     if (event.key === "Home") {
       event.preventDefault();
-      selectStep(0);
+      focusStep(0);
     }
 
     if (event.key === "End") {
       event.preventDefault();
-      selectStep(steps.length - 1);
+      focusStep(steps.length - 1);
     }
   }
 
@@ -117,7 +99,7 @@ export function ProcessStepper() {
 
       <div className="process-deck process-desktop">
         <div className="process-progress" aria-hidden="true">
-          <span style={{ width: `${progress}%` }} />
+          <span style={{ transform: `scaleX(${progress / 100})` }} />
         </div>
 
         <div
@@ -136,11 +118,11 @@ export function ProcessStepper() {
                 type="button"
                 aria-current={selected ? "step" : undefined}
                 className={`process-deck-card ${selected ? "is-active" : ""} ${completed ? "is-complete" : ""}`}
-                onClick={() => selectStep(selected && index < steps.length - 1 ? index + 1 : index)}
+                onClick={() => focusStep(selected && index < steps.length - 1 ? index + 1 : index)}
                 onKeyDown={(event) => handleKey(event, index)}
                 style={{
                   zIndex: 20 - distance,
-                  transform: `translateX(${(index - active) * 64}px) translateY(${distance * 8}px) scale(${Math.max(0.91, 1 - distance * 0.035)})`,
+                  transform: `translateX(calc(${index - active} * var(--deck-step))) translateY(${distance * 8}px) scale(${Math.max(0.91, 1 - distance * 0.035)})`,
                   opacity: Math.max(0.34, 1 - distance * 0.2),
                 }}
               >
