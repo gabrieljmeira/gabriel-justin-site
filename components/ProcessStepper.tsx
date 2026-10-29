@@ -123,7 +123,6 @@ export function ProcessStepper() {
         <div
           ref={deckRef}
           className="process-deck-stage"
-          role="tablist"
           aria-label="Etapas do projeto"
         >
           {steps.map((item, index) => {
@@ -135,10 +134,7 @@ export function ProcessStepper() {
               <button
                 key={item.number}
                 type="button"
-                role="tab"
-                aria-selected={selected}
-                aria-controls={`process-card-panel-${index}`}
-                tabIndex={selected ? 0 : -1}
+                aria-current={selected ? "step" : undefined}
                 className={`process-deck-card ${selected ? "is-active" : ""} ${completed ? "is-complete" : ""}`}
                 onClick={() => selectStep(selected && index < steps.length - 1 ? index + 1 : index)}
                 onKeyDown={(event) => handleKey(event, index)}
@@ -167,13 +163,6 @@ export function ProcessStepper() {
                   <span className="process-deck-next-cue" aria-hidden="true">→</span>
                 ) : null}
 
-                <span
-                  id={`process-card-panel-${index}`}
-                  className="sr-only"
-                  role="tabpanel"
-                >
-                  {item.title}: {item.description}. {item.status}.
-                </span>
               </button>
             );
           })}
