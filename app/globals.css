@@ -1458,8 +1458,6 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 22px); }
     top: -62px;
   }
   .timeline-step + .timeline-step .timeline-dot { left: 28px; }
-
-  }
 }
 
 /* Hover only where hover exists */
