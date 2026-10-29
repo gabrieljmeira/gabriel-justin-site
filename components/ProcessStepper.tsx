@@ -46,7 +46,6 @@ const steps: ProcessStep[] = [
 
 export function ProcessStepper() {
   const [active, setActive] = useState(0);
-  const [hasInteracted, setHasInteracted] = useState(false);
   const deckRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -74,7 +73,6 @@ export function ProcessStepper() {
   const progress = ((active + 1) / steps.length) * 100;
 
   function selectStep(index: number) {
-    setHasInteracted(true);
     setActive(index);
   }
 
@@ -122,11 +120,6 @@ export function ProcessStepper() {
           <span style={{ width: `${progress}%` }} />
         </div>
 
-        <div className={`process-click-hint ${hasInteracted ? "is-hidden" : ""}`} aria-hidden="true">
-          <span>Clique nos cards para explorar</span>
-          <i>→</i>
-        </div>
-
         <div
           ref={deckRef}
           className="process-deck-stage"
@@ -170,6 +163,10 @@ export function ProcessStepper() {
                 <span className="process-deck-edge" aria-hidden="true">
                   {item.number}
                 </span>
+
+                {selected && index < steps.length - 1 ? (
+                  <span className="process-deck-next-cue" aria-hidden="true">→</span>
+                ) : null}
 
                 <span
                   id={`process-card-panel-${index}`}
