@@ -2805,3 +2805,16 @@ a.commercial-strip-item {
     background: rgba(196,234,103,.055);
   }
 }
+
+.footer-legal {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+.footer-legal a {
+  color: inherit;
+  transition: color var(--dur-fast) var(--ease-fast);
+}
+@media (hover: hover) and (pointer: fine) {
+  .footer-legal a:hover { color: var(--text); }
+}
