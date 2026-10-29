@@ -2818,3 +2818,32 @@ a.commercial-strip-item {
 @media (hover: hover) and (pointer: fine) {
   .footer-legal a:hover { color: var(--text); }
 }
+
+/* Process: restore original visual, keep smoother progress motion */
+.process-progress {
+  height: 2px;
+  background: color-mix(in srgb, var(--line) 85%, transparent);
+  opacity: 1;
+}
+.process-progress span {
+  background: var(--accent);
+  box-shadow: 0 0 20px rgba(196,234,103,.22);
+  transition: width 720ms cubic-bezier(.22, 1, .36, 1);
+  will-change: width;
+}
+.process-deck-next-cue {
+  width: auto;
+  height: auto;
+  right: var(--space-6);
+  display: grid;
+  place-items: center;
+  border-radius: 0;
+  background: transparent;
+  text-shadow: none;
+  transition: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .process-deck-card.is-active:hover .process-deck-next-cue {
+    background: transparent;
+  }
+}
