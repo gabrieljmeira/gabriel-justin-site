@@ -865,6 +865,185 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 22px); }
   line-height: 1.55;
 }
 
+
+/* Interactive process stepper */
+.process-stepper {
+  position: relative;
+}
+.process-progress {
+  position: relative;
+  height: 2px;
+  overflow: hidden;
+  background: var(--line);
+}
+.process-progress span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--accent);
+  transition: width var(--dur-base) var(--ease-base);
+}
+.process-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+.process-tab {
+  min-height: 112px;
+  padding: var(--space-4);
+  display: grid;
+  align-content: space-between;
+  gap: var(--space-3);
+  text-align: left;
+  border: 1px solid var(--line-soft);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  transition:
+    border-color var(--dur-fast) var(--ease-fast),
+    background var(--dur-base) var(--ease-base),
+    transform var(--dur-fast) var(--ease-fast);
+}
+.process-tab-number {
+  color: var(--muted-2);
+  font-size: 0.66rem;
+  transition: color var(--dur-fast) var(--ease-fast);
+}
+.process-tab-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.process-tab small {
+  color: var(--muted-2);
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.process-tab.is-active {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--surface-3) 78%, transparent);
+}
+.process-tab.is-active .process-tab-number,
+.process-tab.is-active small {
+  color: var(--accent);
+}
+.process-tab.is-complete .process-tab-number {
+  color: var(--accent);
+}
+
+.process-card {
+  margin-top: var(--space-5);
+  padding: var(--space-5);
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 84% 12%, rgba(195,230,109,.07), transparent 34%),
+    var(--surface-2);
+}
+.process-card-index {
+  padding-bottom: var(--space-4);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  border-bottom: 1px solid var(--line-soft);
+  color: var(--muted-2);
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.process-card-body {
+  display: grid;
+  gap: var(--space-6);
+  padding-top: var(--space-6);
+}
+.process-card-body h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 8vw, 3.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+}
+.process-card-body p {
+  margin: var(--space-4) 0 0;
+  max-width: 42ch;
+  color: var(--muted);
+  line-height: 1.65;
+}
+.process-card-status {
+  align-self: end;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 6vw, 2.4rem);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  font-weight: 600;
+}
+.process-card-status.is-key {
+  color: var(--accent);
+}
+
+.process-controls {
+  margin-top: var(--space-4);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+.process-controls button {
+  min-height: 44px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.78rem;
+  transition:
+    color var(--dur-fast) var(--ease-fast),
+    opacity var(--dur-fast) var(--ease-fast);
+}
+.process-controls button:disabled {
+  opacity: .28;
+  cursor: default;
+}
+.process-controls button:not(:disabled):hover {
+  color: var(--accent);
+}
+
+@media (min-width: 760px) {
+  .process-tabs {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-3);
+  }
+  .process-tab {
+    min-height: 128px;
+    padding: var(--space-4);
+  }
+  .process-card {
+    padding: var(--space-6);
+  }
+  .process-card-body {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: var(--space-7);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .process-tab:hover {
+    transform: translateY(-2px);
+    border-color: var(--muted-2);
+    background: var(--surface-2);
+  }
+  .process-tab.is-active:hover {
+    border-color: var(--accent);
+    background: var(--surface-3);
+  }
+}
+
 /* About */
 .section-about {
   background:
