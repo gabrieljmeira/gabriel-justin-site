@@ -140,7 +140,7 @@ export function ProcessStepper() {
                 aria-controls={`process-card-panel-${index}`}
                 tabIndex={selected ? 0 : -1}
                 className={`process-deck-card ${selected ? "is-active" : ""} ${completed ? "is-complete" : ""}`}
-                onClick={() => selectStep(index)}
+                onClick={() => selectStep(selected && index < steps.length - 1 ? index + 1 : index)}
                 onKeyDown={(event) => handleKey(event, index)}
                 style={{
                   zIndex: 20 - distance,
@@ -179,25 +179,6 @@ export function ProcessStepper() {
           })}
         </div>
 
-        <div className="process-deck-footer">
-          <div className="process-controls">
-            <button
-              type="button"
-              onClick={() => selectStep(Math.max(0, active - 1))}
-              disabled={active === 0}
-            >
-              <span aria-hidden="true">←</span> Anterior
-            </button>
-
-            <button
-              type="button"
-              onClick={() => selectStep(Math.min(steps.length - 1, active + 1))}
-              disabled={active === steps.length - 1}
-            >
-              Próxima <span aria-hidden="true">→</span>
-            </button>
-          </div>
-        </div>
       </div>
     </>
   );
