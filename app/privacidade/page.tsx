@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function PrivacidadePage() {
   return (
-    <main className="legal-page shell-narrow">
+    <main id="conteudo" className="legal-page shell-narrow">
       <header className="legal-header">
         <Link className="brand" href="/">Gabriel Justin<span className="brand-dot">.</span></Link>
         <Link className="back-home" href="/">Voltar ao site</Link>
