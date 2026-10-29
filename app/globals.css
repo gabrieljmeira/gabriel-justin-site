@@ -2763,3 +2763,45 @@ a.commercial-strip-item {
 @media (prefers-reduced-motion: reduce) {
   body::before { display: none; }
 }
+
+/* Process interaction refinement */
+.process-progress {
+  height: 1px;
+  background: color-mix(in srgb, var(--line-soft) 74%, transparent);
+  opacity: .82;
+}
+.process-progress span {
+  background: linear-gradient(90deg,
+    color-mix(in srgb, var(--accent) 58%, transparent),
+    color-mix(in srgb, var(--accent) 78%, transparent));
+  box-shadow: 0 0 12px rgba(196,234,103,.10);
+}
+.process-deck-card {
+  cursor: pointer;
+}
+.process-deck-card:not(.is-active) {
+  cursor: pointer;
+}
+.process-deck-next-cue {
+  width: 52px;
+  height: 52px;
+  right: var(--space-4);
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(196,234,103,.025);
+  text-shadow: 0 0 12px rgba(196,234,103,.14);
+  transition:
+    background var(--dur-fast) var(--ease-fast),
+    transform var(--dur-fast) var(--ease-fast);
+}
+.process-deck-footer,
+.process-deck .process-controls {
+  display: none !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .process-deck-card.is-active:hover .process-deck-next-cue {
+    background: rgba(196,234,103,.055);
+  }
+}
