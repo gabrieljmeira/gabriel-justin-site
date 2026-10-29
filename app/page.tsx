@@ -70,7 +70,7 @@ export default function Home() {
                 </p>
 
                 <div className="hero-actions">
-                  <a className="button button-primary" href={directContact} target="_blank" rel="noreferrer">
+                  <a className="button button-primary button-action" href={directContact} target="_blank" rel="noreferrer">
                     Conversar pelo WhatsApp
                   </a>
                   <Link className="button button-secondary button-arrow" href="/projeto/">
@@ -96,14 +96,14 @@ export default function Home() {
         </section>
 
         <section className="commercial-strip shell reveal-section" aria-label="Informações principais">
-          <a href="#valores" className="commercial-strip-item">
-            <span>Landing page</span>
-            <strong>A partir de R$ 600</strong>
-          </a>
-          <a href="#valores" className="commercial-strip-item">
-            <span>Site institucional</span>
-            <strong>A partir de R$ 1.000</strong>
-          </a>
+          <div className="commercial-strip-item">
+            <span>Primeiro conceito visual</span>
+            <strong>Em até 48h</strong>
+          </div>
+          <div className="commercial-strip-item">
+            <span>Prazo de entrega</span>
+            <strong>Até 7 dias úteis</strong>
+          </div>
           <div className="commercial-strip-item">
             <span>Domínio + hospedagem</span>
             <strong>1º ano incluído</strong>
@@ -303,7 +303,6 @@ export default function Home() {
                   </div>
 
                   <div className="pricing-card-section">
-                    <span>Inclui</span>
                     <ul>
                       <li>Até cinco páginas organizadas</li>
                       <li>Navegação completa entre páginas</li>
@@ -426,7 +425,7 @@ export default function Home() {
           <div className="final-cta-grid">
             <p>Responda três perguntas para eu entender o negócio, o objetivo e a direção visual antes da conversa.</p>
             <div className="brief-actions">
-              <Link className="button button-primary" href="/projeto/">Responder 3 perguntas</Link>
+              <Link className="button button-primary button-action" href="/projeto/">Responder 3 perguntas</Link>
               <a className="button button-secondary button-arrow" href={directContact} target="_blank" rel="noreferrer">
                 Ir direto para o WhatsApp
               </a>
