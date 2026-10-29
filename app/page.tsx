@@ -53,7 +53,6 @@ export default function Home() {
         <section className="hero-v3 shell" aria-labelledby="hero-title">
           <div className="hero-topline hero-enter">
             <span>Criação de sites para empresas</span>
-            <span>Conceito em até 48h · site em até 7 dias úteis</span>
           </div>
 
           <div className="hero-grid">
@@ -373,7 +372,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <dl className="about-facts-v3" data-line-draw>
+              <dl className="about-facts-v3">
                 <div><dt>Atendimento</dt><dd>Direto comigo</dd></div>
                 <div><dt>Conceito visual</dt><dd>Até 48 horas</dd></div>
                 <div><dt>Entrega</dt><dd>Até 7 dias úteis</dd></div>
