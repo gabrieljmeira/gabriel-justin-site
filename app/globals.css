@@ -2947,3 +2947,13 @@ a.commercial-strip-item {
     font-size: .86rem;
   }
 }
+
+/* Hero proof position: use the upper-right negative space */
+@media (min-width: 760px) {
+  .hero-proof-editorial {
+    align-self: start;
+    justify-self: end;
+    margin-top: clamp(6px, 1.4vw, 18px);
+    margin-bottom: 0;
+  }
+}
