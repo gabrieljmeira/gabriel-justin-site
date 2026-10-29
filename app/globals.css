@@ -3822,3 +3822,43 @@ a.commercial-strip-item {
 .about-facts-v3 > div::after {
   display: none;
 }
+
+/* ===== V4.6 hero title safe bounds ===== */
+/* Keep the masked entrance animation, but give serif overhangs and accents room on every edge. */
+.hero-title-v3 {
+  width: fit-content;
+  max-width: 100%;
+  line-height: .96;
+  letter-spacing: -.03em;
+}
+
+.hero-line {
+  width: max-content;
+  max-width: calc(100vw - 32px);
+  overflow: hidden;
+  white-space: nowrap;
+  padding: .13em .1em .14em;
+  margin: -.13em -.1em -.08em;
+}
+
+.hero-line > span {
+  display: block;
+  line-height: .96;
+  padding: .01em .015em .035em;
+}
+
+.hero-line-accent {
+  padding-right: .14em;
+}
+
+@media (min-width: 760px) {
+  .hero-line {
+    max-width: calc(100vw - 64px);
+  }
+}
+
+@media (min-width: 900px) {
+  .hero-line {
+    max-width: min(100%, 760px);
+  }
+}
