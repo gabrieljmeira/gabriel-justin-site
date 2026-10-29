@@ -153,7 +153,7 @@ export default function Home() {
                 <h2 id="formats-title">Duas estruturas, objetivos diferentes.</h2>
               </header>
 
-              <div className="format-list" data-line-draw>
+              <div className="format-list">
                 <article className="format-row">
                   <div>
                     <h3>Landing page</h3>
@@ -209,7 +209,7 @@ export default function Home() {
                       <li>Design personalizado e responsivo</li>
                       <li>Integração com WhatsApp</li>
                       <li>Domínio e hospedagem por 1 ano</li>
-                      <li>Primeiro conceito visual em até 48 horas</li>
+                      <li>Primeiro conceito visual em até 48h</li>
                     </ul>
                   </div>
 
@@ -249,7 +249,7 @@ export default function Home() {
                 </article>
               </div>
 
-              <div className="commercial-conditions" data-line-draw>
+              <div className="commercial-conditions">
                 <article>
                   <span>Depois do primeiro ano</span>
                   <strong>R$ 300/ano</strong>
@@ -307,7 +307,7 @@ export default function Home() {
 
               <dl className="about-facts-v3">
                 <div><dt>Atendimento</dt><dd>Direto comigo</dd></div>
-                <div><dt>Conceito visual</dt><dd>Até 48 horas</dd></div>
+                <div><dt>Conceito visual</dt><dd>Até 48h</dd></div>
                 <div><dt>Entrega</dt><dd>Até 7 dias úteis</dd></div>
                 <div><dt>Prioridade</dt><dd>Mobile-first</dd></div>
               </dl>
@@ -327,7 +327,7 @@ export default function Home() {
                 <p>Respostas rápidas para as dúvidas mais comuns antes de iniciar um projeto.</p>
               </header>
 
-              <div className="faq-list" data-line-draw>
+              <div className="faq-list">
                 {faq.map((item) => (
                   <details className="faq-item" key={item.question}>
                     <summary>
@@ -349,7 +349,6 @@ export default function Home() {
         <section className="final-cta shell reveal-section" id="contato" aria-labelledby="start-title">
           <div className="final-cta-index">
             <span>Começar</span>
-            <span>3 perguntas</span>
           </div>
 
           <h2 id="start-title">Conte sobre o site que sua empresa precisa.</h2>
