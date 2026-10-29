@@ -30,6 +30,19 @@ button, a, input, textarea { -webkit-tap-highlight-color: transparent; }
 button { color: inherit; }
 ::selection { background: var(--accent); color: #111213; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.skip-link {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 100;
+  padding: 10px 14px;
+  background: var(--accent);
+  color: #111213;
+  font-weight: 700;
+  transform: translateY(-160%);
+  transition: transform 160ms ease;
+}
+.skip-link:focus { transform: translateY(0); }
 
 .shell { width: min(100% - 32px, var(--max)); margin-inline: auto; }
 .shell-narrow { width: min(100% - 32px, 780px); margin-inline: auto; }
@@ -143,10 +156,13 @@ button { color: inherit; }
 
 .hero-facts { border-top: 1px solid var(--line); }
 .fact { padding: 22px 0; border-bottom: 1px solid var(--line); display: grid; gap: 8px; }
+.fact-strong { position: relative; padding-left: 18px; }
+.fact-strong::before { content: ""; position: absolute; inset: 18px auto 18px 0; width: 2px; background: var(--accent); }
 .fact-label { color: var(--muted); font-size: 0.78rem; }
 .fact strong { font-size: clamp(1.5rem, 8vw, 2.65rem); letter-spacing: -0.05em; font-weight: 560; font-style: normal; }
 .fact em { color: var(--accent); font-style: normal; }
-.fact-strong strong { font-size: clamp(1.7rem, 9vw, 3.15rem); }
+.fact-strong strong { font-size: clamp(2.15rem, 11vw, 3.75rem); }
+.fact-note { color: var(--muted); font-size: 0.72rem; line-height: 1.4; }
 .hero-line { margin-top: auto; height: 1px; background: var(--line); transform-origin: left; animation: line-in 850ms 250ms both cubic-bezier(.2,.8,.2,1); }
 
 .section { padding-top: 88px; padding-bottom: 88px; }
@@ -176,6 +192,7 @@ button { color: inherit; }
 .process-grid strong { color: var(--accent); font-weight: 680; }
 .process-highlight { position: relative; }
 .process-highlight::before { content: ""; position: absolute; left: 0; top: -1px; height: 2px; width: 92px; background: var(--accent); }
+.process-note { margin: 24px 0 0; max-width: 760px; color: var(--muted); font-size: 0.82rem; line-height: 1.55; }
 
 .pricing-head { margin-bottom: 34px; }
 .pricing-grid { display: grid; gap: 14px; }
@@ -227,6 +244,7 @@ button { color: inherit; }
 .question-heading { display: grid; grid-template-columns: 30px 1fr; gap: 12px; margin-bottom: 36px; }
 .question-heading > span { color: var(--accent); font-size: 0.72rem; padding-top: 7px; }
 .question-heading h1 { margin: 0; font-size: clamp(2.15rem, 10vw, 3.8rem); line-height: 0.98; letter-spacing: -0.06em; font-weight: 600; }
+.question-heading h1:focus { outline: none; }
 .question-heading p { margin: 14px 0 0; color: var(--muted); line-height: 1.55; }
 .briefing-form label, .briefing-form fieldset { display: grid; gap: 9px; margin: 0 0 24px; padding: 0; border: 0; color: var(--text); font-size: 0.86rem; }
 .briefing-form legend { margin-bottom: 10px; font-size: 0.86rem; }
@@ -306,7 +324,7 @@ button { color: inherit; }
   .hero-actions, .brief-actions { grid-template-columns: auto auto; justify-content: start; }
   .button { padding-inline: 22px; }
   .fact strong { font-size: 2rem; }
-  .fact-strong strong { font-size: 2.45rem; }
+  .fact-strong strong { font-size: 3.05rem; }
   .section { padding-top: 120px; padding-bottom: 120px; }
   .section-head { grid-template-columns: 180px 1fr; align-items: start; gap: 28px; }
   .section-head h2, .section-head > p:last-child:not(.eyebrow) { grid-column: 2; }
