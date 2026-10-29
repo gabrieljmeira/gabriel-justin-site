@@ -14,6 +14,7 @@ const nav = [
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -43,12 +44,19 @@ export function Header() {
     };
   }, [open]);
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const contactUrl = whatsappUrl(
     "Olá, Gabriel! Vi seu site e gostaria de conversar sobre a criação de um site para o meu negócio."
   );
 
   return (
-    <header className="site-header">
+    <header className={`site-header ${scrolled ? "is-scrolled" : ""}`}>
       <div className="shell header-inner">
         <Link className="brand" href="/" aria-label="Gabriel Justin, página inicial">
           Gabriel Justin<span className="brand-dot">.</span>
@@ -79,9 +87,8 @@ export function Header() {
 
       <div id="mobile-menu" className={`mobile-menu ${open ? "is-open" : ""}`} aria-hidden={!open}>
         <nav aria-label="Navegação mobile">
-          {nav.map(([label, href], index) => (
+          {nav.map(([label, href]) => (
             <a key={href} href={href} onClick={() => setOpen(false)}>
-              <span className="menu-index">0{index + 1}</span>
               <span>{label}</span>
             </a>
           ))}
