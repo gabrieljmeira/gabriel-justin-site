@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SiteMotion } from "@/components/SiteMotion";
+import { ProcessStepper } from "@/components/ProcessStepper";
 import { whatsappUrl } from "@/lib/site";
 
 const directContact = whatsappUrl(
@@ -315,45 +316,7 @@ export default function Home() {
                 <h2 id="process-title">Um processo curto e visível do início ao site no ar.</h2>
               </header>
 
-              <div className="timeline" aria-label="Etapas do projeto">
-                <div className="timeline-track" aria-hidden="true"><span /></div>
-
-                <article className="timeline-step">
-                  <span className="timeline-dot">01</span>
-                  <div>
-                    <h3>Briefing</h3>
-                    <p>Você explica o negócio, o objetivo do site e compartilha os materiais que já possui.</p>
-                  </div>
-                  <small>Início</small>
-                </article>
-
-                <article className="timeline-step timeline-key">
-                  <span className="timeline-dot">02</span>
-                  <div>
-                    <h3>Conceito visual</h3>
-                    <p>Apresento uma primeira direção visual para alinharmos o caminho do projeto.</p>
-                  </div>
-                  <small>até <b>48h</b></small>
-                </article>
-
-                <article className="timeline-step">
-                  <span className="timeline-dot">03</span>
-                  <div>
-                    <h3>Desenvolvimento</h3>
-                    <p>Com a direção definida, construo as páginas e implemento o escopo combinado.</p>
-                  </div>
-                  <small>Produção</small>
-                </article>
-
-                <article className="timeline-step timeline-key">
-                  <span className="timeline-dot">04</span>
-                  <div>
-                    <h3>Publicação</h3>
-                    <p>Faço a finalização técnica e coloco o site no ar.</p>
-                  </div>
-                  <small>até <b>7 dias úteis</b></small>
-                </article>
-              </div>
+              <ProcessStepper />
 
               <p className="timeline-note">Os prazos começam após a confirmação do projeto e o recebimento dos materiais necessários.</p>
             </div>
