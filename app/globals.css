@@ -3797,3 +3797,28 @@ a.commercial-strip-item {
 .footer-whatsapp {
   display: none !important;
 }
+
+/* ===== V4.5 hero meta + about cleanup ===== */
+.hero-topline {
+  justify-content: flex-start;
+}
+
+/* Prevent serif copy from feeling clipped at line edges */
+.about-lead {
+  overflow: visible;
+}
+
+.about-lead p {
+  overflow: visible;
+  line-height: 1.34;
+  padding-bottom: .06em;
+}
+
+/* Remove the remaining visible rule in About */
+.about-facts-v3 > div {
+  padding-bottom: 0;
+}
+
+.about-facts-v3 > div::after {
+  display: none;
+}
