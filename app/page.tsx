@@ -5,6 +5,9 @@ import { SiteMotion } from "@/components/SiteMotion";
 import { ProcessStepper } from "@/components/ProcessStepper";
 import { SITE, whatsappUrl } from "@/lib/site";
 import hero from "./Hero.module.css";
+import { DesktopOrbs } from "@/components/DesktopOrbs";
+import { DeadlineCounter } from "@/components/DeadlineCounter";
+import desktop from "@/components/DesktopVisuals.module.css";
 
 const directContact = whatsappUrl(
   "Olá, Gabriel! Vi seu site e gostaria de conversar sobre a criação de um site para o meu negócio."
@@ -16,27 +19,11 @@ const questionsContact = whatsappUrl(
 
 const faq = [
   { question: "Como é feito o pagamento?", answer: "O projeto inicial é pago por Pix, com valor e escopo combinados antes do início. A renovação anual de domínio e hospedagem, a partir do segundo ano, pode ser paga por Pix ou cartão." },
-  { question: "Quanto custa cada formato?", answer: "A landing page profissional custa de R$ 600 a R$ 900. O site institucional, com até cinco páginas, custa de R$ 1.000 a R$ 1.600. O valor final depende do escopo combinado." },
   { question: "E se eu ainda não tiver logo ou materiais?", answer: "Conte o que você já possui. Os materiais necessários são alinhados antes do início; criação de logo e serviços adicionais não estão incluídos automaticamente." },
   {
     question: "Qual é a diferença entre uma landing page e um site institucional?",
     answer:
       "A landing page concentra a comunicação em uma única página e funciona bem para um serviço, campanha ou oferta específica. O site institucional organiza a empresa em até cinco páginas, com espaço para apresentar serviços, informações e contato de forma mais completa.",
-  },
-  {
-    question: "Quando começa a contar o prazo de entrega?",
-    answer:
-      "O prazo começa após a confirmação do projeto e o recebimento dos materiais necessários para iniciar, como informações da empresa, textos disponíveis, logo e imagens que já existirem.",
-  },
-  {
-    question: "O domínio fica no meu nome?",
-    answer:
-      "Sim. O domínio é registrado em seu nome e fica vinculado ao seu negócio.",
-  },
-  {
-    question: "O que acontece depois do primeiro ano?",
-    answer:
-      "O primeiro ano de domínio e hospedagem está incluído no valor do projeto. A partir do segundo ano, a renovação desses dois itens custa R$ 300 por ano, com pagamento por Pix ou cartão.",
   },
 ];
 
@@ -63,11 +50,12 @@ export default function Home() {
     <>
       <Header />
       <SiteMotion />
-      <main id="conteudo">
+      <main id="conteudo" className={desktop.page}>
+        <DesktopOrbs />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
         <section className={`hero-v3 ${hero.hero}`} aria-labelledby="hero-title">
           <div className={hero.shell}>
-          <div className={`${hero.topline} hero-enter`}>
+          <div className={hero.topline}>
             <span>Criação de sites com atendimento online</span>
           </div>
 
@@ -79,7 +67,7 @@ export default function Home() {
               </h1>
 
               <p className={hero.deadline}>Prazo contado após a confirmação do projeto e o recebimento dos materiais necessários.</p>
-              <div className={`${hero.copy} hero-enter delay-2`}>
+              <div className={hero.copy}>
                 <p>
                   Landing pages e sites institucionais para apresentar sua empresa e facilitar pedidos de orçamento.
                 </p>
@@ -95,10 +83,10 @@ export default function Home() {
               </div>
             </div>
 
-            <aside className={`${hero.proof} hero-enter delay-2`} aria-label="Prazo do primeiro conceito visual">
+            <aside className={hero.proof} aria-label="Prazo do primeiro conceito visual">
               <p className={hero.kicker}>Primeiro conceito visual</p>
               <div className={hero.proofMain}>
-                <strong className={hero.value}><span>em até</span>48h</strong>
+                <DeadlineCounter className={hero.value} numberClassName={hero.counter} />
                 <p className={hero.side}>
                   Domínio + hospedagem
                   <br />
@@ -110,23 +98,6 @@ export default function Home() {
           </div>
         </section>
 
-        <div className="commercial-band">
-        <section className="commercial-strip shell reveal-section" aria-label="Informações principais">
-          <div className="commercial-strip-item">
-            <span>Primeiro conceito visual</span>
-            <strong>Em até 48h</strong>
-          </div>
-          <div className="commercial-strip-item">
-            <span>Prazo de entrega</span>
-            <strong>Até 7 dias úteis</strong>
-          </div>
-          <div className="commercial-strip-item">
-            <span>Domínio + hospedagem</span>
-            <strong>1º ano incluído</strong>
-          </div>
-        </section>
-
-        </div>
         <section className="section-base section-services reveal-section" id="servicos" aria-labelledby="services-title">
           <div className="shell editorial-grid">
             <div className="section-rail">
@@ -160,47 +131,11 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section-formats reveal-section" id="formatos" aria-labelledby="formats-title">
-          <div className="shell editorial-grid">
-            <div className="section-rail">
-              <p className="eyebrow">Formatos de site</p>
-            </div>
-
-            <div className="section-content">
-              <header className="section-heading formats-heading">
-                <h2 id="formats-title">Uma página ou até cinco, conforme o seu objetivo.</h2>
-              </header>
-
-              <div className="format-list">
-                <article className="format-row">
-                  <div>
-                    <h3>Landing page</h3>
-                    <p>Uma página focada em apresentar uma oferta, serviço ou campanha e levar o visitante ao contato.</p>
-                  </div>
-                  <span>1 página</span>
-                  <a href="#valores" className="format-link">Ver valores <span aria-hidden="true">↘</span></a>
-                </article>
-
-                <article className="format-row">
-                  <div>
-                    <h3>Site institucional</h3>
-                    <p>Até cinco páginas para apresentar sua empresa, seus serviços e as formas de contato.</p>
-                  </div>
-                  <span>Até 5 páginas</span>
-                  <a href="#valores" className="format-link">Ver valores <span aria-hidden="true">↘</span></a>
-                </article>
-              </div>
-            </div>
-          </div>
-        </section>
-
-
         <section className="section-base reveal-section" id="demonstracoes" aria-labelledby="examples-title">
           <div className="shell editorial-grid">
             <div className="section-rail"><p className="eyebrow">Demonstrações</p></div>
             <div className="section-content">
               <header className="section-heading"><h2 id="examples-title">Veja como o conteúdo pode ser organizado.</h2></header>
-              <p className="form-note">Exemplos autorais de estrutura e conteúdo. Não representam clientes reais, projetos entregues ou resultados de vendas.</p>
               <div className="format-list">
                 <article className="format-row"><div><h3>Landing page</h3><p>Uma oferta apresentada em uma página, com caminho direto para o contato.</p></div><span>Demonstrativo</span><Link className="format-link" href="/demonstracoes/landing-page/">Ver exemplo <span aria-hidden="true">↗</span></Link></article>
                 <article className="format-row"><div><h3>Site institucional</h3><p>Uma prévia de como organizar empresa, serviços e contato.</p></div><span>Demonstrativo</span><Link className="format-link" href="/demonstracoes/institucional/">Ver exemplo <span aria-hidden="true">↗</span></Link></article>
@@ -240,10 +175,7 @@ export default function Home() {
 
                   <div className="pricing-card-section">
                     <ul>
-                      <li>Design personalizado e responsivo</li>
                       <li>Integração com WhatsApp</li>
-                      <li>Domínio e hospedagem por 1 ano</li>
-                      <li>Primeiro conceito visual em até 48h</li>
                     </ul>
                   </div>
 
@@ -273,8 +205,6 @@ export default function Home() {
                     <ul>
                       <li>Até cinco páginas organizadas</li>
                       <li>Navegação completa entre páginas</li>
-                      <li>Design personalizado e responsivo</li>
-                      <li>Domínio e hospedagem por 1 ano</li>
                     </ul>
                   </div>
 
@@ -284,8 +214,11 @@ export default function Home() {
                 </article>
               </div>
 
-              <p className="form-note pricing-payment">Investimento inicial: pagamento por Pix. O valor final é combinado antes do início, conforme o escopo. Domínio e hospedagem estão incluídos no primeiro ano.</p>
+              <div className="pricing-included">
+                <p>Nos dois formatos: design personalizado e responsivo, domínio e hospedagem por 1 ano.</p>
+              </div>
               <div className="commercial-conditions">
+                <article><span>Pagamento inicial</span><strong>Pix</strong><p>Valor final e escopo combinados antes do início.</p></article>
                 <article>
                   <span>Renovação a partir do 2º ano</span>
                   <strong>R$ 300/ano</strong>
@@ -314,7 +247,6 @@ export default function Home() {
 
               <ProcessStepper />
 
-              <p className="timeline-note">Os prazos começam após a confirmação do projeto e o recebimento dos materiais necessários.</p>
             </div>
           </div>
         </section>
@@ -333,7 +265,6 @@ export default function Home() {
               <div className="about-copy-grid">
                 <div className="about-lead">
                   <p>Sou Gabriel Justin. Desenvolvo landing pages e sites institucionais e cuido do projeto até a publicação.</p>
-                  <p>Organizo o conteúdo, desenvolvo as páginas e cuido do domínio e da hospedagem dentro do escopo combinado.</p>
                 </div>
 
                 <div className="about-method">
@@ -341,12 +272,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <dl className="about-facts-v3">
-                <div><dt>Atendimento</dt><dd>Direto comigo</dd></div>
-                <div><dt>Formato</dt><dd>Online</dd></div>
-                <div><dt>Projeto</dt><dd>Até a publicação</dd></div>
-                <div><dt>Prioridade</dt><dd>Fácil de usar no celular</dd></div>
-              </dl>
+
             </div>
           </div>
         </section>
@@ -401,7 +327,7 @@ export default function Home() {
           </div>
         </section>
       </main>
-      <Footer />
+      <Footer decorativeOrbs />
     </>
   );
 }

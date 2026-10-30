@@ -35,15 +35,11 @@ export function SiteMotion() {
     function setup() {
       clear();
       if (preference.matches) return;
-      // Sample the original expo.out curve; native animations keep headings in
-      // the accessibility tree and avoid a scroll/animation JavaScript runtime.
-      const keyframes = Array.from({ length: 21 }, (_, i) => {
-        const progress = i / 20;
-        const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-        return { offset: progress, opacity: eased, transform: `translateY(${24 * (1 - eased)}px)` };
-      });
+      // A short displacement and shared easing keep section entrances calm.
+      const keyframes = [{ opacity: 0, transform: "translateY(12px)" }, { opacity: 1, transform: "translateY(0)" }];
+      const easing = getComputedStyle(document.documentElement).getPropertyValue("--ease-editorial").trim() || "ease-out";
       root?.querySelectorAll<HTMLElement>(selectors).forEach((element) => {
-        const animation = element.animate(keyframes, { duration: MOTION.reveal * 1000, fill: "both" });
+        const animation = element.animate(keyframes, { duration: MOTION.reveal * 1000, easing, fill: "both" });
         animation.pause();
         animation.currentTime = 0;
         animation.onfinish = () => { animation.cancel(); animations.delete(animation); };

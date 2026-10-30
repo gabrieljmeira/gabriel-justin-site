@@ -1,0 +1,67 @@
+.falling { display: none; }
+.orb {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--accent) 75%, white), var(--accent) 32%, color-mix(in srgb, var(--accent) 30%, var(--bg)) 78%);
+  box-shadow: inset -3px -4px 7px color-mix(in srgb, var(--bg) 60%, transparent), 0 0 14px var(--accent-soft);
+}
+.snowFooter.snowFooter { position: relative; isolation: isolate; overflow: clip; padding-bottom: 76px; }
+.pile { position: absolute; left: 50%; bottom: 0; width: min(100%, 640px); height: 56px; transform: translateX(-50%); pointer-events: none; opacity: .7; }
+
+@media (min-width: 900px) and (hover: hover) and (pointer: fine) {
+  .falling {
+    display: block;
+    position: fixed;
+    inset: var(--header-h) 0 0;
+    overflow: clip;
+    z-index: 4;
+    pointer-events: none;
+  }
+  .falling .orb { top: 0; opacity: .5; }
+
+  .page :global(.service-capabilities article) {
+    position: relative;
+    isolation: isolate;
+  }
+  .page :global(.service-capabilities article)::after {
+    content: "";
+    position: absolute;
+    inset: -12px;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: 12px;
+    background: linear-gradient(125deg, color-mix(in srgb, var(--accent) 5%, transparent), transparent 75%);
+    opacity: 0;
+    transition: opacity var(--dur-panel) var(--ease-base);
+  }
+  .page :global(.service-capabilities article):hover::after { opacity: 1; }
+  .page :global(.format-row) {
+    position: relative;
+  }
+  .page :global(.format-row)::after {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--accent);
+    pointer-events: none;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--dur-panel) var(--ease-enter);
+  }
+  .page :global(.format-row):hover::after,
+  .page :global(.format-row):focus-within::after { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .falling { display: none; }
+  .page :global(.format-row)::after { transition: none; }
+}
+
+@media (max-width: 899px) {
+  .pile { opacity: .4; }
+  .pile .orb { transform: scale(.65); transform-origin: bottom; }
+}

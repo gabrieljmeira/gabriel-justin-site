@@ -28,7 +28,7 @@ for (const route of routes) {
   }
 }
 const home = htmlFor("/");
-for (const text of ["600 a R$", "900", "1.000 a R$", "1.600", "300/ano", "Investimento inicial: pagamento por Pix", "7 dias úteis", "48h", "Registrado em seu nome", "atendimento online", "Pagamento por Pix ou cartão", "Renovação a partir do 2º ano", "Demonstrativo"])
+for (const text of ["600 a R$", "900", "1.000 a R$", "1.600", "300/ano", "Pagamento inicial", "Pix", "7 dias úteis", "48h", "Registrado em seu nome", "atendimento online", "Pagamento por Pix ou cartão", "Renovação a partir do 2º ano", "Demonstrativo"])
   assert.ok(home.toLowerCase().includes(text.toLowerCase()), `business term: ${text}`);
 const json = home.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
 assert.ok(json, "structured data present");

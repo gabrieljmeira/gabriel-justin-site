@@ -4287,3 +4287,30 @@ main {
 }
 
 .step-enter { animation: response-in var(--dur-panel) var(--ease-enter) both; }
+
+/* Part 2: calm entrances and readable content at narrow widths. */
+:root { --ease-editorial: cubic-bezier(.22, .61, .36, 1); }
+.pricing-included { margin-top: 28px; color: var(--text-soft); line-height: 1.65; }
+.pricing-included p { margin: 0; }
+.pricing-included + .commercial-conditions { margin-top: 24px; }
+#demonstracoes .format-list { margin-top: 28px; }
+.question-heading { grid-template-columns: 30px minmax(0, 1fr); }
+.question-heading > div, .briefing-field, .briefing-references { min-width: 0; }
+.question-heading h1 { line-height: 1.08; overflow-wrap: anywhere; }
+.briefing-form .form-actions .button { padding: 14px 16px; line-height: 1.5; height: auto; }
+.briefing-form > .form-note { margin: 16px 0; }
+.briefing-summary { clear: both; padding-block: 8px; }
+.references-toggle { flex-wrap: wrap; line-height: 1.5; }
+.field-hint, .form-error { overflow-wrap: anywhere; }
+.legal-header { flex-wrap: wrap; gap: 12px 24px; min-height: 76px; height: auto; padding-block: 12px; }
+.legal-header > .brand { flex-shrink: 0; }
+.legal-header .back-home { max-width: 100%; white-space: normal; }
+@media (max-width: 520px) {
+  .question-heading { grid-template-columns: 1fr; gap: 8px; margin-bottom: 28px; }
+  .question-heading > span { padding: 0; }
+  .question-heading h1 { font-size: clamp(2rem, 8.6vw, 2.65rem); }
+  .briefing-form .form-actions { grid-template-columns: 1fr; gap: 12px; }
+  .briefing-form .form-actions .button-primary { grid-row: 1; }
+  .legal-header { align-items: start; flex-direction: column; flex-wrap: nowrap; }
+  .legal-content h1 { overflow-wrap: anywhere; line-height: 1.08; }
+}

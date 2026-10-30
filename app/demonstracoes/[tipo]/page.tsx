@@ -45,11 +45,9 @@ export default async function ExamplePage({ params }: { params: Promise<{ tipo: 
       <header className="legal-header"><Link className="brand" href="/">Gabriel Justin<span className="brand-dot">.</span></Link><Link className="back-home" href="/#demonstracoes">Voltar às demonstrações</Link></header>
       <article className="legal-content">
         <p className="eyebrow">{example.title}</p>
-        <p className="form-note">Projeto demonstrativo autoral. Não representa cliente, empresa real ou resultado de vendas. Os textos abaixo ilustram uma estrutura e serão personalizados em cada projeto.</p>
         <h1>{example.headline}</h1><p>{example.intro}</p>
         <div className="legal-summary">{example.sections.map(([title, text]) => <section key={title}><h2>{title}</h2><p>{text}</p></section>)}</div>
         <Link className="button button-primary" href={`/projeto/?formato=${tipo}`}>Quero conversar sobre este formato</Link>
-        <p className="form-note">Você será levado ao briefing de Gabriel Justin. Nenhum contato é enviado automaticamente.</p>
       </article>
     </main>
   );

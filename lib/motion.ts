@@ -1,2 +1,2 @@
-// Keep the existing 550ms reveal duration. The expo.out curve is sampled by SiteMotion.
-export const MOTION = { reveal: 0.55 } as const;
+// Durations are seconds; CSS owns the shared editorial easing curve.
+export const MOTION = { reveal: 0.7, counter: 0.95 } as const;

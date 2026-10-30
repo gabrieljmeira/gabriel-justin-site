@@ -1,5 +1,7 @@
 /* Layout from codex/design-editorial-a-48h; colors and controls from main. */
 .hero.hero {
+  --dur-hero: 900ms;
+  --delay-hero: 120ms;
   /* main's sticky header already occupies its height in the document flow. */
   padding-top: 32px;
   padding-bottom: 56px;
@@ -106,6 +108,8 @@
   letter-spacing: -.02em;
 }
 
+.value > .counter { margin: 0; font-size: inherit; line-height: inherit; letter-spacing: inherit; font-variant-numeric: tabular-nums; min-width: 2.5ch; }
+
 .side {
   max-width: 19ch;
   margin: 0;
@@ -161,6 +165,32 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
- .title { animation: title-enter var(--dur-slow) var(--ease-enter) both; }
+ .title { animation: title-enter var(--dur-hero) var(--ease-editorial) both; }
+ .topline { animation: title-enter var(--dur-hero) var(--ease-editorial) both; }
+ .deadline, .copy { animation: title-enter var(--dur-hero) var(--delay-hero) var(--ease-editorial) both; }
+ .proof { animation: title-enter var(--dur-hero) var(--dur-panel) var(--ease-editorial) both; }
 }
 @keyframes title-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  .delivery { position: relative; }
+  .delivery::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -.06em;
+    height: 1px;
+    background: currentColor;
+    opacity: .45;
+    transform-origin: left;
+    animation: delivery-draw var(--dur-slow) var(--dur-panel) var(--ease-enter) both;
+  }
+}
+
+@keyframes delivery-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+@media (min-width: 900px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .value { transition: transform var(--dur-panel) var(--ease-base); }
+  .proof:hover .value { transform: translateY(-3px); }
+}

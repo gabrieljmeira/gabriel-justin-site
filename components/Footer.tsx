@@ -1,11 +1,18 @@
 import Link from "next/link";
 import { whatsappUrl } from "@/lib/site";
+import visuals from "./DesktopVisuals.module.css";
 
-export function Footer() {
+export function Footer({ decorativeOrbs = false }: { decorativeOrbs?: boolean }) {
   const contactUrl = whatsappUrl("Olá, Gabriel! Gostaria de conversar sobre um novo site.");
 
   return (
-    <footer className="site-footer">
+    <footer className={`site-footer ${decorativeOrbs ? visuals.snowFooter : ""}`}>
+      {decorativeOrbs && <div className={visuals.pile} aria-hidden="true">
+        {Array.from({ length: 36 }, (_, i) => <span key={i} className={visuals.orb} style={{
+          left: `${(i % 18) * (94 / 17) + Math.floor(i / 18) * 2}%`, bottom: `${Math.floor(i / 18) * 16 - 8 + (i % 3) * 2}px`,
+          width: `${28 + (i * 7) % 15}px`, height: `${28 + (i * 7) % 15}px`,
+        }} />)}
+      </div>}
       <div className="shell footer-compact">
         <div className="footer-signature">
           <p className="footer-brand">Gabriel Justin<span>.</span></p>
