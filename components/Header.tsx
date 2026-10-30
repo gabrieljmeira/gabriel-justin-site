@@ -8,6 +8,7 @@ const nav = [
   ["Serviços", "#servicos"],
   ["Formatos", "#formatos"],
   ["Valores", "#valores"],
+  ["Demonstrações", "#demonstracoes"],
   ["Processo", "#processo"],
   ["Sobre", "#sobre"],
 ] as const;
