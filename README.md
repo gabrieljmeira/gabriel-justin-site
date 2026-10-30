@@ -50,3 +50,5 @@ As duas páginas /demonstracoes/ são exemplos autorais de organização de cont
 CI valida o lockfile, dependências, testes, tipos, exportação, termos comerciais e links. Cabeçalhos são configurados em vercel.json. A CSP limita objetos, base, enquadramento e envio de formulários; não é uma política estrita de scripts. HTTPS/HSTS e o cache efetivo devem ser verificados no host real.
 
 CSS: foram removidas apenas regras de projetos antigos sem marcação correspondente. A cascata visual restante foi preservada para a Parte 1. As animações usam IntersectionObserver e Web Animations, mantendo a duração de 550ms e a curva expo.out amostrada. Os títulos permanecem na árvore de acessibilidade; há limpeza ao navegar ou mudar a preferência de movimento. GSAP e @gsap/react foram removidos.
+
+A imagem de compartilhamento é gerada em public/social.png antes do build, com extensão PNG para que o host entregue o tipo de conteúdo correto. A fonte visual está em scripts/generate-social-image.mjs.

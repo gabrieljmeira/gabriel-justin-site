@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/generate-social-image.mjs && next build",
     "typecheck": "tsc --noEmit",
     "verify": "node scripts/verify-export.mjs",
     "test": "node --test scripts/briefing.test.mjs",

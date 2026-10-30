@@ -25,15 +25,6 @@
           "value": "object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'none'"
         }
       ]
-    },
-    {
-      "source": "/opengraph-image/:path*",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "image/png"
-        }
-      ]
     }
   ]
 }
