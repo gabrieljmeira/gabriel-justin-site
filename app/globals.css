@@ -536,14 +536,9 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 22px); }
       var(--surface-2) calc(100% - 80px),
       #181a19 100%);
 }
-.projects-heading { margin-bottom: 54px; }
 .concept-list {
   display: grid;
   gap: 56px;
-}
-.concept-project {
-  display: grid;
-  gap: 20px;
 }
 .concept-meta {
   display: grid;
@@ -1833,12 +1828,6 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 22px); }
     grid-template-columns: 42px minmax(0, 1fr) 32px;
   }
   .quick-offer strong { font-size: 1.8rem; }
-
-  .concept-project {
-    grid-template-columns: 190px minmax(0, 1fr);
-    gap: 30px;
-    align-items: start;
-  }
   .concept-frame { min-height: 320px; }
   .mock-browser { min-height: 278px; }
 
@@ -1921,11 +1910,6 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 22px); }
   .service-use { margin-left: 0; }
   .service-use { padding-top: 5px; }
 
-  .concept-project {
-    grid-template-columns: 210px minmax(0, 1fr);
-    gap: 38px;
-  }
-
   .about-facts-v3 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1997,9 +1981,6 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 22px); }
   .quick-offer:hover .quick-arrow {
     color: var(--accent);
     transform: translate(3px, 3px);
-  }
-  .concept-project:hover .mock-browser {
-    transform: translateY(-3px);
   }
   .mock-browser { transition: transform 220ms ease; }
   .faq-item summary:hover strong { color: var(--accent); }
@@ -2393,7 +2374,6 @@ main {
 }
 
 /* Projects */
-.projects-heading { margin-bottom: clamp(40px, 5vw, 58px); }
 .concept-list { gap: clamp(52px, 7vw, 82px); }
 .concept-meta { gap: var(--space-3); }
 .concept-meta h3 {
@@ -2705,11 +2685,6 @@ main {
     gap: clamp(48px, 6vw, 86px);
     align-items: start;
     padding: 36px 0;
-  }
-
-  .concept-project {
-    grid-template-columns: 220px minmax(0, 1fr);
-    gap: clamp(38px, 5vw, 64px);
   }
 }
 
@@ -4277,3 +4252,21 @@ main {
 @media (min-width: 1800px) {
   :root { --max: 1320px; }
 }
+
+/* Briefing recovery controls reuse the existing typography, colors and buttons. */
+.briefing-field { margin-bottom: 24px; }
+.briefing-field > label { margin-bottom: 9px; }
+.field-hint { margin: 6px 0 0; }
+.briefing-draft { margin-top: 32px; padding-top: 18px; border-top: 1px solid var(--line-soft); }
+.draft-choice { display: flex; align-items: flex-start; gap: 10px; font-size: .8rem; line-height: 1.5; color: var(--text); cursor: pointer; }
+.draft-choice input { flex: 0 0 auto; margin-top: 3px; accent-color: var(--accent); }
+.briefing-draft .form-note { margin: 10px 0; }
+.briefing-draft button { background: transparent; cursor: pointer; text-align: left; }
+.briefing-summary { margin: 20px 0; }
+.briefing-summary summary { cursor: pointer; margin-bottom: 12px; }
+.briefing-summary label { margin-bottom: 9px; }
+.briefing-copy { width: 100%; margin-top: 12px; }
+.pricing-range { font-size: .8rem; line-height: 1.6; color: var(--muted); margin-top: 12px; }
+.pricing-payment { margin-top: 20px; }
+.button:disabled { opacity: .5; cursor: not-allowed; }
+.briefing-form .form-actions .button { min-width: 0; white-space: normal; text-align: center; }

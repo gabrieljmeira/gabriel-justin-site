@@ -5,23 +5,68 @@ on:
     branches: [main]
   pull_request:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 24
           cache: npm
+      - name: Restore Next build cache
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
+        with:
+          path: .next/cache
+          key: ${{ runner.os }}-next-${{ hashFiles('package-lock.json') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-next-${{ hashFiles('package-lock.json') }}-
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
+      - name: Dependency security check
+        run: npm audit --audit-level=high
+      - name: Test briefing and contact
+        run: npm test
       - name: Typecheck
         run: npm run typecheck
       - name: Build
         run: npm run build
       - name: Verify exported site
         run: npm run verify
+
+      - name: Measure mobile and desktop performance
+        continue-on-error: true
+        run: |
+          mkdir -p lighthouse-results
+          npm run preview > lighthouse-results/preview.log 2>&1 &
+          node -e 'for(let i=0;i<30;i++){try{if((await fetch("http://127.0.0.1:4173/")).ok)process.exit(0)}catch{}await new Promise(r=>setTimeout(r,300))}process.exit(1)' --input-type=module
+          for profile in mobile desktop; do
+            for run in 1 2 3; do
+              if [ "$profile" = desktop ]; then
+                npm exec --yes --package=lighthouse@13.6.0 -- lighthouse http://127.0.0.1:4173/ --preset=desktop --chrome-flags="--headless=new" --quiet --output=json --output-path="lighthouse-results/$profile-$run.json" --only-categories=performance,accessibility,best-practices,seo
+              else
+                npm exec --yes --package=lighthouse@13.6.0 -- lighthouse http://127.0.0.1:4173/ --chrome-flags="--headless=new" --quiet --output=json --output-path="lighthouse-results/$profile-$run.json" --only-categories=performance,accessibility,best-practices,seo
+              fi
+            done
+          done
+          node scripts/summarize-lighthouse.mjs
+      - name: Upload performance evidence
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: lighthouse-${{ github.sha }}
+          path: lighthouse-results/
+          retention-days: 14
+          if-no-files-found: ignore

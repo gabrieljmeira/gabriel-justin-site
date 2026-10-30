@@ -1,213 +1,227 @@
 "use client";
 
-import { FormEvent, useEffect, useRef, useState } from "react";
-import { whatsappUrl } from "@/lib/site";
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import { SITE, whatsappUrl } from "@/lib/site";
+import {
+  LIMITS, MAX_WHATSAPP_URL, DRAFT_KEY, DRAFT_TTL, initialData,
+  buildMessage, parseDraft, parseFormat, validateAll, validateStep, formatLabels,
+  type BriefingData, type BriefingErrors,
+} from "@/lib/briefing";
 
-type FormData = {
-  businessName: string;
-  businessDescription: string;
-  goal: string;
-  hasLogo: "sim" | "nao" | "";
-  references: string;
+type FieldProps = {
+  name: keyof typeof LIMITS; label: string; value: string; placeholder: string;
+  rows?: number; error?: string; onChange: (value: string) => void;
 };
-
-const initialData: FormData = {
-  businessName: "",
-  businessDescription: "",
-  goal: "",
-  hasLogo: "",
-  references: "",
-};
+function Field({ name, label, value, placeholder, rows, error, onChange }: FieldProps) {
+  const common = {
+    id: name, value, placeholder, maxLength: LIMITS[name],
+    "aria-invalid": Boolean(error),
+    "aria-describedby": `${name}-hint${error ? ` ${name}-error` : ""}`,
+    onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => onChange(event.target.value),
+  };
+  return (
+    <div className="briefing-field">
+      <label htmlFor={name}>{label}</label>
+      {rows ? <textarea {...common} rows={rows} /> : <input {...common} type="text" autoComplete="organization" />}
+      <p id={`${name}-hint`} className="form-note field-hint">Até {LIMITS[name]} caracteres.</p>
+      {error && <p id={`${name}-error`} className="form-error" role="alert">{error}</p>}
+    </div>
+  );
+}
 
 export function ProjectBriefing() {
   const [step, setStep] = useState(1);
-  const [data, setData] = useState<FormData>(initialData);
-  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
+  const [data, setData] = useState<BriefingData>(initialData);
+  const [errors, setErrors] = useState<BriefingErrors>({});
   const [referencesOpen, setReferencesOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const showReferences = referencesOpen;
+  const [saveDraft, setSaveDraft] = useState(false);
+  const [ready, setReady] = useState(false);
+  const [draftStatus, setDraftStatus] = useState("");
+  const [copyStatus, setCopyStatus] = useState("");
+  const [summaryOpen, setSummaryOpen] = useState(false);
+  const [expiresAt, setExpiresAt] = useState(0);
   const headingRef = useRef<HTMLHeadingElement>(null);
+  const restoredDraftRef = useRef(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const messageRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    headingRef.current?.focus({ preventScroll: true });
-  }, [step]);
+    const requestedFormat = parseFormat(new URLSearchParams(window.location.search).get("formato"));
+    try {
+      const raw = sessionStorage.getItem(DRAFT_KEY);
+      const draft = parseDraft(raw);
+      if (draft) {
+        restoredDraftRef.current = true;
+        const restored = { ...draft.data, format: requestedFormat || draft.data.format };
+        setData(restored); setStep(draft.step); setSaveDraft(true);
+        setExpiresAt(draft.expiresAt); setReferencesOpen(Boolean(restored.references));
+        setDraftStatus("Rascunho recuperado nesta aba.");
+      } else {
+        if (raw) { sessionStorage.removeItem(DRAFT_KEY); setDraftStatus("O rascunho anterior expirou ou não pôde ser recuperado."); }
+        setData({ ...initialData, format: requestedFormat });
+      }
+    } catch {
+      setData({ ...initialData, format: requestedFormat });
+      setDraftStatus("O navegador não permite guardar rascunhos. Você pode continuar sem salvar.");
+    }
+    setReady(true);
+  }, []);
 
-  function validate() {
-    const nextErrors: Partial<Record<keyof FormData, string>> = {};
-    if (step === 1) {
-      if (data.businessName.trim().length < 2) nextErrors.businessName = "Informe o nome do negócio com pelo menos 2 caracteres.";
-      if (data.businessDescription.trim().length < 10) nextErrors.businessDescription = "Descreva o que a empresa faz com pelo menos 10 caracteres.";
+  useEffect(() => {
+    if (!ready || !saveDraft) return;
+    if (restoredDraftRef.current) { restoredDraftRef.current = false; return; }
+    try {
+      const expiry = Date.now() + DRAFT_TTL;
+      sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ version: 1, expiresAt: expiry, step, data }));
+      setExpiresAt(expiry);
+      setDraftStatus("Rascunho guardado nesta aba por até 2 horas sem alterações.");
+    } catch {
+      setSaveDraft(false);
+      setDraftStatus("Não foi possível guardar o rascunho. As respostas continuam nesta página.");
     }
-    if (step === 2 && data.goal.trim().length < 10) nextErrors.goal = "Descreva o objetivo do site com pelo menos 10 caracteres.";
-    if (step === 3 && !data.hasLogo) nextErrors.hasLogo = "Escolha se você já possui uma logo para continuar.";
-    setErrors(nextErrors);
-    if (Object.keys(nextErrors).length) {
-      requestAnimationFrame(() => containerRef.current?.querySelector<HTMLElement>('input[aria-invalid="true"], textarea[aria-invalid="true"]')?.focus());
-      return false;
-    }
-    return true;
+  }, [data, step, saveDraft, ready]);
+
+  useEffect(() => {
+    if (!saveDraft || !expiresAt) return;
+    const timer = window.setTimeout(() => {
+      try { sessionStorage.removeItem(DRAFT_KEY); } catch { /* Storage may be blocked after opt-in. */ }
+      setSaveDraft(false);
+      setDraftStatus("O rascunho salvo expirou. As respostas abertas nesta página continuam disponíveis.");
+    }, Math.max(0, expiresAt - Date.now()));
+    return () => window.clearTimeout(timer);
+  }, [saveDraft, expiresAt]);
+
+  useEffect(() => { if (ready) headingRef.current?.focus({ preventScroll: true }); }, [step, ready]);
+
+  function update<K extends keyof BriefingData>(key: K, value: BriefingData[K]) {
+    setData((current) => ({ ...current, [key]: value }));
+    setErrors((current) => ({ ...current, [key]: undefined }));
+    setCopyStatus("");
   }
-
+  function focusInvalid() {
+    requestAnimationFrame(() => containerRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus());
+  }
+  function validate(all = false) {
+    const found = all ? validateAll(data) : validateStep(data, step);
+    setErrors(found);
+    if (!Object.keys(found).length) return true;
+    if (found.businessName || found.businessDescription) setStep(1);
+    else if (found.goal) setStep(2);
+    focusInvalid();
+    return false;
+  }
   function moveTo(nextStep: number) {
-    setErrors({});
-    setStep(nextStep);
-    if (nextStep === 3 && data.references.length > 0) setReferencesOpen(true);
-    // Explicit JS scrolling must honor the same preference as the CSS guard.
+    setErrors({}); setStep(nextStep); setCopyStatus("");
+    if (nextStep === 3 && data.references) setReferencesOpen(true);
     window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
   }
-
   function next(event: FormEvent) {
     event.preventDefault();
     if (validate()) moveTo(Math.min(3, step + 1));
   }
+  function toggleDraft(enabled: boolean) {
+    setSaveDraft(enabled);
+    if (!enabled) {
+      try { sessionStorage.removeItem(DRAFT_KEY); } catch { /* In-memory answers remain usable. */ }
+      setDraftStatus("Rascunho salvo removido. As respostas permanecem apenas nesta página.");
+    }
+  }
+  function clearDraft() {
+    try { sessionStorage.removeItem(DRAFT_KEY); } catch { /* No persistence is required for the form. */ }
+    setSaveDraft(false); setData(initialData); setStep(1); setErrors({});
+    setReferencesOpen(false); setSummaryOpen(false); setCopyStatus("");
+    setDraftStatus("Respostas e rascunho apagados.");
+  }
 
-  function back() { moveTo(Math.max(1, step - 1)); }
-
-  const message = [
-    "Olá, Gabriel! Preenchi o briefing do seu site e gostaria de conversar sobre meu projeto.",
-    "",
-    `1. Negócio: ${data.businessName}`,
-    data.businessDescription,
-    "",
-    `2. O que quero com o site: ${data.goal}`,
-    "",
-    `3. Já tenho logo: ${data.hasLogo === "sim" ? "Sim" : "Não"}`,
-    data.references.trim() ? `Referências: ${data.references}` : "Referências: ainda não separei referências.",
-  ].join("\n");
+  const message = buildMessage(data);
+  const contact = whatsappUrl(message);
+  const complete = !Object.keys(validateAll(data)).length;
+  const tooLong = contact.length > MAX_WHATSAPP_URL;
+  async function copyMessage() {
+    if (!validate(true)) return;
+    try {
+      await navigator.clipboard.writeText(message);
+      setCopyStatus("Mensagem copiada. Cole na conversa com Gabriel.");
+    } catch {
+      setSummaryOpen(true);
+      setCopyStatus("A cópia automática não está disponível. Selecione o texto no resumo e copie manualmente.");
+      requestAnimationFrame(() => { messageRef.current?.focus(); messageRef.current?.select(); });
+    }
+  }
 
   return (
     <div ref={containerRef} className="briefing-card">
       <div className="briefing-progress" aria-label={`Etapa ${step} de 3`}>
-        <div className="briefing-progress-meta">
-          <span>Seu projeto</span>
-          <span>0{step} / 03</span>
-        </div>
+        <div className="briefing-progress-meta"><span>Seu projeto</span><span>0{step} / 03</span></div>
         <div className="progress-track" aria-hidden="true"><span style={{ transform: `scaleX(${step / 3})` }} /></div>
       </div>
-
-      {step === 1 && (
-        <form className="briefing-form" onSubmit={next}>
-          <div className="question-heading">
-            <span>01</span>
-            <div>
-              <h1 ref={headingRef} tabIndex={-1}>Qual é o seu negócio?</h1>
-              <p>Me diga o nome e, em poucas palavras, o que a empresa faz.</p>
-            </div>
-          </div>
-          <label>
-            Nome do negócio
-            <input
-              type="text"
-              autoComplete="organization"
-              placeholder="Ex.: Bella Eventos"
-              value={data.businessName}
-              id="businessName" aria-invalid={Boolean(errors.businessName)} aria-describedby={errors.businessName ? "businessName-error" : undefined}
-              onChange={(e) => { setData({ ...data, businessName: e.target.value }); setErrors((current) => ({ ...current, businessName: undefined })); }}
-            />
-          </label>
-          {errors.businessName && <span id="businessName-error" className="form-error" role="alert">{errors.businessName}</span>}
-          <label>
-            O que vocês fazem?
-            <textarea
-              rows={5}
-              placeholder="Ex.: Alugamos um espaço para aniversários, casamentos e eventos corporativos."
-              value={data.businessDescription}
-              id="businessDescription" aria-invalid={Boolean(errors.businessDescription)} aria-describedby={errors.businessDescription ? "businessDescription-error" : undefined}
-              onChange={(e) => { setData({ ...data, businessDescription: e.target.value }); setErrors((current) => ({ ...current, businessDescription: undefined })); }}
-            />
-          </label>
-          {errors.businessDescription && <span id="businessDescription-error" className="form-error" role="alert">{errors.businessDescription}</span>}
-          <div className="form-actions single">
-            <button className="button button-primary" type="submit">Continuar</button>
-          </div>
-        </form>
-      )}
-
-      {step === 2 && (
-        <form className="briefing-form" onSubmit={next}>
-          <div className="question-heading">
-            <span>02</span>
-            <div>
-              <h1 ref={headingRef} tabIndex={-1}>O que você quer com o site?</h1>
-              <p>Pense no principal resultado que o site precisa ajudar a alcançar.</p>
-            </div>
-          </div>
-          <label>
-            Objetivo principal
-            <textarea
-              rows={7}
-              placeholder="Ex.: Quero receber mais pedidos de orçamento pelo WhatsApp e apresentar melhor os serviços da empresa."
-              value={data.goal}
-              id="goal" aria-invalid={Boolean(errors.goal)} aria-describedby={errors.goal ? "goal-error" : undefined}
-              onChange={(e) => { setData({ ...data, goal: e.target.value }); setErrors((current) => ({ ...current, goal: undefined })); }}
-            />
-          </label>
-          {errors.goal && <span id="goal-error" className="form-error" role="alert">{errors.goal}</span>}
+      {data.format && <p className="form-note">Formato de interesse: {formatLabels[data.format]}. Você pode alinhar os detalhes na conversa.</p>}
+      <form className="briefing-form" onSubmit={next} noValidate>
+        {step === 1 && <>
+          <div className="question-heading"><span>01</span><div>
+            <h1 ref={headingRef} tabIndex={-1}>Qual é o seu negócio?</h1>
+            <p>Me diga o nome e, em poucas palavras, o que a empresa faz.</p>
+          </div></div>
+          <Field name="businessName" label="Nome do negócio" value={data.businessName} placeholder="Ex.: Bella Eventos" error={errors.businessName} onChange={(v) => update("businessName", v)} />
+          <Field name="businessDescription" label="O que vocês fazem?" value={data.businessDescription} placeholder="Ex.: Alugamos um espaço para aniversários, casamentos e eventos corporativos." rows={5} error={errors.businessDescription} onChange={(v) => update("businessDescription", v)} />
+          <div className="form-actions single"><button className="button button-primary" type="submit">Continuar</button></div>
+        </>}
+        {step === 2 && <>
+          <div className="question-heading"><span>02</span><div>
+            <h1 ref={headingRef} tabIndex={-1}>O que você quer com o site?</h1>
+            <p>Pense no principal resultado que o site precisa ajudar a alcançar.</p>
+          </div></div>
+          <Field name="goal" label="Objetivo principal" value={data.goal} placeholder="Ex.: Quero receber pedidos de orçamento pelo WhatsApp e apresentar os serviços da empresa." rows={7} error={errors.goal} onChange={(v) => update("goal", v)} />
           <div className="form-actions">
-            <button className="button button-secondary" type="button" onClick={back}>Voltar</button>
+            <button className="button button-secondary" type="button" onClick={() => moveTo(1)}>Voltar</button>
             <button className="button button-primary" type="submit">Continuar</button>
           </div>
-        </form>
-      )}
-
-      {step === 3 && (
-        <div className="briefing-form">
-          <div className="question-heading">
-            <span>03</span>
-            <div>
-              <h1 ref={headingRef} tabIndex={-1}>Qual direção visual você gosta?</h1>
-              <p>Informe se já possui logo e, se puder, envie dois ou três sites que considera bonitos.</p>
-            </div>
-          </div>
-
-          <fieldset>
-            <legend>Você já possui uma logo?</legend>
+        </>}
+        {step === 3 && <>
+          <div className="question-heading"><span>03</span><div>
+            <h1 ref={headingRef} tabIndex={-1}>Você já tem logo e sites de referência?</h1>
+            <p>As referências são opcionais. Compartilhe sites que tenham o estilo que você procura.</p>
+          </div></div>
+          <fieldset><legend>Você já possui uma logo?</legend>
             <div className="radio-grid">
-              <label className={data.hasLogo === "sim" ? "radio-option selected" : "radio-option"}>
-                <input type="radio" name="logo" value="sim" aria-invalid={Boolean(errors.hasLogo)} aria-describedby={errors.hasLogo ? "hasLogo-error" : undefined} checked={data.hasLogo === "sim"} onChange={() => { setData({ ...data, hasLogo: "sim" }); setErrors({}); }} />
-                <span>Sim, já tenho</span>
+              <label className={`radio-option${data.hasLogo === "sim" ? " selected" : ""}`}>
+                <input type="radio" name="logo" value="sim" checked={data.hasLogo === "sim"} aria-invalid={Boolean(errors.hasLogo)} aria-describedby={errors.hasLogo ? "hasLogo-error" : undefined} onChange={() => update("hasLogo", "sim")} /><span>Sim, já tenho</span>
               </label>
-              <label className={data.hasLogo === "nao" ? "radio-option selected" : "radio-option"}>
-                <input type="radio" name="logo" value="nao" aria-invalid={Boolean(errors.hasLogo)} aria-describedby={errors.hasLogo ? "hasLogo-error" : undefined} checked={data.hasLogo === "nao"} onChange={() => { setData({ ...data, hasLogo: "nao" }); setErrors({}); }} />
-                <span>Ainda não</span>
+              <label className={`radio-option${data.hasLogo === "nao" ? " selected" : ""}`}>
+                <input type="radio" name="logo" value="nao" checked={data.hasLogo === "nao"} aria-invalid={Boolean(errors.hasLogo)} aria-describedby={errors.hasLogo ? "hasLogo-error" : undefined} onChange={() => update("hasLogo", "nao")} /><span>Ainda não</span>
               </label>
             </div>
             {errors.hasLogo && <p id="hasLogo-error" className="form-error" role="alert">{errors.hasLogo}</p>}
           </fieldset>
-
           <div className="briefing-references">
-          <button className="references-toggle" type="button" aria-label="Sites de referência (opcional)" aria-expanded={showReferences} aria-controls="reference-fields" onClick={() => setReferencesOpen((open) => !open)}>
-            Sites de referência <span className="optional">opcional</span>
-          </button>
-          <div id="reference-fields" hidden={!showReferences}>
-          <label>
-            Links de referência
-            <textarea
-              rows={5}
-              inputMode="url"
-              placeholder={"Cole os links aqui, um por linha.\nVocê também pode enviar depois pelo WhatsApp."}
-              value={data.references}
-              onChange={(e) => setData({ ...data, references: e.target.value })}
-            />
-          </label>
-
+            <button className="references-toggle" type="button" aria-label="Sites de referência (opcional)" aria-expanded={referencesOpen} aria-controls="reference-fields" onClick={() => setReferencesOpen((open) => !open)}>Sites de referência <span className="optional">opcional</span></button>
+            <div id="reference-fields" hidden={!referencesOpen}>
+              <Field name="references" label="Links de referência" value={data.references} placeholder={"Cole os links aqui, um por linha.\nVocê também pode enviar depois pelo WhatsApp."} rows={5} error={errors.references} onChange={(v) => update("references", v)} />
+            </div>
           </div>
-          </div>
-          <p className="form-note">Se você já tiver uma logo, poderá anexar o arquivo diretamente na conversa do WhatsApp.</p>
+          <p className="form-note">Se já tiver uma logo, você pode anexá-la diretamente na conversa do WhatsApp.</p>
+          <details className="briefing-summary" open={summaryOpen} onToggle={(event) => setSummaryOpen(event.currentTarget.open)}>
+            <summary>Revisar mensagem</summary>
+            <label htmlFor="briefing-message">Mensagem pronta para copiar</label>
+            <textarea id="briefing-message" ref={messageRef} rows={10} readOnly value={message} />
+          </details>
+          {tooLong && <p className="form-error" role="alert">O texto ficou longo para o link do WhatsApp. Reduza as respostas ou copie a mensagem e cole na conversa.</p>}
           <div className="form-actions">
-            <button className="button button-secondary" type="button" onClick={back}>Voltar</button>
-            {data.hasLogo ? (
-              <a className="button button-primary" href={whatsappUrl(message)} target="_blank" rel="noreferrer">
-                Enviar pelo WhatsApp
-              </a>
-            ) : (
-              <button className="button button-primary" type="button" onClick={validate}>
-                Enviar pelo WhatsApp
-              </button>
-            )}
+            <button className="button button-secondary" type="button" onClick={() => moveTo(2)}>Voltar</button>
+            {complete && !tooLong ? <a className="button button-primary" href={contact} target="_blank" rel="noreferrer" onClick={(event) => { if (!validate(true)) event.preventDefault(); }}>Abrir mensagem no WhatsApp</a>
+              : <button className="button button-primary" type="button" disabled={complete && tooLong} onClick={() => validate(true)}>Abrir mensagem no WhatsApp</button>}
           </div>
-        </div>
-      )}
+          <button className="button button-secondary briefing-copy" type="button" onClick={copyMessage}>Copiar mensagem</button>
+          <p className="form-note" role="status">{copyStatus}</p>
+          <p className="form-note">O WhatsApp não abriu? Copie a mensagem e procure Gabriel pelo número <a href={whatsappUrl("Olá, Gabriel! Gostaria de conversar sobre meu projeto.")} target="_blank" rel="noreferrer">{SITE.whatsappDisplay}</a>. O envio precisa ser confirmado na conversa.</p>
+        </>}
+      </form>
+      <div className="briefing-draft">
+        <label className="draft-choice"><input type="checkbox" checked={saveDraft} disabled={!ready} onChange={(event) => toggleDraft(event.target.checked)} /> Guardar rascunho nesta aba por até 2 horas sem alterações</label>
+        <p className="form-note">Opcional. Sem essa opção, recarregar apaga as respostas. Você pode remover o rascunho a qualquer momento.</p>
+        <p className="form-note" role="status">{draftStatus}</p>
+        <button className="editorial-link" type="button" onClick={clearDraft}>Apagar respostas e rascunho</button>
+      </div>
     </div>
   );
 }
