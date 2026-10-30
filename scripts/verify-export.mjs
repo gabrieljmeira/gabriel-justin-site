@@ -43,3 +43,6 @@ assert.ok(existsSync("out/favicon.svg"));
 assert.ok(existsSync("out/opengraph-image"));
 assert.ok(htmlFor("/projeto/").includes("/privacidade/"));
 console.log("Export verified: 5 routes, approved commercial terms, DDD 51, social metadata, schema, internal links and indexing policy.");
+
+const config = JSON.parse(readFileSync("vercel.json", "utf8"));
+assert.ok(config.headers.some((rule) => rule.source.startsWith("/opengraph-image") && rule.headers.some((header) => header.key.toLowerCase() === "content-type" && header.value === "image/png")), "OG image MIME configured for extensionless static export");
