@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 };
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" className={`${inter.variable} ${newsreader.variable}`}>
+    <html lang="pt-BR" data-scroll-behavior="smooth" className={`${inter.variable} ${newsreader.variable}`}>
       <body><a className="skip-link" href="#conteudo">Pular para o conteúdo</a>{children}</body>
     </html>
   );

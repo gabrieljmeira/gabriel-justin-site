@@ -73,12 +73,11 @@ export default function Home() {
           <div className="hero-grid">
             <div className="hero-primary">
               <h1 id="hero-title" className="hero-title-v3" aria-label="Seu site pronto em até 7 dias úteis.">
-                <span className="hero-line"><span>Seu site pronto</span></span>
-                <span className="hero-line"><span>em até</span></span>
-                <span className="hero-line hero-line-accent"><span>7 dias úteis</span></span>
+                <span className="hero-line">Seu site pronto</span>{" "}
+                <span className="hero-line">em até <span className="hero-delivery">7 dias úteis.</span></span>
               </h1>
 
-              <p className="hero-deadline-note">Prazo contado após a confirmação do projeto e o recebimento dos materiais necessários.</p>
+              <p className="hero-deadline-note">Os prazos começam após a confirmação do projeto e o recebimento dos materiais necessários.</p>
               <div className="hero-copy-grid hero-enter delay-2">
                 <p>
                   Landing pages e sites institucionais para apresentar sua empresa e facilitar pedidos de orçamento.
@@ -96,10 +95,9 @@ export default function Home() {
             </div>
 
             <aside className="hero-proof-editorial hero-enter delay-2" aria-label="Prazo do primeiro conceito visual">
-              <p className="hero-proof-kicker">Primeiro conceito visual em até</p>
+              <p className="hero-proof-kicker">Primeiro conceito visual</p>
               <div className="hero-proof-main">
-                <strong className="hero-proof-value">48h</strong>
-                <span className="hero-proof-divider" aria-hidden="true" />
+                <strong className="hero-proof-value"><span>em até</span>48h</strong>
                 <p className="hero-proof-side">
                   Domínio + hospedagem
                   <br />
@@ -111,23 +109,6 @@ export default function Home() {
           </div>
         </section>
 
-        <div className="commercial-band">
-        <section className="commercial-strip shell reveal-section" aria-label="Informações principais">
-          <div className="commercial-strip-item">
-            <span>Primeiro conceito visual</span>
-            <strong>Em até 48h</strong>
-          </div>
-          <div className="commercial-strip-item">
-            <span>Prazo de entrega</span>
-            <strong>Até 7 dias úteis</strong>
-          </div>
-          <div className="commercial-strip-item">
-            <span>Domínio + hospedagem</span>
-            <strong>1º ano incluído</strong>
-          </div>
-        </section>
-
-        </div>
         <section className="section-base section-services reveal-section" id="servicos" aria-labelledby="services-title">
           <div className="shell editorial-grid">
             <div className="section-rail">
@@ -201,7 +182,7 @@ export default function Home() {
             <div className="section-rail"><p className="eyebrow">Demonstrações</p></div>
             <div className="section-content">
               <header className="section-heading"><h2 id="examples-title">Veja como o conteúdo pode ser organizado.</h2></header>
-              <p className="form-note">Exemplos autorais de estrutura e conteúdo. Não representam clientes reais, projetos entregues ou resultados de vendas.</p>
+              <p className="form-note examples-note">Exemplos autorais de estrutura e conteúdo. Não representam clientes reais, projetos entregues ou resultados de vendas.</p>
               <div className="format-list">
                 <article className="format-row"><div><h3>Landing page</h3><p>Uma oferta apresentada em uma página, com caminho direto para o contato.</p></div><span>Demonstrativo</span><Link className="format-link" href="/demonstracoes/landing-page/">Ver exemplo <span aria-hidden="true">↗</span></Link></article>
                 <article className="format-row"><div><h3>Site institucional</h3><p>Uma prévia de como organizar empresa, serviços e contato.</p></div><span>Demonstrativo</span><Link className="format-link" href="/demonstracoes/institucional/">Ver exemplo <span aria-hidden="true">↗</span></Link></article>
@@ -220,6 +201,23 @@ export default function Home() {
               <header className="section-heading pricing-heading">
                 <h2 id="pricing-title">Investimento claro antes de começar.</h2>
               </header>
+
+              <div className="commercial-conditions" aria-label="Pagamento, renovação e domínio">
+                <article className="pricing-payment">
+                  <strong>Investimento inicial: pagamento por Pix.</strong>
+                  <p>O valor final é combinado antes do início, conforme o escopo. Domínio e hospedagem estão incluídos no primeiro ano.</p>
+                </article>
+                <article>
+                  <span>Renovação a partir do 2º ano</span>
+                  <strong className="renewal-price">R$ 300/ano</strong>
+                  <p>Valor anual para renovar domínio e hospedagem. Pagamento por Pix ou cartão.</p>
+                </article>
+                <article>
+                  <span>Titularidade do domínio</span>
+                  <strong>Registrado em seu nome</strong>
+                  <p>O domínio fica vinculado ao cliente, não ao prestador do serviço.</p>
+                </article>
+              </div>
 
               <div className="pricing-cards">
                 <article className="pricing-card">
@@ -285,19 +283,6 @@ export default function Home() {
                 </article>
               </div>
 
-              <p className="form-note pricing-payment">Investimento inicial: pagamento por Pix. O valor final é combinado antes do início, conforme o escopo. Domínio e hospedagem estão incluídos no primeiro ano.</p>
-              <div className="commercial-conditions">
-                <article>
-                  <span>Renovação a partir do 2º ano</span>
-                  <strong>R$ 300/ano</strong>
-                  <p>Valor anual para renovar domínio e hospedagem. Pagamento por Pix ou cartão.</p>
-                </article>
-                <article>
-                  <span>Titularidade do domínio</span>
-                  <strong>Registrado em seu nome</strong>
-                  <p>O domínio fica vinculado ao cliente, não ao prestador do serviço.</p>
-                </article>
-              </div>
             </div>
           </div>
         </section>
