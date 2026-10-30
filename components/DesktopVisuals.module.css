@@ -6,8 +6,13 @@
   background: radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--accent) 75%, white), var(--accent) 32%, color-mix(in srgb, var(--accent) 30%, var(--bg)) 78%);
   box-shadow: inset -3px -4px 7px color-mix(in srgb, var(--bg) 60%, transparent), 0 0 14px var(--accent-soft);
 }
-.snowFooter.snowFooter { position: relative; isolation: isolate; overflow: clip; padding-bottom: 76px; }
-.pile { position: absolute; left: 50%; bottom: 0; width: min(100%, 640px); height: 56px; transform: translateX(-50%); pointer-events: none; opacity: .7; }
+.pile { display: none; }
+
+@media (min-width: 900px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .snowFooter.snowFooter { position: relative; isolation: isolate; overflow: clip; padding-bottom: 76px; }
+  .pile { display: block; position: absolute; left: 50%; bottom: 0; width: min(100%, 640px); height: 56px; transform: translateX(-50%); pointer-events: none; }
+  .pile .orb { opacity: 0; transform: translateY(32px); }
+}
 
 @media (min-width: 900px) and (hover: hover) and (pointer: fine) {
   .falling {
@@ -18,7 +23,7 @@
     z-index: 4;
     pointer-events: none;
   }
-  .falling .orb { top: 0; opacity: .5; }
+  .falling .orb { top: 0; opacity: 0; transform: translateY(-48px); }
 
   .page :global(.service-capabilities article) {
     position: relative;
@@ -59,9 +64,4 @@
 @media (prefers-reduced-motion: reduce) {
   .falling { display: none; }
   .page :global(.format-row)::after { transition: none; }
-}
-
-@media (max-width: 899px) {
-  .pile { opacity: .4; }
-  .pile .orb { transform: scale(.65); transform-origin: bottom; }
 }

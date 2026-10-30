@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { MOTION } from "@/lib/motion";
 import styles from "./DesktopVisuals.module.css";
 
 export function DesktopOrbs() {
@@ -10,37 +11,62 @@ export function DesktopOrbs() {
     if (!layer) return;
     const allowed = matchMedia("(min-width: 900px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)");
     const orbs = Array.from(layer.children) as HTMLElement[];
+    const footer = document.querySelector("footer");
+    const pile = Array.from(footer?.querySelectorAll<HTMLElement>("[data-orb-pile] > span") ?? []);
     let frame = 0;
-    function render() {
+    let elapsed = 0;
+    let previous: number | undefined;
+    let end = 1;
+    let height = 0;
+    let lastProgress = -1;
+    function measure() {
+      height = layer!.clientHeight;
+      end = Math.max(1, (footer?.getBoundingClientRect().bottom ?? innerHeight) + scrollY - innerHeight);
+    }
+    function render(now: number) {
       frame = 0;
-      if (!allowed.matches) return;
-      const footer = document.querySelector("footer");
-      const end = Math.max(1, (footer?.getBoundingClientRect().top ?? 0) + scrollY - innerHeight * .7);
+      if (!allowed.matches || document.hidden) return;
+      elapsed += previous === undefined ? 0 : Math.min(now - previous, 64);
+      previous = now;
       const progress = Math.min(1, Math.max(0, scrollY / end));
       orbs.forEach((orb, i) => {
-        const start = -180 + (i % 4) * 105;
-        const y = start + progress * (innerHeight + 260);
-        const drift = Math.sin(progress * Math.PI * 2 + i) * 5;
+        // Every orb starts above the viewport; time drives the fall even at rest.
+        const travel = elapsed / (MOTION.orbFall * 1000) + progress * .6 - i * .105;
+        const phase = Math.max(0, travel) % 1;
+        const y = -48 + phase * (height + 96);
+        const drift = Math.sin(phase * Math.PI * 2 + i) * 5;
         orb.style.transform = `translate3d(${drift}px, ${y}px, 0)`;
+        orb.style.opacity = String(Math.min(1, phase * 12, (1 - phase) * 8) * .5);
       });
       layer!.style.opacity = String(progress > .9 ? (1 - progress) * 10 : 1);
-    }
-    function schedule() {
-      if (!frame && allowed.matches) frame = requestAnimationFrame(render);
+      if (progress !== lastProgress) {
+        pile.forEach((orb, i) => {
+          const settled = Math.min(1, Math.max(0, progress * pile.length - i));
+          orb.style.opacity = String(settled * .7);
+          orb.style.transform = `translateY(${(1 - settled) * 32}px)`;
+        });
+        lastProgress = progress;
+      }
+      frame = requestAnimationFrame(render);
     }
     function change() {
       cancelAnimationFrame(frame);
       frame = 0;
-      if (allowed.matches) render();
+      previous = undefined;
+      measure();
+      if (allowed.matches && !document.hidden) frame = requestAnimationFrame(render);
     }
     change();
-    addEventListener("scroll", schedule, { passive: true });
-    addEventListener("resize", schedule, { passive: true });
+    const sizeObserver = new ResizeObserver(measure);
+    sizeObserver.observe(document.body);
+    addEventListener("resize", measure, { passive: true });
+    document.addEventListener("visibilitychange", change);
     allowed.addEventListener("change", change);
     return () => {
       cancelAnimationFrame(frame);
-      removeEventListener("scroll", schedule);
-      removeEventListener("resize", schedule);
+      sizeObserver.disconnect();
+      removeEventListener("resize", measure);
+      document.removeEventListener("visibilitychange", change);
       allowed.removeEventListener("change", change);
     };
   }, []);

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SiteMotion } from "@/components/SiteMotion";
+import { SmoothScroll } from "@/components/SmoothScroll";
 import { ProcessStepper } from "@/components/ProcessStepper";
 import { SITE, whatsappUrl } from "@/lib/site";
 import hero from "./Hero.module.css";
@@ -50,6 +51,7 @@ export default function Home() {
     <>
       <Header />
       <SiteMotion />
+      <SmoothScroll />
       <main id="conteudo" className={desktop.page}>
         <DesktopOrbs />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />

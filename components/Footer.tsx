@@ -7,7 +7,7 @@ export function Footer({ decorativeOrbs = false }: { decorativeOrbs?: boolean })
 
   return (
     <footer className={`site-footer ${decorativeOrbs ? visuals.snowFooter : ""}`}>
-      {decorativeOrbs && <div className={visuals.pile} aria-hidden="true">
+      {decorativeOrbs && <div className={visuals.pile} data-orb-pile aria-hidden="true">
         {Array.from({ length: 36 }, (_, i) => <span key={i} className={visuals.orb} style={{
           left: `${(i % 18) * (94 / 17) + Math.floor(i / 18) * 2}%`, bottom: `${Math.floor(i / 18) * 16 - 8 + (i % 3) * 2}px`,
           width: `${28 + (i * 7) % 15}px`, height: `${28 + (i * 7) % 15}px`,

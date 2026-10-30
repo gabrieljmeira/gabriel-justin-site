@@ -13,7 +13,7 @@ export function DeadlineCounter({ className, numberClassName }: { className: str
     let start: number | undefined;
     function tick(now: number) {
       start ??= now;
-      const progress = Math.min(1, (now - start) / (MOTION.counter * 1000));
+      const progress = Math.min(1, Math.max(0, (now - start - MOTION.counterDelay * 1000) / (MOTION.counter * 1000)));
       const value = Math.round(48 * (1 - Math.pow(1 - progress, 3)));
       node!.textContent = `${value}h`;
       if (progress < 1) frame = requestAnimationFrame(tick);

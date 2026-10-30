@@ -1,7 +1,8 @@
 /* Layout from codex/design-editorial-a-48h; colors and controls from main. */
 .hero.hero {
-  --dur-hero: 900ms;
+  --dur-hero: 1100ms;
   --delay-hero: 120ms;
+  --dur-hero-fade: 300ms;
   /* main's sticky header already occupies its height in the document flow. */
   padding-top: 32px;
   padding-bottom: 56px;
@@ -165,12 +166,21 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
- .title { animation: title-enter var(--dur-hero) var(--ease-editorial) both; }
  .topline { animation: title-enter var(--dur-hero) var(--ease-editorial) both; }
+ .line { animation: title-enter var(--dur-hero) var(--ease-editorial) both; }
+ .line + .line { animation-delay: var(--delay-hero); }
  .deadline, .copy { animation: title-enter var(--dur-hero) var(--delay-hero) var(--ease-editorial) both; }
  .proof { animation: title-enter var(--dur-hero) var(--dur-panel) var(--ease-editorial) both; }
 }
 @keyframes title-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  /* Opacity only: retain a gentle entrance without moving or counting text. */
+  .hero .title, .hero .topline, .hero .deadline, .hero .copy, .hero .proof {
+    animation: hero-fade var(--dur-hero-fade) var(--ease-base) both !important;
+  }
+}
+@keyframes hero-fade { from { opacity: 0; } to { opacity: 1; } }
 
 @media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
   .delivery { position: relative; }
