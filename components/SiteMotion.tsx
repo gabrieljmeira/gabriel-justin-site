@@ -8,7 +8,7 @@ export function SiteMotion() {
     const root = document.getElementById("conteudo");
     if (!root || !("IntersectionObserver" in window) || !Element.prototype.animate) return;
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const selectors = [".section-rail", ".section-heading", ".service-capabilities article", ".format-row", ".pricing-card", ".commercial-conditions article", ".about-copy-grid", ".about-facts-v3 > div", ".faq-item"].join(",");
+    const selectors = [".section-rail", ".section-heading", ".service-capabilities article", ".format-row", ".pricing-card", ".commercial-conditions article", ".about-copy-grid", ".about-facts-v3 > div", ".faq-item", ".process-mobile-step"].join(",");
     let observer: IntersectionObserver | undefined;
     const pending = new Map<HTMLElement, Animation>();
     const animations = new Set<Animation>();

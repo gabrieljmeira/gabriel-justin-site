@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { SiteMotion } from "@/components/SiteMotion";
 import { ProcessStepper } from "@/components/ProcessStepper";
 import { SITE, whatsappUrl } from "@/lib/site";
+import hero from "./Hero.module.css";
 
 const directContact = whatsappUrl(
   "Olá, Gabriel! Vi seu site e gostaria de conversar sobre a criação de um site para o meu negócio."
@@ -64,27 +65,26 @@ export default function Home() {
       <SiteMotion />
       <main id="conteudo">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
-        <section className="hero-v3" aria-labelledby="hero-title">
-          <div className="shell">
-          <div className="hero-topline hero-enter">
+        <section className={`hero-v3 ${hero.hero}`} aria-labelledby="hero-title">
+          <div className={hero.shell}>
+          <div className={`${hero.topline} hero-enter`}>
             <span>Criação de sites com atendimento online</span>
           </div>
 
-          <div className="hero-grid">
-            <div className="hero-primary">
-              <h1 id="hero-title" className="hero-title-v3" aria-label="Seu site pronto em até 7 dias úteis.">
-                <span className="hero-line"><span>Seu site pronto</span></span>
-                <span className="hero-line"><span>em até</span></span>
-                <span className="hero-line hero-line-accent"><span>7 dias úteis</span></span>
+          <div className={hero.grid}>
+            <div className={hero.primary}>
+              <h1 id="hero-title" className={hero.title} aria-label="Seu site pronto em até 7 dias úteis.">
+                <span className={hero.line}>Seu site pronto</span>{" "}
+                <span className={hero.line}>em até <span className={hero.delivery}>7 dias úteis</span></span>
               </h1>
 
-              <p className="hero-deadline-note">Prazo contado após a confirmação do projeto e o recebimento dos materiais necessários.</p>
-              <div className="hero-copy-grid hero-enter delay-2">
+              <p className={hero.deadline}>Prazo contado após a confirmação do projeto e o recebimento dos materiais necessários.</p>
+              <div className={`${hero.copy} hero-enter delay-2`}>
                 <p>
                   Landing pages e sites institucionais para apresentar sua empresa e facilitar pedidos de orçamento.
                 </p>
 
-                <div className="hero-actions">
+                <div className={hero.actions}>
                   <a className="button button-primary button-action" href={directContact} target="_blank" rel="noreferrer">
                     Conversar pelo WhatsApp
                   </a>
@@ -95,12 +95,11 @@ export default function Home() {
               </div>
             </div>
 
-            <aside className="hero-proof-editorial hero-enter delay-2" aria-label="Prazo do primeiro conceito visual">
-              <p className="hero-proof-kicker">Primeiro conceito visual em até</p>
-              <div className="hero-proof-main">
-                <strong className="hero-proof-value">48h</strong>
-                <span className="hero-proof-divider" aria-hidden="true" />
-                <p className="hero-proof-side">
+            <aside className={`${hero.proof} hero-enter delay-2`} aria-label="Prazo do primeiro conceito visual">
+              <p className={hero.kicker}>Primeiro conceito visual</p>
+              <div className={hero.proofMain}>
+                <strong className={hero.value}><span>em até</span>48h</strong>
+                <p className={hero.side}>
                   Domínio + hospedagem
                   <br />
                   incluídos no 1º ano

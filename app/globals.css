@@ -4270,3 +4270,20 @@ main {
 .pricing-payment { margin-top: 20px; }
 .button:disabled { opacity: .5; cursor: not-allowed; }
 .briefing-form .form-actions .button { min-width: 0; white-space: normal; text-align: center; }
+
+/* Responsive interaction refinements */
+:root { --dur-press: 120ms; --dur-panel: 220ms; }
+.site-header { backdrop-filter: none; isolation: isolate; }
+.site-header::before { content: ""; position: absolute; inset: 0; z-index: -1; backdrop-filter: blur(9px); pointer-events: none; }
+.site-header.is-scrolled { backdrop-filter: none; }
+.mobile-menu { height: calc(100dvh - var(--header-h)); overflow-y: auto; overscroll-behavior: contain; background: var(--bg); padding-bottom: max(24px, env(safe-area-inset-bottom)); transition-duration: var(--dur-panel); }
+.button:active { transform: scale(.985); transition-duration: var(--dur-press); }
+.footer-privacy { min-height: 44px; display: inline-flex; align-items: center; }
+.faq-item[open] > p { animation: response-in var(--dur-panel) var(--ease-enter) both; }
+@keyframes response-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+ .site-header::before { backdrop-filter: none; }
+ .button:active { transform: none; }
+}
+
+.step-enter { animation: response-in var(--dur-panel) var(--ease-enter) both; }

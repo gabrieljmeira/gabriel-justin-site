@@ -1,0 +1,166 @@
+/* Layout from codex/design-editorial-a-48h; colors and controls from main. */
+.hero.hero {
+  /* main's sticky header already occupies its height in the document flow. */
+  padding-top: 32px;
+  padding-bottom: 56px;
+}
+
+.shell {
+  width: min(calc(100% - 32px), var(--max));
+  margin-inline: auto;
+}
+
+.topline {
+  margin-bottom: 24px;
+  color: var(--muted);
+  font-size: .8125rem;
+  line-height: 1.6;
+}
+
+.grid {
+  display: grid;
+  gap: 32px;
+}
+
+.primary, .copy { min-width: 0; }
+
+.title {
+  margin: 0;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 10.6vw, 3.25rem);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -.035em;
+}
+
+.line { display: block; }
+.delivery {
+  display: inline-block;
+  max-width: 100%;
+  color: var(--accent);
+}
+
+.deadline {
+  max-width: 57ch;
+  margin: 20px 0 0;
+  color: var(--muted);
+  font-size: .875rem;
+  line-height: 1.55;
+}
+
+.copy {
+  display: grid;
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.copy > p {
+  max-width: 50ch;
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.actions { display: grid; gap: 12px; }
+.actions :global(.button) { width: 100%; }
+
+.proof {
+  border-top: 1px solid var(--line);
+  padding-top: 24px;
+}
+
+.kicker {
+  margin: 0;
+  color: var(--muted);
+  font-size: .8125rem;
+  line-height: 1.6;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.proofMain {
+  display: flex;
+  align-items: flex-end;
+  gap: 28px;
+  margin-top: 12px;
+}
+
+.value {
+  display: block;
+  flex-shrink: 0;
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 23vw, 6.5rem);
+  font-weight: 500;
+  letter-spacing: -.06em;
+  line-height: .9;
+}
+
+.value > span {
+  display: block;
+  margin-bottom: 5px;
+  font-size: .3em;
+  line-height: 1.1;
+  letter-spacing: -.02em;
+}
+
+.side {
+  max-width: 19ch;
+  margin: 0;
+  padding-bottom: 3px;
+  color: var(--text-soft);
+  font-size: .875rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 359px) {
+  .proofMain { gap: 18px; }
+  .side { font-size: .8125rem; }
+}
+
+@media (min-width: 760px) {
+  .hero.hero { padding-top: 40px; padding-bottom: 64px; }
+  .shell { width: min(calc(100% - 64px), var(--max)); }
+  .topline { margin-bottom: 32px; }
+  .title { font-size: clamp(3.5rem, 7.5vw, 4.5rem); }
+  .copy > p { font-size: 1.125rem; }
+  .actions { display: flex; flex-wrap: wrap; }
+  .actions :global(.button) { width: auto; min-width: 230px; }
+  .proofMain { align-items: center; gap: 32px; }
+  .value { font-size: 6.5rem; }
+  .side { font-size: 1rem; }
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 48px;
+  }
+  .title { font-size: clamp(4rem, 6.4vw, 6rem); }
+  .copy { gap: 28px; margin-top: 24px; }
+  .deadline { margin-top: 24px; }
+  .proof {
+    border-top: 0;
+    border-left: 1px solid var(--line);
+    padding: 8px 0 0 32px;
+    margin-top: 8px;
+  }
+  .proofMain { display: grid; gap: 28px; margin-top: 20px; }
+  .value { font-size: clamp(6rem, 8.4vw, 8rem); }
+  .side { max-width: 24ch; }
+}
+
+@media (min-width: 1180px) {
+  .hero.hero { padding-top: 48px; padding-bottom: 80px; }
+  .grid { grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 64px; }
+  .proof { padding-left: 40px; }
+  .value { font-size: 8rem; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+ .title { animation: title-enter var(--dur-slow) var(--ease-enter) both; }
+}
+@keyframes title-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }

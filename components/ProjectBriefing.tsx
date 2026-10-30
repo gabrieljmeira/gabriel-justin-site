@@ -158,7 +158,7 @@ export function ProjectBriefing() {
       {data.format && <p className="form-note">Formato de interesse: {formatLabels[data.format]}. Você pode alinhar os detalhes na conversa.</p>}
       <form className="briefing-form" onSubmit={next} noValidate>
         {step === 1 && <>
-          <div className="question-heading"><span>01</span><div>
+          <div key={step} className="question-heading step-enter"><span>01</span><div>
             <h1 ref={headingRef} tabIndex={-1}>Qual é o seu negócio?</h1>
             <p>Me diga o nome e, em poucas palavras, o que a empresa faz.</p>
           </div></div>
@@ -167,7 +167,7 @@ export function ProjectBriefing() {
           <div className="form-actions single"><button className="button button-primary" type="submit">Continuar</button></div>
         </>}
         {step === 2 && <>
-          <div className="question-heading"><span>02</span><div>
+          <div key={step} className="question-heading step-enter"><span>02</span><div>
             <h1 ref={headingRef} tabIndex={-1}>O que você quer com o site?</h1>
             <p>Pense no principal resultado que o site precisa ajudar a alcançar.</p>
           </div></div>
@@ -178,7 +178,7 @@ export function ProjectBriefing() {
           </div>
         </>}
         {step === 3 && <>
-          <div className="question-heading"><span>03</span><div>
+          <div key={step} className="question-heading step-enter"><span>03</span><div>
             <h1 ref={headingRef} tabIndex={-1}>Você já tem logo e sites de referência?</h1>
             <p>As referências são opcionais. Compartilhe sites que tenham o estilo que você procura.</p>
           </div></div>
