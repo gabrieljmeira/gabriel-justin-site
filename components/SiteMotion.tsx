@@ -40,7 +40,7 @@ export function SiteMotion() {
       const keyframes = Array.from({ length: 21 }, (_, i) => {
         const progress = i / 20;
         const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-        return { offset: progress, opacity: eased, transform: `translateY(${24 * (1 - eased)}px)` };
+        return { offset: progress, opacity: eased, transform: `translateY(${10 * (1 - eased)}px)` };
       });
       root?.querySelectorAll<HTMLElement>(selectors).forEach((element) => {
         const animation = element.animate(keyframes, { duration: MOTION.reveal * 1000, fill: "both" });

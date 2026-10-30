@@ -206,12 +206,14 @@ export function ProjectBriefing() {
             <textarea id="briefing-message" ref={messageRef} rows={10} readOnly value={message} />
           </details>
           {tooLong && <p className="form-error" role="alert">O texto ficou longo para o link do WhatsApp. Reduza as respostas ou copie a mensagem e cole na conversa.</p>}
-          <div className="form-actions">
-            <button className="button button-secondary" type="button" onClick={() => moveTo(2)}>Voltar</button>
+          <div className="form-actions form-actions-final">
             {complete && !tooLong ? <a className="button button-primary" href={contact} target="_blank" rel="noreferrer" onClick={(event) => { if (!validate(true)) event.preventDefault(); }}>Abrir mensagem no WhatsApp</a>
               : <button className="button button-primary" type="button" disabled={complete && tooLong} onClick={() => validate(true)}>Abrir mensagem no WhatsApp</button>}
+            <div className="form-secondary-actions">
+              <button className="button button-secondary" type="button" onClick={() => moveTo(2)}>Voltar</button>
+              <button className="button button-secondary briefing-copy" type="button" onClick={copyMessage}>Copiar mensagem</button>
+            </div>
           </div>
-          <button className="button button-secondary briefing-copy" type="button" onClick={copyMessage}>Copiar mensagem</button>
           <p className="form-note" role="status">{copyStatus}</p>
           <p className="form-note">O WhatsApp não abriu? Copie a mensagem e procure Gabriel pelo número <a href={whatsappUrl("Olá, Gabriel! Gostaria de conversar sobre meu projeto.")} target="_blank" rel="noreferrer">{SITE.whatsappDisplay}</a>. O envio precisa ser confirmado na conversa.</p>
         </>}

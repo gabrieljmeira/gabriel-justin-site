@@ -7,8 +7,8 @@ import { whatsappUrl } from "@/lib/site";
 const nav = [
   ["Serviços", "#servicos"],
   ["Formatos", "#formatos"],
-  ["Valores", "#valores"],
   ["Demonstrações", "#demonstracoes"],
+  ["Valores", "#valores"],
   ["Processo", "#processo"],
   ["Sobre", "#sobre"],
 ] as const;
@@ -16,44 +16,62 @@ const nav = [
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-
+    if (!open) return;
+    const previousOverflow = document.body.style.overflow;
     const main = document.querySelector<HTMLElement>("main");
     const footer = document.querySelector<HTMLElement>("footer");
-    if (main) main.inert = open;
-    if (footer) footer.inert = open;
+    const mainWasInert = main?.inert ?? false;
+    const footerWasInert = footer?.inert ?? false;
+    document.body.style.overflow = "hidden";
+    if (main) main.inert = true;
+    if (footer) footer.inert = true;
 
-    if (open) {
-      requestAnimationFrame(() => {
-        mobileMenuRef.current?.querySelector<HTMLAnchorElement>("a")?.focus();
+    let focusFrame = 0;
+    const initialFocus = requestAnimationFrame(() => {
+      focusFrame = requestAnimationFrame(() => {
+        mobileMenuRef.current?.querySelector<HTMLAnchorElement>("a")?.focus({ preventScroll: true });
       });
-    }
-
-    function closeMenu({ restoreFocus = false } = {}) {
-      setOpen(false);
-      if (restoreFocus) requestAnimationFrame(() => menuButtonRef.current?.focus());
-    }
+    });
 
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") closeMenu({ restoreFocus: true });
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setOpen(false);
+        menuButtonRef.current?.focus();
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const targets = Array.from(headerRef.current?.querySelectorAll<HTMLElement>("a[href], button:not([disabled])") ?? [])
+        .filter((element) => element.getClientRects().length > 0);
+      const first = targets[0];
+      const last = targets[targets.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault(); last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault(); first?.focus();
+      }
     }
 
     const desktop = window.matchMedia("(min-width: 900px)");
     function onBreakpoint(event: MediaQueryListEvent) {
-      if (event.matches) closeMenu();
+      if (event.matches) {
+        setOpen(false);
+        headerRef.current?.querySelector<HTMLAnchorElement>(".desktop-nav a")?.focus();
+      }
     }
-
     window.addEventListener("keydown", onKeyDown);
     desktop.addEventListener("change", onBreakpoint);
-
     return () => {
-      document.body.style.overflow = "";
-      if (main) main.inert = false;
-      if (footer) footer.inert = false;
+      cancelAnimationFrame(initialFocus);
+      cancelAnimationFrame(focusFrame);
+      document.body.style.overflow = previousOverflow;
+      if (main) main.inert = mainWasInert;
+      if (footer) footer.inert = footerWasInert;
       window.removeEventListener("keydown", onKeyDown);
       desktop.removeEventListener("change", onBreakpoint);
     };
@@ -71,51 +89,28 @@ export function Header() {
   );
 
   return (
-    <header className={`site-header ${scrolled ? "is-scrolled" : ""}`}>
+    <header ref={headerRef} className={"site-header" + (scrolled ? " is-scrolled" : "")}>
       <div className="shell header-inner">
-        <Link className="brand" href="/" aria-label="Gabriel Justin, página inicial">
+        <Link className="brand" href="/" aria-label="Gabriel Justin, página inicial" onClick={() => setOpen(false)}>
           Gabriel Justin<span className="brand-dot">.</span>
         </Link>
-
         <nav className="desktop-nav" aria-label="Navegação principal">
-          {nav.map(([label, href]) => (
-            <a key={href} href={href}>{label}</a>
-          ))}
+          {nav.map(([label, href]) => <a key={href} href={href}>{label}</a>)}
         </nav>
-
-        <a className="header-contact" href={contactUrl} target="_blank" rel="noreferrer">
-          WhatsApp
-        </a>
-
+        <a className="header-contact" href={contactUrl} target="_blank" rel="noreferrer">WhatsApp</a>
         <button
-          ref={menuButtonRef}
-          className="menu-toggle"
-          type="button"
-          aria-expanded={open}
-          aria-controls="mobile-menu"
+          ref={menuButtonRef} className="menu-toggle" type="button"
+          aria-expanded={open} aria-controls="mobile-menu"
           aria-label={open ? "Fechar menu" : "Abrir menu"}
           onClick={() => setOpen((value) => !value)}
-        >
-          <span>{open ? "Fechar" : "Menu"}</span>
-        </button>
+        >{open ? "Fechar" : "Menu"}</button>
       </div>
-
-      <div ref={mobileMenuRef} id="mobile-menu" className={`mobile-menu ${open ? "is-open" : ""}`} aria-hidden={!open}>
+      <div ref={mobileMenuRef} id="mobile-menu" className={"mobile-menu" + (open ? " is-open" : "")} aria-hidden={!open} inert={!open}>
         <nav aria-label="Navegação mobile">
           {nav.map(([label, href]) => (
-            <a key={href} href={href} onClick={() => setOpen(false)}>
-              <span>{label}</span>
-            </a>
+            <a key={href} href={href} onClick={() => setOpen(false)}>{label}</a>
           ))}
-          <a
-            className="mobile-contact"
-            href={contactUrl}
-            target="_blank"
-            rel="noreferrer"
-            onClick={() => setOpen(false)}
-          >
-            Conversar pelo WhatsApp
-          </a>
+          <a className="mobile-contact button button-primary" href={contactUrl} target="_blank" rel="noreferrer" onClick={() => setOpen(false)}>Conversar pelo WhatsApp</a>
         </nav>
       </div>
     </header>
