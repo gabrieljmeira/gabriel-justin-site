@@ -4,10 +4,12 @@ import { useEffect } from "react";
 import type Lenis from "lenis";
 import "lenis/dist/lenis.css";
 import { MOTION } from "@/lib/motion";
+import { watchMotion } from "@/lib/motion-preference";
 
 export function SmoothScroll() {
   useEffect(() => {
-    const allowed = matchMedia("(min-width: 900px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)");
+    const desktop = matchMedia("(min-width: 900px) and (hover: hover) and (pointer: fine)");
+    let enabled = false;
     let instance: Lenis | undefined;
     let generation = 0;
 
@@ -23,14 +25,16 @@ export function SmoothScroll() {
       const current = ++generation;
       instance?.destroy();
       instance = undefined;
-      if (!allowed.matches) return;
+      if (!enabled || !desktop.matches) return;
       const { default: Lenis } = await import("lenis");
-      if (current !== generation || !allowed.matches) return;
+      if (current !== generation || !enabled || !desktop.matches) return;
       instance = new Lenis({
         autoRaf: true,
         lerp: MOTION.scrollLerp,
         smoothWheel: true,
         syncTouch: false,
+        // The shared preference already respects the OS unless the visitor opts in.
+        respectReducedMotion: false,
         stopInertiaOnNavigate: true,
         // Keep native anchor focus, URL hashes and keyboard navigation.
         anchors: false,
@@ -39,13 +43,14 @@ export function SmoothScroll() {
       });
     }
 
-    void setup();
-    allowed.addEventListener("change", setup);
+    const unsubscribe = watchMotion((state) => { enabled = state.enabled; void setup(); });
+    desktop.addEventListener("change", setup);
     addEventListener("keydown", interrupt, true);
     addEventListener("click", interrupt, true);
     return () => {
       generation++;
-      allowed.removeEventListener("change", setup);
+      desktop.removeEventListener("change", setup);
+      unsubscribe();
       removeEventListener("keydown", interrupt, true);
       removeEventListener("click", interrupt, true);
       instance?.destroy();

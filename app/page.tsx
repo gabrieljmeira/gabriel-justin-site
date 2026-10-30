@@ -3,6 +3,8 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SiteMotion } from "@/components/SiteMotion";
 import { SmoothScroll } from "@/components/SmoothScroll";
+import { HeroEntrance } from "@/components/HeroEntrance";
+import { MotionToggle } from "@/components/MotionToggle";
 import { ProcessStepper } from "@/components/ProcessStepper";
 import { SITE, whatsappUrl } from "@/lib/site";
 import hero from "./Hero.module.css";
@@ -51,25 +53,27 @@ export default function Home() {
     <>
       <Header />
       <SiteMotion />
+      <HeroEntrance />
       <SmoothScroll />
       <main id="conteudo" className={desktop.page}>
         <DesktopOrbs />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
-        <section className={`hero-v3 ${hero.hero}`} aria-labelledby="hero-title">
+        <section className={`hero-v3 ${hero.hero}`} aria-labelledby="hero-title" data-hero>
           <div className={hero.shell}>
-          <div className={hero.topline}>
+          <div className={hero.topline} data-hero-part="0">
             <span>Criação de sites com atendimento online</span>
+            <MotionToggle />
           </div>
 
           <div className={hero.grid}>
             <div className={hero.primary}>
               <h1 id="hero-title" className={hero.title} aria-label="Seu site pronto em até 7 dias úteis.">
-                <span className={hero.line}>Seu site pronto</span>{" "}
-                <span className={hero.line}>em até <span className={hero.delivery}>7 dias úteis</span></span>
+                <span className={hero.line} data-hero-part="0">Seu site pronto</span>{" "}
+                <span className={hero.line} data-hero-part="1">em até <span className={hero.delivery}>7 dias úteis</span></span>
               </h1>
 
-              <p className={hero.deadline}>Prazo contado após a confirmação do projeto e o recebimento dos materiais necessários.</p>
-              <div className={hero.copy}>
+              <p className={hero.deadline} data-hero-part="2">Prazo contado após a confirmação do projeto e o recebimento dos materiais necessários.</p>
+              <div className={hero.copy} data-hero-part="2">
                 <p>
                   Landing pages e sites institucionais para apresentar sua empresa e facilitar pedidos de orçamento.
                 </p>
@@ -85,7 +89,7 @@ export default function Home() {
               </div>
             </div>
 
-            <aside className={hero.proof} aria-label="Prazo do primeiro conceito visual">
+            <aside className={hero.proof} aria-label="Prazo do primeiro conceito visual" data-hero-part="2">
               <p className={hero.kicker}>Primeiro conceito visual</p>
               <div className={hero.proofMain}>
                 <DeadlineCounter className={hero.value} numberClassName={hero.counter} />

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { MOTION } from "@/lib/motion";
+import { watchMotion } from "@/lib/motion-preference";
 import styles from "./DesktopVisuals.module.css";
 
 export function DesktopOrbs() {
@@ -9,7 +10,8 @@ export function DesktopOrbs() {
   useEffect(() => {
     const layer = layerRef.current;
     if (!layer) return;
-    const allowed = matchMedia("(min-width: 900px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)");
+    const desktop = matchMedia("(min-width: 900px) and (hover: hover) and (pointer: fine)");
+    let enabled = false;
     const orbs = Array.from(layer.children) as HTMLElement[];
     const footer = document.querySelector("footer");
     const pile = Array.from(footer?.querySelectorAll<HTMLElement>("[data-orb-pile] > span") ?? []);
@@ -25,7 +27,7 @@ export function DesktopOrbs() {
     }
     function render(now: number) {
       frame = 0;
-      if (!allowed.matches || document.hidden) return;
+      if (!enabled || !desktop.matches || document.hidden) return;
       elapsed += previous === undefined ? 0 : Math.min(now - previous, 64);
       previous = now;
       const progress = Math.min(1, Math.max(0, scrollY / end));
@@ -53,21 +55,23 @@ export function DesktopOrbs() {
       cancelAnimationFrame(frame);
       frame = 0;
       previous = undefined;
+      lastProgress = -1;
       measure();
-      if (allowed.matches && !document.hidden) frame = requestAnimationFrame(render);
+      if (enabled && desktop.matches && !document.hidden) frame = requestAnimationFrame(render);
     }
-    change();
+    const unsubscribe = watchMotion((state) => { enabled = state.enabled; change(); });
     const sizeObserver = new ResizeObserver(measure);
     sizeObserver.observe(document.body);
     addEventListener("resize", measure, { passive: true });
     document.addEventListener("visibilitychange", change);
-    allowed.addEventListener("change", change);
+    desktop.addEventListener("change", change);
     return () => {
       cancelAnimationFrame(frame);
       sizeObserver.disconnect();
       removeEventListener("resize", measure);
       document.removeEventListener("visibilitychange", change);
-      allowed.removeEventListener("change", change);
+      desktop.removeEventListener("change", change);
+      unsubscribe();
     };
   }, []);
   return <div ref={layerRef} className={styles.falling} aria-hidden="true">

@@ -1,8 +1,5 @@
 /* Layout from codex/design-editorial-a-48h; colors and controls from main. */
 .hero.hero {
-  --dur-hero: 1100ms;
-  --delay-hero: 120ms;
-  --dur-hero-fade: 300ms;
   /* main's sticky header already occupies its height in the document flow. */
   padding-top: 32px;
   padding-bottom: 56px;
@@ -14,11 +11,29 @@
 }
 
 .topline {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 20px;
   margin-bottom: 24px;
   color: var(--muted);
   font-size: .8125rem;
   line-height: 1.6;
 }
+
+.motionToggle {
+  padding: 4px 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.motionToggle:hover { color: var(--text); }
+.motionToggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
 
 .grid {
   display: grid;
@@ -165,26 +180,9 @@
   .value { font-size: 8rem; }
 }
 
-@media (prefers-reduced-motion: no-preference) {
- .topline { animation: title-enter var(--dur-hero) var(--ease-editorial) both; }
- .line { animation: title-enter var(--dur-hero) var(--ease-editorial) both; }
- .line + .line { animation-delay: var(--delay-hero); }
- .deadline, .copy { animation: title-enter var(--dur-hero) var(--delay-hero) var(--ease-editorial) both; }
- .proof { animation: title-enter var(--dur-hero) var(--dur-panel) var(--ease-editorial) both; }
-}
-@keyframes title-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-
-@media (prefers-reduced-motion: reduce) {
-  /* Opacity only: retain a gentle entrance without moving or counting text. */
-  .hero .title, .hero .topline, .hero .deadline, .hero .copy, .hero .proof {
-    animation: hero-fade var(--dur-hero-fade) var(--ease-base) both !important;
-  }
-}
-@keyframes hero-fade { from { opacity: 0; } to { opacity: 1; } }
-
-@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+@media (min-width: 900px) {
   .delivery { position: relative; }
-  .delivery::after {
+  :global(html[data-motion="full"]) .hero[data-entered="true"] .delivery::after {
     content: "";
     position: absolute;
     left: 0;
@@ -200,7 +198,7 @@
 
 @keyframes delivery-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
-@media (min-width: 900px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+@media (min-width: 900px) and (hover: hover) and (pointer: fine) {
   .value { transition: transform var(--dur-panel) var(--ease-base); }
-  .proof:hover .value { transform: translateY(-3px); }
+  :global(html[data-motion="full"]) .proof:hover .value { transform: translateY(-3px); }
 }

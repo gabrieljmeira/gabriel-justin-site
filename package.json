@@ -7,7 +7,7 @@
     "build": "node scripts/generate-social-image.mjs && next build",
     "typecheck": "tsc --noEmit",
     "verify": "node scripts/verify-export.mjs",
-    "test": "node --test scripts/briefing.test.mjs",
+    "test": "node --test scripts/briefing.test.mjs scripts/motion-preference.test.mjs",
     "check:headers": "node scripts/check-headers.mjs",
     "preview": "node scripts/serve-export.mjs"
   },

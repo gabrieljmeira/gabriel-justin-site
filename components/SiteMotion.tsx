@@ -2,12 +2,12 @@
 
 import { useEffect } from "react";
 import { MOTION } from "@/lib/motion";
+import { watchMotion } from "@/lib/motion-preference";
 
 export function SiteMotion() {
   useEffect(() => {
     const root = document.getElementById("conteudo");
     if (!root || !("IntersectionObserver" in window) || !Element.prototype.animate) return;
-    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
     const selectors = [".section-rail", ".section-heading", ".service-capabilities article", ".format-row", ".pricing-card", ".commercial-conditions article", ".about-copy-grid", ".about-facts-v3 > div", ".faq-item", ".process-mobile-step"].join(",");
     let observer: IntersectionObserver | undefined;
     const pending = new Map<HTMLElement, Animation>();
@@ -32,9 +32,9 @@ export function SiteMotion() {
       }, { rootMargin: `0px 0px -${Math.round(window.innerHeight * 0.12)}px 0px` });
       pending.forEach((_, element) => observer?.observe(element));
     }
-    function setup() {
+    function setup({ enabled }: { enabled: boolean }) {
       clear();
-      if (preference.matches) return;
+      if (!enabled) return;
       // A short displacement and shared easing keep section entrances calm.
       const keyframes = [{ opacity: 0, transform: "translateY(12px)" }, { opacity: 1, transform: "translateY(0)" }];
       const easing = getComputedStyle(document.documentElement).getPropertyValue("--ease-editorial").trim() || "ease-out";
@@ -48,12 +48,11 @@ export function SiteMotion() {
       });
       observe();
     }
-    setup();
-    preference.addEventListener("change", setup);
+    const unsubscribe = watchMotion(setup);
     window.addEventListener("resize", observe, { passive: true });
     return () => {
       clear();
-      preference.removeEventListener("change", setup);
+      unsubscribe();
       window.removeEventListener("resize", observe);
     };
   }, []);
