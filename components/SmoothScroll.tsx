@@ -33,7 +33,7 @@ export function SmoothScroll() {
         lerp: MOTION.scrollLerp,
         smoothWheel: true,
         syncTouch: false,
-        // The shared preference already respects the OS unless the visitor opts in.
+        // Motion is on by default; the site's pause control owns this preference.
         respectReducedMotion: false,
         stopInertiaOnNavigate: true,
         // Keep native anchor focus, URL hashes and keyboard navigation.
