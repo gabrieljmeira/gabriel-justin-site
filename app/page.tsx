@@ -14,7 +14,7 @@ const questionsContact = whatsappUrl(
 );
 
 const faq = [
-  { question: "Como é feito o pagamento?", answer: "O pagamento é por Pix. O valor e o escopo são combinados antes do início do projeto." },
+  { question: "Como é feito o pagamento?", answer: "O projeto inicial é pago por Pix, com valor e escopo combinados antes do início. A renovação anual de domínio e hospedagem, a partir do segundo ano, pode ser paga por Pix ou cartão." },
   { question: "Quanto custa cada formato?", answer: "A landing page profissional custa de R$ 600 a R$ 900. O site institucional, com até cinco páginas, custa de R$ 1.000 a R$ 1.600. O valor final depende do escopo combinado." },
   { question: "E se eu ainda não tiver logo ou materiais?", answer: "Conte o que você já possui. Os materiais necessários são alinhados antes do início; criação de logo e serviços adicionais não estão incluídos automaticamente." },
   {
@@ -35,7 +35,7 @@ const faq = [
   {
     question: "O que acontece depois do primeiro ano?",
     answer:
-      "Domínio e hospedagem estão incluídos no primeiro ano. A partir do segundo, a renovação custa R$ 300 por ano.",
+      "O primeiro ano de domínio e hospedagem está incluído no valor do projeto. A partir do segundo ano, a renovação desses dois itens custa R$ 300 por ano, com pagamento por Pix ou cartão.",
   },
 ];
 
@@ -52,7 +52,6 @@ const structuredData = {
     ].map((service) => ({
       "@type": "Service", "@id": `${SITE.url}/#${service.id}`,
       name: service.name, provider: { "@id": `${SITE.url}/#gabriel` },
-      areaServed: { "@type": "City", name: "Gravataí" },
       offers: { "@type": "Offer", url: `${SITE.url}/#valores`, priceSpecification: { "@type": "PriceSpecification", priceCurrency: "BRL", minPrice: service.minPrice, maxPrice: service.maxPrice } },
     })),
   ],
@@ -68,7 +67,7 @@ export default function Home() {
         <section className="hero-v3" aria-labelledby="hero-title">
           <div className="shell">
           <div className="hero-topline hero-enter">
-            <span>Criação de sites para empresas de Gravataí e região</span>
+            <span>Criação de sites com atendimento online</span>
           </div>
 
           <div className="hero-grid">
@@ -286,12 +285,12 @@ export default function Home() {
                 </article>
               </div>
 
-              <p className="form-note pricing-payment">Pagamento por Pix. O valor final é combinado antes do início, conforme o escopo.</p>
+              <p className="form-note pricing-payment">Investimento inicial: pagamento por Pix. O valor final é combinado antes do início, conforme o escopo. Domínio e hospedagem estão incluídos no primeiro ano.</p>
               <div className="commercial-conditions">
                 <article>
-                  <span>Depois do primeiro ano</span>
+                  <span>Renovação a partir do 2º ano</span>
                   <strong>R$ 300/ano</strong>
-                  <p>Renovação do domínio e da hospedagem a partir do segundo ano.</p>
+                  <p>Valor anual para renovar domínio e hospedagem. Pagamento por Pix ou cartão.</p>
                 </article>
                 <article>
                   <span>Titularidade do domínio</span>
@@ -345,7 +344,7 @@ export default function Home() {
 
               <dl className="about-facts-v3">
                 <div><dt>Atendimento</dt><dd>Direto comigo</dd></div>
-                <div><dt>Atuação</dt><dd>Gravataí e região</dd></div>
+                <div><dt>Formato</dt><dd>Online</dd></div>
                 <div><dt>Projeto</dt><dd>Até a publicação</dd></div>
                 <div><dt>Prioridade</dt><dd>Fácil de usar no celular</dd></div>
               </dl>
