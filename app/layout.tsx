@@ -6,8 +6,8 @@ import { indexable, pageSocial } from "@/lib/seo";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const newsreader = Newsreader({ subsets: ["latin"], variable: "--font-newsreader", display: "swap" });
-const title = "Criação de sites em Gravataí | Gabriel Justin";
-const description = "Landing pages e sites institucionais para empresas de Gravataí e região. Primeiro conceito em até 48h e entrega em até 7 dias úteis. Fale com Gabriel.";
+const title = "Criação de sites | Gabriel Justin";
+const description = "Landing pages e sites institucionais com atendimento online. Primeiro conceito em até 48h e entrega em até 7 dias úteis. Fale com Gabriel.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url), title, description,

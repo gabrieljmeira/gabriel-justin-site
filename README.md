@@ -33,7 +33,7 @@ A configuração vive em lib/site.ts e lib/seo.ts. Não adicionar Disallow geral
 
 ## Condições comerciais
 
-Landing page: R$ 600–900. Institucional: até cinco páginas, R$ 1.000–1.600. Domínio/hospedagem no primeiro ano; renovação R$ 300/ano. Domínio no nome do cliente, pagamento Pix, conceito em até 48h e entrega em até sete dias úteis após confirmação e materiais. Não adicionar garantias ou serviços sem aprovação.
+Landing page: R$ 600–900. Institucional: até cinco páginas, R$ 1.000–1.600. Domínio/hospedagem no primeiro ano; renovação R$ 300/ano. Domínio no nome do cliente, projeto inicial pago por Pix e renovação anual por Pix ou cartão, conceito em até 48h e entrega em até sete dias úteis após confirmação e materiais. Não adicionar garantias ou serviços sem aprovação.
 
 ## Briefing e privacidade
 
