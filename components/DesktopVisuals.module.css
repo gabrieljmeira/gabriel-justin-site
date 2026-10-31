@@ -1,30 +1,42 @@
 .falling { display: none; }
+.page > :global(section) { isolation: auto; }
+.page > :global(section) > div { position: relative; z-index: 1; }
+.footerSurface { position: relative; isolation: isolate; }
+.particle { position: absolute; top: -64px; left: var(--orb-x); width: var(--orb-size); height: var(--orb-size); }
 .orb {
-  position: absolute;
   display: block;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--accent) 75%, white), var(--accent) 32%, color-mix(in srgb, var(--accent) 30%, var(--bg)) 78%);
-  box-shadow: inset -3px -4px 7px color-mix(in srgb, var(--bg) 60%, transparent), 0 0 14px var(--accent-soft);
-}
-.pile { display: none; }
-
-@media (min-width: 900px) and (hover: hover) and (pointer: fine) {
-  :global(html[data-motion="full"]) .snowFooter.snowFooter { position: relative; isolation: isolate; overflow: clip; padding-bottom: 76px; }
-  :global(html[data-motion="full"]) .pile { display: block; position: absolute; left: 50%; bottom: 0; width: min(100%, 640px); height: 56px; transform: translateX(-50%); pointer-events: none; }
-  .pile .orb { opacity: 0; transform: translateY(32px); }
+  background: radial-gradient(circle at 30% 24%, color-mix(in srgb, var(--accent) 86%, white), var(--accent) 34%, color-mix(in srgb, var(--accent) 30%, var(--bg)) 85%);
+  box-shadow: inset -2px -3px 5px color-mix(in srgb, var(--bg) 55%, transparent), 0 0 12px var(--accent-soft), 0 0 22px var(--accent-soft);
 }
 
-@media (min-width: 900px) and (hover: hover) and (pointer: fine) {
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
   :global(html[data-motion="full"]) .falling {
     display: block;
     position: fixed;
-    inset: var(--header-h) 0 0;
+    inset: 0;
     overflow: clip;
-    z-index: 4;
+    contain: strict;
+    z-index: 0;
     pointer-events: none;
   }
-  .falling .orb { top: 0; opacity: 0; transform: translateY(-48px); }
+  .particle { animation: orb-fall var(--orb-duration) var(--orb-delay) linear infinite; }
+  .orb { animation: orb-sway var(--orb-sway-duration) var(--orb-delay) ease-in-out infinite alternate; }
+}
 
+@keyframes orb-fall {
+  0% { transform: translate3d(0, 0, 0); opacity: 0; }
+  8%, 90% { opacity: var(--orb-opacity); }
+  100% { transform: translate3d(0, calc(100dvh + 128px), 0); opacity: 0; }
+}
+@keyframes orb-sway {
+  from { transform: translateX(calc(-1 * var(--orb-drift))); }
+  to { transform: translateX(var(--orb-drift)); }
+}
+
+@media (min-width: 900px) and (hover: hover) and (pointer: fine) {
   .page :global(.service-capabilities article) {
     position: relative;
     isolation: isolate;

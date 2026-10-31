@@ -7,6 +7,8 @@ export const MOTION = {
   fontWait: 1,
   counter: 0.95,
   counterDelay: 0.3,
-  orbFall: 18,
+  orbFall: 26,
+  orbDepthStep: 6,
+  orbSway: 8,
   scrollLerp: 0.12,
 } as const;
