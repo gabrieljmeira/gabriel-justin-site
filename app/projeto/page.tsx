@@ -20,7 +20,7 @@ export default function ProjetoPage() {
       <div className="shell-narrow briefing-wrap">
         <noscript><p className="form-note">Ative o JavaScript para responder ao briefing ou <a href={whatsappUrl("Olá, Gabriel! Gostaria de conversar sobre meu projeto.")}>converse pelo WhatsApp: {SITE.whatsappDisplay}</a>.</p></noscript>
         <ProjectBriefing />
-        <p className="briefing-privacy">As respostas ficam nesta página. Só guardamos um rascunho nesta aba se você escolher essa opção. Ao abrir o WhatsApp, o texto é incluído no link; você confirma o envio na conversa. <Link href="/privacidade/">Como seus dados são tratados</Link>.</p>
+        <p className="briefing-privacy">Ao abrir o WhatsApp, suas respostas são incluídas no link. Você confirma o envio na conversa. <Link href="/privacidade/">Como seus dados são tratados</Link>.</p>
       </div>
     </main>
   );

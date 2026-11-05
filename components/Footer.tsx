@@ -10,7 +10,6 @@ export function Footer() {
       <div className="shell footer-compact">
         <div className="footer-signature">
           <p className="footer-brand">Gabriel Justin<span>.</span></p>
-          <p className="footer-copy">Landing pages e sites institucionais.</p>
         </div>
 
         <div className="footer-actions">

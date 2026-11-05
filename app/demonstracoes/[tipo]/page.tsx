@@ -6,21 +6,21 @@ const examples = {
   "landing-page": {
     title: "Demonstração de landing page",
     headline: "Uma oferta clara, um contato fácil.",
-    intro: "Este exemplo mostra como uma única página pode apresentar um serviço e conduzir o visitante ao contato.",
+    intro: "Estrutura sugerida para apresentar um serviço em uma única página.",
     sections: [
-      ["O que é oferecido", "Uma descrição direta do serviço, de quem ele atende e do que está incluído."],
-      ["Como funciona", "Explique as etapas para contratar, os materiais necessários e as condições do atendimento."],
-      ["Próximo passo", "Um convite para conversar com a empresa, sem prometer resultados que não podem ser garantidos."],
+      ["O que é oferecido", "Descreva o serviço, quem ele atende e o que está incluído."],
+      ["Como funciona", "Explique a contratação, os materiais necessários e as condições de atendimento."],
+      ["Próximo passo", "Convide o visitante a entrar em contato."],
     ],
   },
   institucional: {
     title: "Demonstração de site institucional",
     headline: "Sua empresa organizada para ser encontrada.",
-    intro: "Esta prévia apresenta a organização do conteúdo de um site institucional. Em um projeto contratado, as informações podem ser distribuídas em até cinco páginas.",
+    intro: "O conteúdo pode ser distribuído em até cinco páginas.",
     sections: [
-      ["Empresa", "Uma apresentação de quem está por trás do negócio, sua área de atuação e a forma de atendimento."],
-      ["Serviços", "Uma visão dos serviços oferecidos, com escopo e informações para o visitante escolher o que procura."],
-      ["Contato", "Canais de atendimento fáceis de localizar e informações comerciais claras antes de iniciar a conversa."],
+      ["Empresa", "Apresente quem está por trás do negócio, a área de atuação e a forma de atendimento."],
+      ["Serviços", "Detalhe o escopo de cada serviço para orientar a escolha do visitante."],
+      ["Contato", "Reúna os canais de atendimento e as informações comerciais."],
     ],
   },
 } as const;

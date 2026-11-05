@@ -74,7 +74,7 @@ export function ProjectBriefing() {
       const expiry = Date.now() + DRAFT_TTL;
       sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ version: 1, expiresAt: expiry, step, data }));
       setExpiresAt(expiry);
-      setDraftStatus("Rascunho guardado nesta aba por até 2 horas sem alterações.");
+      setDraftStatus("Rascunho salvo nesta aba.");
     } catch {
       setSaveDraft(false);
       setDraftStatus("Não foi possível guardar o rascunho. As respostas continuam nesta página.");
@@ -155,12 +155,11 @@ export function ProjectBriefing() {
         <div className="briefing-progress-meta"><span>Seu projeto</span><span>0{step} / 03</span></div>
         <div className="progress-track" aria-hidden="true"><span style={{ transform: `scaleX(${step / 3})` }} /></div>
       </div>
-      {data.format && <p className="form-note">Formato de interesse: {formatLabels[data.format]}. Você pode alinhar os detalhes na conversa.</p>}
+      {data.format && <p className="form-note">Formato de interesse: {formatLabels[data.format]}.</p>}
       <form className="briefing-form" onSubmit={next} noValidate>
         {step === 1 && <>
           <div key={step} className="question-heading step-enter"><span>01</span><div>
             <h1 ref={headingRef} tabIndex={-1}>Qual é o seu negócio?</h1>
-            <p>Me diga o nome e, em poucas palavras, o que a empresa faz.</p>
           </div></div>
           <Field name="businessName" label="Nome do negócio" value={data.businessName} placeholder="Ex.: Bella Eventos" error={errors.businessName} onChange={(v) => update("businessName", v)} />
           <Field name="businessDescription" label="O que vocês fazem?" value={data.businessDescription} placeholder="Ex.: Alugamos um espaço para aniversários, casamentos e eventos corporativos." rows={5} error={errors.businessDescription} onChange={(v) => update("businessDescription", v)} />
@@ -169,7 +168,6 @@ export function ProjectBriefing() {
         {step === 2 && <>
           <div key={step} className="question-heading step-enter"><span>02</span><div>
             <h1 ref={headingRef} tabIndex={-1}>O que você quer com o site?</h1>
-            <p>Pense no principal resultado que o site precisa ajudar a alcançar.</p>
           </div></div>
           <Field name="goal" label="Objetivo principal" value={data.goal} placeholder="Ex.: Quero receber pedidos de orçamento pelo WhatsApp e apresentar os serviços da empresa." rows={7} error={errors.goal} onChange={(v) => update("goal", v)} />
           <div className="form-actions">
@@ -179,8 +177,8 @@ export function ProjectBriefing() {
         </>}
         {step === 3 && <>
           <div key={step} className="question-heading step-enter"><span>03</span><div>
-            <h1 ref={headingRef} tabIndex={-1}>Você já tem logo e sites de referência?</h1>
-            <p>As referências são opcionais. Compartilhe sites que tenham o estilo que você procura.</p>
+            <h1 ref={headingRef} tabIndex={-1}>Logo e referências.</h1>
+            <p>Compartilhe sites com o estilo que você procura.</p>
           </div></div>
           <fieldset><legend>Você já possui uma logo?</legend>
             <div className="radio-grid">
@@ -196,13 +194,13 @@ export function ProjectBriefing() {
           <div className="briefing-references">
             <button className="references-toggle" type="button" aria-label="Sites de referência (opcional)" aria-expanded={referencesOpen} aria-controls="reference-fields" onClick={() => setReferencesOpen((open) => !open)}>Sites de referência <span className="optional">opcional</span></button>
             <div id="reference-fields" hidden={!referencesOpen}>
-              <Field name="references" label="Links de referência" value={data.references} placeholder={"Cole os links aqui, um por linha.\nVocê também pode enviar depois pelo WhatsApp."} rows={5} error={errors.references} onChange={(v) => update("references", v)} />
+              <Field name="references" label="Links de referência" value={data.references} placeholder="Cole os links aqui, um por linha." rows={5} error={errors.references} onChange={(v) => update("references", v)} />
             </div>
           </div>
-          <p className="form-note">Se já tiver uma logo, você pode anexá-la diretamente na conversa do WhatsApp.</p>
+          <p className="form-note">Se tiver logo, envie na conversa do WhatsApp.</p>
           <details className="briefing-summary" open={summaryOpen} onToggle={(event) => setSummaryOpen(event.currentTarget.open)}>
             <summary>Revisar mensagem</summary>
-            <label htmlFor="briefing-message">Mensagem pronta para copiar</label>
+            <label htmlFor="briefing-message">Mensagem</label>
             <textarea id="briefing-message" ref={messageRef} rows={10} readOnly value={message} />
           </details>
           {tooLong && <p className="form-error" role="alert">O texto ficou longo para o link do WhatsApp. Reduza as respostas ou copie a mensagem e cole na conversa.</p>}
@@ -213,12 +211,12 @@ export function ProjectBriefing() {
           </div>
           <button className="button button-secondary briefing-copy" type="button" onClick={copyMessage}>Copiar mensagem</button>
           <p className="form-note" role="status">{copyStatus}</p>
-          <p className="form-note">O WhatsApp não abriu? Copie a mensagem e procure Gabriel pelo número <a href={whatsappUrl("Olá, Gabriel! Gostaria de conversar sobre meu projeto.")} target="_blank" rel="noreferrer">{SITE.whatsappDisplay}</a>. O envio precisa ser confirmado na conversa.</p>
+          <p className="form-note">O WhatsApp não abriu? Copie a mensagem e procure Gabriel pelo número <a href={whatsappUrl("Olá, Gabriel! Gostaria de conversar sobre meu projeto.")} target="_blank" rel="noreferrer">{SITE.whatsappDisplay}</a>.</p>
         </>}
       </form>
       <div className="briefing-draft">
-        <label className="draft-choice"><input type="checkbox" checked={saveDraft} disabled={!ready} onChange={(event) => toggleDraft(event.target.checked)} /> Guardar rascunho nesta aba por até 2 horas sem alterações</label>
-        <p className="form-note">Opcional. Sem essa opção, recarregar apaga as respostas. Você pode remover o rascunho a qualquer momento.</p>
+        <label className="draft-choice"><input type="checkbox" checked={saveDraft} disabled={!ready} onChange={(event) => toggleDraft(event.target.checked)} /> Guardar rascunho nesta aba</label>
+        <p className="form-note">Válido por até 2 horas sem alterações. Sem rascunho, recarregar apaga as respostas.</p>
         <p className="form-note" role="status">{draftStatus}</p>
         <button className="editorial-link" type="button" onClick={clearDraft}>Apagar respostas e rascunho</button>
       </div>

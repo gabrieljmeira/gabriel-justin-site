@@ -16,14 +16,14 @@ const steps: ProcessStep[] = [
     title: "Briefing",
     status: "Início",
     description:
-      "Você explica o negócio, o objetivo do site e compartilha os materiais que já possui.",
+      "Você apresenta o negócio, o objetivo e os materiais disponíveis.",
   },
   {
     number: "02",
     title: "Conceito visual",
     status: "Até 48h",
     description:
-      "Apresento uma primeira direção visual para alinharmos o caminho do projeto.",
+      "Apresento a primeira direção visual para alinharmos o projeto.",
     emphasis: "48h",
   },
   {
@@ -31,14 +31,14 @@ const steps: ProcessStep[] = [
     title: "Desenvolvimento",
     status: "Produção",
     description:
-      "Com a direção definida, construo as páginas e implemento o escopo combinado.",
+      "Com a direção definida, desenvolvo as páginas conforme o escopo combinado.",
   },
   {
     number: "04",
     title: "Publicação",
     status: "Até 7 dias úteis",
     description:
-      "Faço a finalização técnica e coloco o site no ar.",
+      "Finalizo os ajustes técnicos e publico o site.",
     emphasis: "7 dias úteis",
   },
 ];
