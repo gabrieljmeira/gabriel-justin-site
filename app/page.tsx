@@ -169,12 +169,13 @@ export default function Home() {
                   <div className="pricing-card-price">
                     <span>A partir de</span>
                     <div><small>R$</small><strong>600</strong></div>
-                    <p className="pricing-range">Investimento de R$ 600 a R$ 900, conforme o escopo.</p>
                   </div>
 
                   <div className="pricing-card-section">
                     <ul>
-                      <li>Integração com WhatsApp</li>
+                      <li>Apresentação da oferta e do que está incluído</li>
+                      <li>Etapas e condições para contratar</li>
+                      <li>Botões de contato pelo WhatsApp</li>
                     </ul>
                   </div>
 
@@ -197,12 +198,13 @@ export default function Home() {
                   <div className="pricing-card-price">
                     <span>A partir de</span>
                     <div><small>R$</small><strong>1.000</strong></div>
-                    <p className="pricing-range">Investimento de R$ 1.000 a R$ 1.600, conforme o escopo.</p>
                   </div>
 
                   <div className="pricing-card-section">
                     <ul>
-                      <li>Navegação completa entre páginas</li>
+                      <li>Páginas para empresa, serviços e contato</li>
+                      <li>Menu de navegação entre as páginas</li>
+                      <li>Botões de contato pelo WhatsApp</li>
                     </ul>
                   </div>
 
